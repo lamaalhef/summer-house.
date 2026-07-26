@@ -1065,13 +1065,16 @@
                     <form
                         class="register-form"
                         id="registerForm"
+                        method="post"
+                        action="{% url 'accounts:register' %}"
                         novalidate
                     >
+                        {% csrf_token %}
 
                         <div
-                            class="form-alert"
+                            class="form-alert{% if server_error %} show error{% endif %}"
                             id="formAlert"
-                        ></div>
+                        >{% if server_error %}{{ server_error }}{% endif %}</div>
 
                         <div class="form-row">
 
@@ -1414,7 +1417,7 @@
 
                         لديك حساب بالفعل؟
 
-   href="{% url 'accounts:login' %}"                     <a >
+                        <a href="{% url 'accounts:login' %}">
                             تسجيل الدخول
                         </a>
 
@@ -1576,56 +1579,19 @@
 
         function validateUsername() {
 
-            const username =
-                usernameInput.value.trim();
-
-            const usernamePattern =
-                /^[a-zA-Z0-9_]{3,20}$/;
+            const username = usernameInput.value.trim();
+            const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/;
 
             if (!usernamePattern.test(username)) {
-
                 showFieldError(
                     usernameInput,
                     "usernameError",
                     "استخدم 3 إلى 20 حرفًا إنجليزيًا أو رقمًا أو علامة _."
                 );
-
                 return false;
-
             }
 
-            const users =
-                getSavedUsers();
-
-            const usernameExists =
-                users.some(
-                    function (user) {
-
-                        return (
-                            user.username.toLowerCase() ===
-                            username.toLowerCase()
-                        );
-
-                    }
-                );
-
-            if (usernameExists) {
-
-                showFieldError(
-                    usernameInput,
-                    "usernameError",
-                    "اسم المستخدم مستخدم بالفعل."
-                );
-
-                return false;
-
-            }
-
-            showFieldSuccess(
-                usernameInput,
-                "usernameError"
-            );
-
+            showFieldSuccess(usernameInput, "usernameError");
             return true;
 
         }
@@ -1633,56 +1599,19 @@
 
         function validateEmail() {
 
-            const email =
-                emailInput.value.trim();
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const email = emailInput.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailPattern.test(email)) {
-
                 showFieldError(
                     emailInput,
                     "emailError",
                     "اكتب بريدًا إلكترونيًا صحيحًا."
                 );
-
                 return false;
-
             }
 
-            const users =
-                getSavedUsers();
-
-            const emailExists =
-                users.some(
-                    function (user) {
-
-                        return (
-                            user.email.toLowerCase() ===
-                            email.toLowerCase()
-                        );
-
-                    }
-                );
-
-            if (emailExists) {
-
-                showFieldError(
-                    emailInput,
-                    "emailError",
-                    "البريد الإلكتروني مسجل بالفعل."
-                );
-
-                return false;
-
-            }
-
-            showFieldSuccess(
-                emailInput,
-                "emailError"
-            );
-
+            showFieldSuccess(emailInput, "emailError");
             return true;
 
         }
@@ -2093,7 +2022,10 @@
 
                 }
 
+                localStorage.setItem("selectedCharacter", getSelectedCharacter());
                 setLoadingState(true);
+                HTMLFormElement.prototype.submit.call(registerForm);
+                return;
 
                 const selectedCharacter =
                     getSelectedCharacter();

@@ -1166,6 +1166,18 @@ href="{% url 'game:characters' %}"                                class="quick-a
 
         function getCurrentUser() {
 
+            const serverUser = {
+                fullName: "{{ request.user.first_name|default:request.user.username|escapejs }}",
+                username: "{{ request.user.username|escapejs }}",
+                email: "{{ request.user.email|escapejs }}",
+                selectedCharacter: localStorage.getItem("selectedCharacter") || "",
+                createdAt: ""
+            };
+            localStorage.setItem("currentMasayefUser", JSON.stringify(serverUser));
+            localStorage.setItem("isLoggedIn", "true");
+            return serverUser;
+
+
             const storedUser =
                 readJsonFromStorage(
                     "currentMasayefUser",
@@ -1183,7 +1195,7 @@ href="{% url 'game:characters' %}"                                class="quick-a
             ) {
 
                 window.location.href =
-    "{% url 'accounts:login' %}";
+    "{% url 'accounts:logout' %}";
 
                 return null;
 
@@ -1999,7 +2011,7 @@ href="{% url 'game:characters' %}"                                class="quick-a
                 function () {
 
                     window.location.href =
-    "{% url 'accounts:login' %}";
+    "{% url 'accounts:logout' %}";
 
                 },
                 700

@@ -173,3 +173,9 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
 ]<script src="{% static 'js/components.js' %}"></script>
+
+
+
+PORT=3000
+القديم
+postgresql://summer_house_user:jBPbj4MlBLNHBPGNRUAhswwQklVdIH4r@dpg-d9iomsb7uimc73btsvog-a/summer_house

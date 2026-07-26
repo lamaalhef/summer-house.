@@ -859,13 +859,16 @@
                     <form
                         class="login-form"
                         id="loginForm"
+                        method="post"
+                        action="{% url 'accounts:login' %}"
                         novalidate
                     >
+                        {% csrf_token %}
 
                         <div
-                            class="form-alert"
+                            class="form-alert{% if server_error %} show error{% endif %}"
                             id="formAlert"
-                        ></div>
+                        >{% if server_error %}{{ server_error }}{% endif %}</div>
 
                         <div class="form-group">
 
@@ -1512,6 +1515,8 @@
                     passwordInput.value;
 
                 setLoadingState(true);
+                HTMLFormElement.prototype.submit.call(loginForm);
+                return;
 
                 setTimeout(
                     function () {
