@@ -1,11 +1,12 @@
 ﻿import json
 
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
 from .models import GameResult
 
 
+@override_settings(DEBUG=True, CSRF_COOKIE_SECURE=False, SECURE_SSL_REDIRECT=False)
 class GameResultFlowTests(TestCase):
     def setUp(self):
         self.client = Client(enforce_csrf_checks=True, HTTP_HOST="localhost")
@@ -53,5 +54,6 @@ class GameResultFlowTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["leaderboard_results"][0]["username"], "لاعب الاختبار")
         self.assertEqual(response.context["leaderboard_results"][0]["score"], 3400)
+
 
 
