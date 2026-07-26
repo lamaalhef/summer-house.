@@ -1,0 +1,1757 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بيت المصايف | تسجيل الدخول</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --dark: #2d2118;
+            --brown: #785536;
+            --brown-dark: #513721;
+            --cream: #fff8ed;
+            --beige: #ead8ba;
+            --green: #4f6f52;
+            --green-dark: #38543c;
+            --yellow: #f3c13a;
+            --red: #a53d2d;
+            --white: #ffffff;
+            --gray: #756a60;
+            --border: #e5dacb;
+            --shadow: 0 22px 50px rgba(0, 0, 0, 0.14);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Cairo", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            color: var(--dark);
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(243, 193, 58, 0.23),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(79, 111, 82, 0.2),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    180deg,
+                    #fffaf2,
+                    #ead8ba
+                );
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            padding: 125px 20px 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1080px;
+            margin: auto;
+        }
+
+        .login-layout {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            border: 7px solid rgba(120, 85, 54, 0.12);
+            border-radius: 34px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: var(--shadow);
+        }
+
+        /* الجانب التعريفي */
+
+        .login-intro {
+            min-height: 670px;
+            position: relative;
+            overflow: hidden;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: var(--white);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(45, 33, 24, 0.97),
+                    rgba(120, 85, 54, 0.95)
+                );
+        }
+
+        .login-intro::before {
+            content: "";
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            top: -110px;
+            left: -90px;
+            border-radius: 50%;
+            background: rgba(243, 193, 58, 0.19);
+        }
+
+        .login-intro::after {
+            content: "";
+            width: 280px;
+            height: 280px;
+            position: absolute;
+            right: -120px;
+            bottom: -120px;
+            border-radius: 50%;
+            background: rgba(79, 111, 82, 0.28);
+        }
+
+        .intro-content,
+        .intro-features,
+        .house-scene {
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+            padding: 8px 17px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--yellow);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .intro-content h1 {
+            margin-bottom: 16px;
+            font-size: clamp(35px, 5vw, 55px);
+            line-height: 1.35;
+        }
+
+        .intro-content p {
+            max-width: 480px;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        .intro-features {
+            margin: 30px 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .intro-feature {
+            padding: 13px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 13px;
+            background: rgba(243, 193, 58, 0.16);
+            font-size: 20px;
+        }
+
+        .intro-feature strong {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--yellow);
+            font-size: 13px;
+        }
+
+        .intro-feature span {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 10px;
+        }
+
+        /* رسمة بيت عسيري */
+
+        .house-scene {
+            height: 210px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .asiri-house {
+            width: 280px;
+            height: 170px;
+            position: relative;
+            border: 6px solid #291c14;
+            border-radius: 75px 75px 8px 8px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0 35px,
+                    rgba(45, 31, 21, 0.35) 35px 40px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    #916a47 0 58px,
+                    #735036 58px 116px
+                );
+            box-shadow: 0 17px 28px rgba(0, 0, 0, 0.24);
+        }
+
+        .asiri-house::before {
+            content: "";
+            width: 74px;
+            height: 98px;
+            position: absolute;
+            right: 50%;
+            bottom: -1px;
+            border: 5px solid #291c14;
+            border-radius: 40px 40px 0 0;
+            background: #4c3020;
+            transform: translateX(50%);
+        }
+
+        .house-window {
+            width: 56px;
+            height: 58px;
+            position: absolute;
+            top: 42px;
+            border: 5px solid #291c14;
+            border-radius: 50% 50% 8px 8px;
+            background: #91c6d1;
+        }
+
+        .window-right {
+            right: 25px;
+        }
+
+        .window-left {
+            left: 25px;
+        }
+
+        .house-gecko {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            font-size: 32px;
+            transform: translateX(-50%) rotate(-15deg);
+            animation: geckoMove 2.4s ease-in-out infinite;
+        }
+
+        @keyframes geckoMove {
+            0%,
+            100% {
+                transform: translateX(-50%) rotate(-15deg);
+            }
+
+            50% {
+                transform: translateX(-15%) rotate(10deg);
+            }
+        }
+
+        /* نموذج تسجيل الدخول */
+
+        .login-card {
+            min-height: 670px;
+            padding: 55px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-heading span {
+            display: inline-block;
+            margin-bottom: 11px;
+            padding: 6px 15px;
+            border-radius: 25px;
+            background: rgba(165, 61, 45, 0.1);
+            color: var(--red);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .form-heading h2 {
+            margin-bottom: 9px;
+            font-size: clamp(30px, 4vw, 43px);
+        }
+
+        .form-heading p {
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 13px;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 19px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .required {
+            color: var(--red);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            width: 48px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            place-items: center;
+            color: var(--brown);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            min-height: 56px;
+            padding: 0 48px 0 15px;
+            border: 2px solid var(--border);
+            outline: none;
+            border-radius: 15px;
+            background: #fffdf9;
+            color: var(--dark);
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .form-input::placeholder {
+            color: #a69b90;
+        }
+
+        .form-input:focus {
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(79, 111, 82, 0.09);
+        }
+
+        .form-input.error {
+            border-color: var(--red);
+            box-shadow: 0 0 0 4px rgba(165, 61, 45, 0.08);
+        }
+
+        .form-input.success {
+            border-color: var(--green);
+        }
+
+        .password-input {
+            padding-left: 48px;
+        }
+
+        .password-toggle {
+            width: 47px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            border: 0;
+            background: transparent;
+            color: var(--gray);
+            font-size: 17px;
+        }
+
+        .password-toggle:hover {
+            color: var(--green);
+        }
+
+        .error-message {
+            min-height: 18px;
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .remember-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-group input {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--green);
+            cursor: pointer;
+        }
+
+        .remember-group label {
+            color: var(--gray);
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            border: 0;
+            background: transparent;
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            min-height: 58px;
+            border: 0;
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    var(--green-dark)
+                );
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 13px 28px rgba(79, 111, 82, 0.25);
+            transition: var(--transition);
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 17px 32px rgba(79, 111, 82, 0.31);
+        }
+
+        .login-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            width: 18px;
+            height: 18px;
+            display: none;
+            margin-left: 8px;
+            vertical-align: middle;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .login-button.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-alert {
+            display: none;
+            padding: 14px 17px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.8;
+        }
+
+        .form-alert.show {
+            display: block;
+        }
+
+        .form-alert.success {
+            border: 1px solid rgba(79, 111, 82, 0.25);
+            background: rgba(79, 111, 82, 0.1);
+            color: var(--green);
+        }
+
+        .form-alert.error {
+            border: 1px solid rgba(165, 61, 45, 0.23);
+            background: rgba(165, 61, 45, 0.09);
+            color: var(--red);
+        }
+
+        .divider {
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #9a8e83;
+            font-size: 10px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: #eadfce;
+        }
+
+        .register-link {
+            text-align: center;
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        .register-link a {
+            color: var(--red);
+            font-weight: 800;
+        }
+
+        .guest-link {
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .guest-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brown);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .guest-link a:hover {
+            color: var(--green);
+        }
+
+        /* نافذة استعادة كلمة المرور */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            padding: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(30, 20, 14, 0.72);
+            backdrop-filter: blur(6px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 32px;
+            position: relative;
+            border: 6px solid rgba(120, 85, 54, 0.14);
+            border-radius: 25px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: #f2e9dc;
+            color: var(--dark);
+            font-size: 19px;
+        }
+
+        .modal-card h3 {
+            margin-bottom: 8px;
+            font-size: 26px;
+        }
+
+        .modal-card > p {
+            margin-bottom: 22px;
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 12px;
+        }
+
+        .recovery-result {
+            display: none;
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 13px;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.9;
+        }
+
+        .recovery-result.show {
+            display: block;
+        }
+
+        .recovery-result.success {
+            background: rgba(79, 111, 82, 0.1);
+            color: var(--green);
+        }
+
+        .recovery-result.error {
+            background: rgba(165, 61, 45, 0.09);
+            color: var(--red);
+        }
+
+        @media (max-width: 900px) {
+
+            .login-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .login-intro {
+                min-height: auto;
+            }
+
+            .house-scene {
+                display: none;
+            }
+
+            .login-card {
+                min-height: auto;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .login-page {
+                padding: 95px 10px 65px;
+            }
+
+            .login-layout {
+                border-width: 5px;
+                border-radius: 25px;
+            }
+
+            .login-intro,
+            .login-card {
+                padding: 30px 20px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .intro-content h1 {
+                font-size: 35px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    {% include 'includes/header.html' %}
+
+    <main class="login-page">
+
+        <div class="container">
+
+            <section class="login-layout">
+
+                <div class="login-intro">
+
+                    <div class="intro-content">
+
+                        <span class="intro-badge">
+                            🏠 بيت المصايف
+                        </span>
+
+                        <h1>
+                            عد إلى مغامرتك
+                        </h1>
+
+                        <p>
+                            سجل دخولك واستكمل تنظيف البيت من الوزغ،
+                            واحفظ نتائجك ونافس على المركز الأول
+                            في لوحة المتصدرين.
+                        </p>
+
+                    </div>
+
+                    <div class="intro-features">
+
+                        <div class="intro-feature">
+
+                            <div class="feature-icon">
+                                🎮
+                            </div>
+
+                            <div>
+                                <strong>
+                                    تابع اللعب
+                                </strong>
+
+                                <span>
+                                    ادخل إلى اللعبة باستخدام حسابك.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="intro-feature">
+
+                            <div class="feature-icon">
+                                🏆
+                            </div>
+
+                            <div>
+                                <strong>
+                                    احفظ نتائجك
+                                </strong>
+
+                                <span>
+                                    تابع نقاطك ومحاولاتك السابقة.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="intro-feature">
+
+                            <div class="feature-icon">
+                                👤
+                            </div>
+
+                            <div>
+                                <strong>
+                                    ملف شخصي خاص
+                                </strong>
+
+                                <span>
+                                    شاهد بياناتك وشخصيتك المفضلة.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="house-scene">
+
+                        <div class="asiri-house">
+
+                            <div class="house-window window-right"></div>
+
+                            <div class="house-window window-left"></div>
+
+                            <div class="house-gecko">
+                                🦎
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="login-card">
+
+                    <div class="form-heading">
+
+                        <span>
+                            تسجيل الدخول
+                        </span>
+
+                        <h2>
+                            أهلاً بعودتك
+                        </h2>
+
+                        <p>
+                            أدخل اسم المستخدم أو البريد الإلكتروني
+                            وكلمة المرور.
+                        </p>
+
+                    </div>
+
+                    <form
+                        class="login-form"
+                        id="loginForm"
+                        novalidate
+                    >
+
+                        <div
+                            class="form-alert"
+                            id="formAlert"
+                        ></div>
+
+                        <div class="form-group">
+
+                            <label for="loginIdentifier">
+
+                                اسم المستخدم أو البريد الإلكتروني
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    👤
+                                </span>
+
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    id="loginIdentifier"
+                                    name="loginIdentifier"
+                                    placeholder="اكتب اسم المستخدم أو البريد"
+                                    autocomplete="username"
+                                >
+
+                            </div>
+
+                            <span
+                                class="error-message"
+                                id="identifierError"
+                            ></span>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="loginPassword">
+
+                                كلمة المرور
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+                                <input
+                                    type="password"
+                                    class="form-input password-input"
+                                    id="loginPassword"
+                                    name="loginPassword"
+                                    placeholder="اكتب كلمة المرور"
+                                    autocomplete="current-password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="passwordToggle"
+                                    aria-label="إظهار كلمة المرور"
+                                >
+                                    👁️
+                                </button>
+
+                            </div>
+
+                            <span
+                                class="error-message"
+                                id="passwordError"
+                            ></span>
+
+                        </div>
+
+                        <div class="form-options">
+
+                            <div class="remember-group">
+
+                                <input
+                                    type="checkbox"
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                >
+
+                                <label for="rememberMe">
+                                    تذكر بياناتي
+                                </label>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="forgot-password"
+                                id="forgotPasswordButton"
+                            >
+                                نسيت كلمة المرور؟
+                            </button>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="login-button"
+                            id="loginButton"
+                        >
+
+                            <span class="loading-spinner"></span>
+
+                            <span id="loginButtonText">
+                                تسجيل الدخول
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                    <div class="divider">
+                        أو
+                    </div>
+
+                    <div class="register-link">
+
+                        ليس لديك حساب؟
+
+                        <a href="{% url 'accounts:register' %}">
+                            إنشاء حساب جديد
+                        </a>
+
+                    </div>
+
+                    <div class="guest-link">
+
+                        <a href="{% url 'game:characters' %}"
+                            🎮 الدخول كزائر
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <div
+        class="modal"
+        id="recoveryModal"
+    >
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeRecoveryModal"
+                aria-label="إغلاق"
+            >
+                أ—
+            </button>
+
+            <h3>
+                استعادة الحساب
+            </h3>
+
+            <p>
+                أدخل البريد الإلكتروني المسجل،
+                وسنعرض لك اسم المستخدم المرتبط به.
+            </p>
+
+            <div class="form-group">
+
+                <label for="recoveryEmail">
+                    البريد الإلكتروني
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        ✉?
+                    </span>
+
+                    <input
+                        type="email"
+                        class="form-input"
+                        id="recoveryEmail"
+                        placeholder="example@email.com"
+                    >
+
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="login-button"
+                id="recoveryButton"
+                style="margin-top: 18px;"
+            >
+                البحث عن الحساب
+            </button>
+
+            <div
+                class="recovery-result"
+                id="recoveryResult"
+            ></div>
+
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/components.js' %}"></script>
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const identifierInput =
+            document.getElementById("loginIdentifier");
+
+        const passwordInput =
+            document.getElementById("loginPassword");
+
+        const rememberMeInput =
+            document.getElementById("rememberMe");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const loginButtonText =
+            document.getElementById("loginButtonText");
+
+        const formAlert =
+            document.getElementById("formAlert");
+
+        const passwordToggle =
+            document.getElementById("passwordToggle");
+
+        const recoveryModal =
+            document.getElementById("recoveryModal");
+
+        const forgotPasswordButton =
+            document.getElementById("forgotPasswordButton");
+
+        const closeRecoveryModal =
+            document.getElementById("closeRecoveryModal");
+
+        const recoveryButton =
+            document.getElementById("recoveryButton");
+
+        const recoveryEmailInput =
+            document.getElementById("recoveryEmail");
+
+        const recoveryResult =
+            document.getElementById("recoveryResult");
+
+
+        function getSavedUsers() {
+
+            try {
+
+                const users =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "masayefUsers"
+                        ) || "[]"
+                    );
+
+                return Array.isArray(users)
+                    ? users
+                    : [];
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        function showFieldError(
+            input,
+            errorElementId,
+            message
+        ) {
+
+            const errorElement =
+                document.getElementById(
+                    errorElementId
+                );
+
+            input.classList.remove("success");
+
+            input.classList.add("error");
+
+            errorElement.textContent =
+                message;
+
+        }
+
+
+        function showFieldSuccess(
+            input,
+            errorElementId
+        ) {
+
+            const errorElement =
+                document.getElementById(
+                    errorElementId
+                );
+
+            input.classList.remove("error");
+
+            input.classList.add("success");
+
+            errorElement.textContent = "";
+
+        }
+
+
+        function showAlert(
+            message,
+            type
+        ) {
+
+            formAlert.textContent =
+                message;
+
+            formAlert.className =
+                `form-alert show ${type}`;
+
+        }
+
+
+        function hideAlert() {
+
+            formAlert.textContent = "";
+
+            formAlert.className =
+                "form-alert";
+
+        }
+
+
+        function validateIdentifier() {
+
+            const identifier =
+                identifierInput.value.trim();
+
+            if (!identifier) {
+
+                showFieldError(
+                    identifierInput,
+                    "identifierError",
+                    "اكتب اسم المستخدم أو البريد الإلكتروني."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                identifierInput,
+                "identifierError"
+            );
+
+            return true;
+
+        }
+
+
+        function validatePassword() {
+
+            const password =
+                passwordInput.value;
+
+            if (!password) {
+
+                showFieldError(
+                    passwordInput,
+                    "passwordError",
+                    "اكتب كلمة المرور."
+                );
+
+                return false;
+
+            }
+
+            if (password.length < 6) {
+
+                showFieldError(
+                    passwordInput,
+                    "passwordError",
+                    "كلمة المرور يجب أن تتكون من 6 أحرف على الأقل."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                passwordInput,
+                "passwordError"
+            );
+
+            return true;
+
+        }
+
+
+        function findUser(
+            identifier,
+            password
+        ) {
+
+            const users =
+                getSavedUsers();
+
+            const normalizedIdentifier =
+                identifier.toLowerCase();
+
+            return users.find(
+                function (user) {
+
+                    const username =
+                        String(
+                            user.username || ""
+                        ).toLowerCase();
+
+                    const email =
+                        String(
+                            user.email || ""
+                        ).toLowerCase();
+
+                    return (
+                        (
+                            username === normalizedIdentifier ||
+                            email === normalizedIdentifier
+                        ) &&
+                        user.password === password
+                    );
+
+                }
+            );
+
+        }
+
+
+        function setLoadingState(isLoading) {
+
+            loginButton.disabled =
+                isLoading;
+
+            loginButton.classList.toggle(
+                "loading",
+                isLoading
+            );
+
+            loginButtonText.textContent =
+                isLoading
+                    ? "جارٍ تسجيل الدخول..."
+                    : "تسجيل الدخول";
+
+        }
+
+
+        function saveCurrentUser(user) {
+
+            const currentUser = {
+
+                id:
+                    user.id,
+
+                fullName:
+                    user.fullName,
+
+                username:
+                    user.username,
+
+                email:
+                    user.email,
+
+                favoriteCharacter:
+                    user.favoriteCharacter,
+
+                characterName:
+                    user.characterName,
+
+                loginAt:
+                    new Date().toLocaleString(
+                        "ar-SA"
+                    )
+
+            };
+
+            localStorage.setItem(
+                "currentMasayefUser",
+                JSON.stringify(currentUser)
+            );
+
+            localStorage.setItem(
+                "isLoggedIn",
+                "true"
+            );
+
+            localStorage.setItem(
+                "selectedCharacter",
+                user.favoriteCharacter || "girl"
+            );
+
+            localStorage.setItem(
+                "selectedCharacterName",
+                user.characterName || "صالحة"
+            );
+
+        }
+
+
+        function saveRememberedIdentifier() {
+
+            if (rememberMeInput.checked) {
+
+                localStorage.setItem(
+                    "rememberedMasayefIdentifier",
+                    identifierInput.value.trim()
+                );
+
+            } else {
+
+                localStorage.removeItem(
+                    "rememberedMasayefIdentifier"
+                );
+
+            }
+
+        }
+
+
+        function restoreRememberedIdentifier() {
+
+            const rememberedIdentifier =
+                localStorage.getItem(
+                    "rememberedMasayefIdentifier"
+                );
+
+            if (rememberedIdentifier) {
+
+                identifierInput.value =
+                    rememberedIdentifier;
+
+                rememberMeInput.checked =
+                    true;
+
+            }
+
+        }
+
+
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+
+                const isPassword =
+                    passwordInput.type ===
+                    "password";
+
+                passwordInput.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+                passwordToggle.textContent =
+                    isPassword
+                        ? "🙈"
+                        : "👁️";
+
+                passwordToggle.setAttribute(
+                    "aria-label",
+                    isPassword
+                        ? "إخفاء كلمة المرور"
+                        : "إظهار كلمة المرور"
+                );
+
+            }
+        );
+
+
+        identifierInput.addEventListener(
+            "blur",
+            validateIdentifier
+        );
+
+        passwordInput.addEventListener(
+            "blur",
+            validatePassword
+        );
+
+
+        loginForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                hideAlert();
+
+                const identifierValid =
+                    validateIdentifier();
+
+                const passwordValid =
+                    validatePassword();
+
+                if (
+                    !identifierValid ||
+                    !passwordValid
+                ) {
+
+                    showAlert(
+                        "تحقق من البيانات المكتوبة ثم حاول مرة أخرى.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+                const identifier =
+                    identifierInput.value.trim();
+
+                const password =
+                    passwordInput.value;
+
+                setLoadingState(true);
+
+                setTimeout(
+                    function () {
+
+                        const user =
+                            findUser(
+                                identifier,
+                                password
+                            );
+
+                        if (!user) {
+
+                            setLoadingState(false);
+
+                            showAlert(
+                                "اسم المستخدم أو البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+                                "error"
+                            );
+
+                            passwordInput.classList.add(
+                                "error"
+                            );
+
+                            document.getElementById(
+                                "passwordError"
+                            ).textContent =
+                                "تعذر تسجيل الدخول بهذه البيانات.";
+
+                            return;
+
+                        }
+
+                        saveRememberedIdentifier();
+
+                        saveCurrentUser(user);
+
+                        showAlert(
+                            `مرحبًا ${user.fullName}، تم تسجيل الدخول بنجاح.`,
+                            "success"
+                        );
+
+                        setLoadingState(false);
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "profile.html";
+
+                            },
+                            1100
+                        );
+
+                    },
+                    650
+                );
+
+            }
+        );
+
+
+        forgotPasswordButton.addEventListener(
+            "click",
+            function () {
+
+                recoveryModal.classList.add(
+                    "show"
+                );
+
+                recoveryEmailInput.focus();
+
+            }
+        );
+
+
+        closeRecoveryModal.addEventListener(
+            "click",
+            function () {
+
+                recoveryModal.classList.remove(
+                    "show"
+                );
+
+                recoveryResult.className =
+                    "recovery-result";
+
+                recoveryResult.textContent =
+                    "";
+
+            }
+        );
+
+
+        recoveryModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === recoveryModal
+                ) {
+
+                    recoveryModal.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+        recoveryButton.addEventListener(
+            "click",
+            function () {
+
+                const recoveryEmail =
+                    recoveryEmailInput
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (
+                    !emailPattern.test(
+                        recoveryEmail
+                    )
+                ) {
+
+                    recoveryResult.className =
+                        "recovery-result show error";
+
+                    recoveryResult.textContent =
+                        "اكتب بريدًا إلكترونيًا صحيحًا.";
+
+                    return;
+
+                }
+
+                const users =
+                    getSavedUsers();
+
+                const user =
+                    users.find(
+                        function (savedUser) {
+
+                            return (
+                                String(
+                                    savedUser.email || ""
+                                ).toLowerCase() ===
+                                recoveryEmail
+                            );
+
+                        }
+                    );
+
+                if (!user) {
+
+                    recoveryResult.className =
+                        "recovery-result show error";
+
+                    recoveryResult.textContent =
+                        "لا يوجد حساب مسجل بهذا البريد الإلكتروني.";
+
+                    return;
+
+                }
+
+                recoveryResult.className =
+                    "recovery-result show success";
+
+                recoveryResult.innerHTML =
+                    `
+                        تم العثور على الحساب.<br>
+                        اسم المستخدم:
+                        <strong>${user.username}</strong><br>
+                        يمكنك العودة وتسجيل الدخول.
+                    `;
+
+                identifierInput.value =
+                    user.username;
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    recoveryModal.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                restoreRememberedIdentifier();
+
+                const registeredUsername =
+                    localStorage.getItem(
+                        "registeredUsername"
+                    );
+
+                if (
+                    registeredUsername &&
+                    !identifierInput.value
+                ) {
+
+                    identifierInput.value =
+                        registeredUsername;
+
+                    localStorage.removeItem(
+                        "registeredUsername"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+

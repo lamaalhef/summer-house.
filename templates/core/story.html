@@ -1,0 +1,1800 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="قصة لعبة بيت المصايف"
+    >
+
+    <title>
+        بيت المصايف | القصة
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+
+            --dark-brown: #26170f;
+            --brown: #573820;
+            --light-brown: #91643d;
+
+            --green-dark: #304628;
+            --green: #5d7544;
+            --green-light: #8da06c;
+
+            --cream: #f4e5c9;
+            --cream-light: #fffaf0;
+
+            --yellow: #e1b13f;
+            --red: #a23c31;
+            --blue: #4c7478;
+
+            --white: #ffffff;
+
+            --text: #39281d;
+            --muted: #786655;
+
+            --shadow:
+                0 20px 50px
+                rgba(38, 23, 15, 0.16);
+
+            --transition: 0.3s ease;
+
+        }
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+        body {
+
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            background: var(--cream-light);
+            color: var(--text);
+
+            font-family: "Cairo", sans-serif;
+
+        }
+
+        a {
+
+            color: inherit;
+            text-decoration: none;
+
+        }
+
+        button {
+
+            font-family: inherit;
+
+        }
+
+        /* =========================
+           الهيدر
+        ========================== */
+
+        .site-header {
+
+            width: 100%;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            border-top:
+                10px solid var(--dark-brown);
+
+            border-bottom:
+                1px solid rgba(87, 56, 32, 0.14);
+
+            background:
+                rgba(255, 250, 240, 0.96);
+
+            box-shadow:
+                0 8px 25px rgba(38, 23, 15, 0.09);
+
+            backdrop-filter: blur(15px);
+
+        }
+
+        .site-header::before {
+
+            content: "";
+
+            height: 10px;
+
+            position: absolute;
+            top: -10px;
+            right: 0;
+            left: 0;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    transparent 25%,
+                    var(--yellow) 25% 43%,
+                    transparent 43%
+                )
+                0 0 / 34px 17px,
+
+                linear-gradient(
+                    45deg,
+                    transparent 25%,
+                    var(--red) 25% 43%,
+                    transparent 43%
+                )
+                17px 0 / 34px 17px,
+
+                var(--dark-brown);
+
+        }
+
+        .header-container {
+
+            width: min(1200px, 92%);
+            min-height: 88px;
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+
+        }
+
+        .logo {
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            flex-shrink: 0;
+
+        }
+
+        .logo-icon {
+
+            width: 56px;
+            height: 56px;
+
+            display: grid;
+            place-items: center;
+
+            border:
+                3px solid var(--brown);
+
+            border-radius: 16px;
+
+            background:
+
+                repeating-linear-gradient(
+                    0deg,
+                    #766957 0 8px,
+                    #493d32 9px 11px
+                );
+
+            font-size: 28px;
+
+            box-shadow:
+                0 9px 20px rgba(38, 23, 15, 0.19);
+
+        }
+
+        .logo-text {
+
+            display: flex;
+            flex-direction: column;
+
+            line-height: 1.4;
+
+        }
+
+        .logo-text strong {
+
+            color: var(--dark-brown);
+            font-size: 22px;
+            font-weight: 800;
+
+        }
+
+        .logo-text small {
+
+            color: var(--light-brown);
+            font-size: 11px;
+            font-weight: 600;
+
+        }
+
+        .main-nav {
+
+            display: flex;
+            align-items: center;
+
+            gap: 4px;
+
+        }
+
+        .nav-link {
+
+            padding: 10px 13px;
+
+            border-radius: 12px;
+
+            color: var(--text);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: var(--transition);
+
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+
+            background:
+                rgba(93, 117, 68, 0.12);
+
+            color: var(--green-dark);
+
+        }
+
+        .nav-link.active {
+
+            position: relative;
+
+        }
+
+        .nav-link.active::after {
+
+            content: "";
+
+            height: 3px;
+
+            position: absolute;
+            right: 14px;
+            left: 14px;
+            bottom: 3px;
+
+            border-radius: 10px;
+
+            background: var(--green);
+
+        }
+
+        .account-button {
+
+            margin-right: 7px;
+            padding: 11px 19px;
+
+            border-radius: 13px;
+
+            background: var(--green-dark);
+            color: var(--white);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            box-shadow:
+                0 10px 22px rgba(48, 70, 40, 0.22);
+
+            transition: var(--transition);
+
+        }
+
+        .account-button:hover {
+
+            background: var(--brown);
+
+            transform: translateY(-2px);
+
+        }
+
+        .menu-button {
+
+            width: 46px;
+            height: 42px;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            gap: 5px;
+
+            border: 0;
+            border-radius: 12px;
+
+            background: var(--dark-brown);
+
+            cursor: pointer;
+
+        }
+
+        .menu-button span {
+
+            width: 21px;
+            height: 2px;
+
+            border-radius: 10px;
+
+            background: var(--white);
+
+        }
+
+        /* =========================
+           رأس صفحة القصة
+        ========================== */
+
+        .story-hero {
+
+            min-height: 390px;
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    rgba(38, 23, 15, 0.92),
+                    rgba(48, 70, 40, 0.83)
+                ),
+
+                linear-gradient(
+                    145deg,
+                    #776957,
+                    #34452e
+                );
+
+            color: var(--white);
+
+        }
+
+        .story-hero::before {
+
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0 38px,
+                    rgba(225, 177, 63, 0.06) 39px 42px
+                );
+
+        }
+
+        .story-hero::after {
+
+            content: "";
+
+            width: 370px;
+            height: 230px;
+
+            position: absolute;
+            left: -50px;
+            bottom: -70px;
+
+            background: rgba(225, 177, 63, 0.1);
+
+            clip-path:
+                polygon(
+                    0 100%,
+                    25% 35%,
+                    43% 70%,
+                    62% 18%,
+                    82% 60%,
+                    100% 100%
+                );
+
+        }
+
+        .story-hero-container {
+
+            width: min(1200px, 92%);
+            margin: auto;
+
+            padding: 75px 0;
+
+            position: relative;
+            z-index: 2;
+
+            text-align: center;
+
+        }
+
+        .page-label {
+
+            width: fit-content;
+
+            margin: 0 auto 16px;
+            padding: 8px 16px;
+
+            border:
+                1px solid rgba(225, 177, 63, 0.35);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            color: var(--yellow);
+
+            font-size: 13px;
+            font-weight: 800;
+
+        }
+
+        .story-hero h1 {
+
+            margin-bottom: 14px;
+
+            color: var(--cream-light);
+
+            font-size:
+                clamp(42px, 7vw, 72px);
+
+            font-weight: 800;
+
+        }
+
+        .story-hero p {
+
+            max-width: 700px;
+            margin: auto;
+
+            color:
+                rgba(255, 255, 255, 0.78);
+
+            font-size: 16px;
+            line-height: 2;
+
+        }
+
+        /* =========================
+           شريط تقدم القصة
+        ========================== */
+
+        .progress-section {
+
+            padding: 30px 0;
+
+            background: var(--cream);
+
+            border-bottom:
+                1px solid rgba(87, 56, 32, 0.15);
+
+        }
+
+        .progress-container {
+
+            width: min(900px, 92%);
+            margin: auto;
+
+        }
+
+        .progress-info {
+
+            margin-bottom: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 700;
+
+        }
+
+        .progress-bar {
+
+            height: 13px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background:
+                rgba(87, 56, 32, 0.12);
+
+        }
+
+        .progress-fill {
+
+            width: 20%;
+            height: 100%;
+
+            border-radius: 999px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    var(--green-dark),
+                    var(--green),
+                    var(--yellow)
+                );
+
+            transition: width 0.4s ease;
+
+        }
+
+        /* =========================
+           الحوار
+        ========================== */
+
+        .dialogue-section {
+
+            min-height: 650px;
+            padding: 90px 0;
+
+            background:
+
+                linear-gradient(
+                    rgba(255, 250, 240, 0.95),
+                    rgba(255, 250, 240, 0.95)
+                ),
+
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0 25px,
+                    rgba(162, 60, 49, 0.045) 26px 28px
+                );
+
+        }
+
+        .dialogue-container {
+
+            width: min(1000px, 92%);
+            margin: auto;
+
+        }
+
+        .dialogue-card {
+
+            min-height: 410px;
+
+            padding: 45px;
+
+            position: relative;
+            overflow: hidden;
+
+            display: grid;
+
+            grid-template-columns:
+                230px 1fr;
+
+            align-items: center;
+
+            gap: 45px;
+
+            border:
+                1px solid rgba(87, 56, 32, 0.14);
+
+            border-radius: 34px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #ead2aa,
+                    #fff9ec
+                );
+
+            box-shadow: var(--shadow);
+
+        }
+
+        .dialogue-card::before {
+
+            content: "";
+
+            width: 160px;
+            height: 160px;
+
+            position: absolute;
+            top: -80px;
+            left: -70px;
+
+            border:
+                25px solid rgba(162, 60, 49, 0.08);
+
+            transform: rotate(45deg);
+
+        }
+
+        .character-side {
+
+            text-align: center;
+
+            position: relative;
+            z-index: 2;
+
+        }
+
+        .character-avatar {
+
+            width: 190px;
+            height: 190px;
+
+            margin: 0 auto 17px;
+
+            display: grid;
+            place-items: center;
+
+            border:
+                9px solid var(--cream-light);
+
+            border-radius: 50%;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    var(--green-dark)
+                );
+
+            font-size: 95px;
+
+            box-shadow:
+                0 16px 32px rgba(38, 23, 15, 0.2);
+
+            transition: var(--transition);
+
+        }
+
+        .character-name {
+
+            color: var(--dark-brown);
+
+            font-size: 21px;
+            font-weight: 800;
+
+        }
+
+        .character-role {
+
+            color: var(--muted);
+
+            font-size: 12px;
+            font-weight: 600;
+
+        }
+
+        .dialogue-content {
+
+            position: relative;
+            z-index: 2;
+
+        }
+
+        .dialogue-number {
+
+            margin-bottom: 9px;
+
+            color: var(--red);
+
+            font-size: 13px;
+            font-weight: 800;
+
+        }
+
+        .dialogue-content h2 {
+
+            margin-bottom: 16px;
+
+            color: var(--dark-brown);
+
+            font-size:
+                clamp(25px, 4vw, 37px);
+
+        }
+
+        .dialogue-text {
+
+            min-height: 145px;
+            margin-bottom: 25px;
+            padding: 23px;
+
+            border-right:
+                5px solid var(--yellow);
+
+            border-radius:
+                18px 0 0 18px;
+
+            background:
+                rgba(255, 255, 255, 0.48);
+
+            color: var(--text);
+
+            font-size: 17px;
+            line-height: 2.1;
+
+        }
+
+        .dialogue-buttons {
+
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 13px;
+
+        }
+
+        .previous-button,
+        .next-button,
+        .skip-button {
+
+            min-height: 50px;
+            padding: 0 22px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            border: 0;
+            border-radius: 13px;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+        .next-button {
+
+            background: var(--green-dark);
+            color: var(--white);
+
+            box-shadow:
+                0 11px 22px rgba(48, 70, 40, 0.2);
+
+        }
+
+        .next-button:hover {
+
+            background: var(--brown);
+
+            transform: translateY(-2px);
+
+        }
+
+        .previous-button {
+
+            border:
+                1px solid rgba(87, 56, 32, 0.18);
+
+            background: var(--cream-light);
+            color: var(--dark-brown);
+
+        }
+
+        .previous-button:hover {
+
+            background: var(--cream);
+
+        }
+
+        .skip-button {
+
+            background: transparent;
+            color: var(--muted);
+
+        }
+
+        .skip-button:hover {
+
+            color: var(--red);
+
+        }
+
+        .previous-button:disabled {
+
+            opacity: 0.45;
+            cursor: not-allowed;
+
+        }
+
+        /* =========================
+           صندوق المهمة
+        ========================== */
+
+        .mission-section {
+
+            padding: 0 0 95px;
+
+            background: var(--cream-light);
+
+        }
+
+        .mission-box {
+
+            width: min(1000px, 92%);
+            margin: auto;
+            padding: 38px;
+
+            display: grid;
+
+            grid-template-columns:
+                80px 1fr auto;
+
+            align-items: center;
+
+            gap: 25px;
+
+            border-radius: 26px;
+
+            background:
+
+                linear-gradient(
+                    125deg,
+                    var(--dark-brown),
+                    #54341f
+                );
+
+            color: var(--white);
+
+            box-shadow: var(--shadow);
+
+        }
+
+        .mission-icon {
+
+            width: 72px;
+            height: 72px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 22px;
+
+            background:
+                rgba(225, 177, 63, 0.15);
+
+            font-size: 38px;
+
+        }
+
+        .mission-content h3 {
+
+            margin-bottom: 7px;
+
+            color: var(--yellow);
+
+            font-size: 21px;
+
+        }
+
+        .mission-content p {
+
+            color:
+                rgba(255, 255, 255, 0.7);
+
+            font-size: 13px;
+            line-height: 1.8;
+
+        }
+
+        .mission-link {
+
+            padding: 12px 21px;
+
+            border-radius: 13px;
+
+            background: var(--yellow);
+            color: var(--dark-brown);
+
+            font-size: 13px;
+            font-weight: 800;
+
+            transition: var(--transition);
+
+        }
+
+        .mission-link:hover {
+
+            background: var(--cream-light);
+
+            transform: translateY(-2px);
+
+        }
+
+        /* =========================
+           الفوتر
+        ========================== */
+
+        .site-footer {
+
+            overflow: hidden;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #21150e,
+                    #3d2819
+                );
+
+            color: var(--white);
+
+        }
+
+        .footer-pattern {
+
+            height: 13px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    transparent 25%,
+                    var(--yellow) 25% 42%,
+                    transparent 42%
+                )
+                0 0 / 31px 17px,
+
+                linear-gradient(
+                    45deg,
+                    transparent 25%,
+                    var(--red) 25% 42%,
+                    transparent 42%
+                )
+                15px 0 / 31px 17px,
+
+                linear-gradient(
+                    -45deg,
+                    transparent 25%,
+                    var(--green) 25% 42%,
+                    transparent 42%
+                )
+                8px 0 / 31px 17px,
+
+                var(--dark-brown);
+
+        }
+
+        .footer-container {
+
+            width: min(1200px, 92%);
+            margin: auto;
+
+            padding: 65px 0 50px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 0.7fr 0.7fr 0.7fr;
+
+            gap: 43px;
+
+        }
+
+        .footer-logo {
+
+            margin-bottom: 18px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+        .footer-logo-icon {
+
+            width: 54px;
+            height: 54px;
+
+            display: grid;
+            place-items: center;
+
+            border:
+                1px solid rgba(225, 177, 63, 0.28);
+
+            border-radius: 16px;
+
+            background:
+                rgba(225, 177, 63, 0.13);
+
+            font-size: 28px;
+
+        }
+
+        .footer-logo-text {
+
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .footer-logo-text strong {
+
+            color: var(--cream);
+            font-size: 20px;
+
+        }
+
+        .footer-logo-text small {
+
+            color:
+                rgba(255, 255, 255, 0.56);
+
+            font-size: 11px;
+
+        }
+
+        .footer-about p {
+
+            max-width: 350px;
+
+            color:
+                rgba(255, 255, 255, 0.64);
+
+            font-size: 13px;
+            line-height: 1.9;
+
+        }
+
+        .saudi-label {
+
+            width: fit-content;
+
+            margin-top: 17px;
+            padding: 8px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.07);
+
+            color:
+                rgba(255, 255, 255, 0.72);
+
+            font-size: 11px;
+            font-weight: 700;
+
+        }
+
+        .footer-links {
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: flex-start;
+
+        }
+
+        .footer-links h3 {
+
+            margin-bottom: 18px;
+
+            color: var(--yellow);
+
+            font-size: 16px;
+
+        }
+
+        .footer-links a {
+
+            margin-bottom: 10px;
+
+            color:
+                rgba(255, 255, 255, 0.65);
+
+            font-size: 13px;
+
+            transition: var(--transition);
+
+        }
+
+        .footer-links a:hover {
+
+            color: var(--yellow);
+
+            transform: translateX(-4px);
+
+        }
+
+        .footer-bottom {
+
+            width: min(1200px, 92%);
+            margin: auto;
+
+            padding: 20px 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.09);
+
+            color:
+                rgba(255, 255, 255, 0.48);
+
+            font-size: 11px;
+
+        }
+
+        .component-error {
+
+            padding: 18px;
+
+            text-align: center;
+
+            background: #ffe7df;
+            color: var(--red);
+
+            font-weight: 700;
+
+        }
+
+        /* =========================
+           الجوال
+        ========================== */
+
+        @media (max-width: 1050px) {
+
+            .menu-button {
+
+                display: flex;
+
+            }
+
+            .main-nav {
+
+                width: min(370px, 92%);
+                padding: 18px;
+
+                position: fixed;
+                top: 105px;
+                right: 4%;
+
+                display: none;
+
+                flex-direction: column;
+                align-items: stretch;
+
+                border-radius: 20px;
+
+                background: var(--cream-light);
+
+                box-shadow: var(--shadow);
+
+            }
+
+            .main-nav.open {
+
+                display: flex;
+
+            }
+
+            .nav-link,
+            .account-button {
+
+                width: 100%;
+                margin: 0;
+
+                text-align: center;
+
+            }
+
+            .footer-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .dialogue-card {
+
+                padding: 31px 23px;
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+            }
+
+            .dialogue-text {
+
+                min-height: 180px;
+
+                border-right: 0;
+
+                border-top:
+                    5px solid var(--yellow);
+
+                border-radius: 16px;
+
+            }
+
+            .dialogue-buttons {
+
+                justify-content: center;
+
+            }
+
+            .mission-box {
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+            }
+
+            .mission-icon {
+
+                margin: auto;
+
+            }
+
+            .footer-container {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .footer-bottom {
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .logo-text small {
+
+                display: none;
+
+            }
+
+            .logo-text strong {
+
+                font-size: 18px;
+
+            }
+
+            .story-hero h1 {
+
+                font-size: 39px;
+
+            }
+
+            .character-avatar {
+
+                width: 145px;
+                height: 145px;
+
+                font-size: 74px;
+
+            }
+
+            .dialogue-content h2 {
+
+                font-size: 24px;
+
+            }
+
+            .dialogue-text {
+
+                font-size: 14px;
+
+            }
+
+            .dialogue-buttons {
+
+                flex-direction: column;
+
+            }
+
+            .previous-button,
+            .next-button,
+            .skip-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<<body>
+    <body>
+
+    {% include "includes/header.html" %}
+
+    <main>
+
+        <section class="story-hero">
+
+            <div class="story-hero-container">
+
+                <div class="page-label">
+                    📖 قصة اللعبة
+                </div>
+
+                <h1>
+                    بدأت حكاية بيت المصايف
+                </h1>
+
+                <p>
+                    مع بداية فصل الصيف قرر الأب تجهيز
+                    البيت الحجري لاستقبال المصايفين،
+                    لكن ظهرت مشكلة لم تكن في الحسبان.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="progress-section">
+
+            <div class="progress-container">
+
+                <div class="progress-info">
+
+                    <span>
+                        تقدم القصة
+                    </span>
+
+                    <span id="progressText">
+                        1 من 5
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="dialogue-section">
+
+            <div class="dialogue-container">
+
+                <div class="dialogue-card">
+
+                    <div class="character-side">
+
+                        <div
+                            class="character-avatar"
+                            id="characterAvatar"
+                        >
+                            👨🏻
+                        </div>
+
+                        <h3
+                            class="character-name"
+                            id="characterName"
+                        >
+                            الأب
+                        </h3>
+
+                        <p
+                            class="character-role"
+                            id="characterRole"
+                        >
+                            صاحب البيت الحجري
+                        </p>
+
+                    </div>
+
+
+                    <div class="dialogue-content">
+
+                        <p
+                            class="dialogue-number"
+                            id="dialogueNumber"
+                        >
+                            المشهد الأول
+                        </p>
+
+                        <h2 id="dialogueTitle">
+                            يا عيالي، الصيف بدأ!
+                        </h2>
+
+                        <div
+                            class="dialogue-text"
+                            id="dialogueText"
+                        >
+                            قررت أن أجهز بيتنا الحجري
+                            لاستقبال المصايفين هذا الصيف.
+                            البيت جميل، لكنه يحتاج إلى ترتيب
+                            وتنظيف قبل وصول الضيوف.
+                        </div>
+
+                        <div class="dialogue-buttons">
+
+                            <button
+                                type="button"
+                                class="previous-button"
+                                id="previousButton"
+                                disabled
+                            >
+                                → السابق
+                            </button>
+
+                            <button
+                                type="button"
+                                class="next-button"
+                                id="nextButton"
+                            >
+                                التالي ←
+                            </button>
+
+                            <button
+                                type="button"
+                                class="skip-button"
+                                id="skipButton"
+                            >
+                                تخطي القصة
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="mission-section">
+
+            <div class="mission-box">
+
+                <div class="mission-icon">
+                    🦎
+                </div>
+
+                <div class="mission-content">
+
+                    <h3>
+                        مهمتك في اللعبة
+                    </h3>
+
+                    <p>
+                        اختر أحد الأبناء، ثم تحرك داخل البيت
+                        وتخلص من جميع الأوزاغ قبل انتهاء الوقت
+                        ووصول سيارة المصايفين.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'game:characters' %}"
+                    class="mission-link"
+                >
+                    اختيار الشخصية
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    {% include "includes/footer.html" %}
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const storyScenes = [
+
+                    {
+                        avatar: "👨🏻",
+                        name: "الأب",
+                        role: "صاحب البيت الحجري",
+                        scene: "المشهد الأول",
+                        title: "يا عيالي، الصيف بدأ!",
+                        text: "قررت أن أجهز بيتنا الحجري لاستقبال المصايفين هذا الصيف. البيت جميل، لكنه يحتاج إلى ترتيب وتنظيف قبل وصول الضيوف."
+                    },
+
+                    {
+                        avatar: "👨🏻",
+                        name: "الأب",
+                        role: "صاحب البيت الحجري",
+                        scene: "المشهد الثاني",
+                        title: "لكن عندنا مشكلة!",
+                        text: "دخلت إلى الغرف هذا الصباح، واكتشفت أن الوزغ منتشر في أنحاء البيت. لا يمكن أن نستقبل المصايفين والبيت بهذا الوضع."
+                    },
+
+                    {
+                        avatar: "👧🏻",
+                        name: "البنت",
+                        role: "البطلة بالزي العسيري",
+                        scene: "المشهد الثالث",
+                        title: "أنا مستعدة يا أبي!",
+                        text: "سأرتدي ثوبي العسيري ومنديلي الأصفر، وسأبحث داخل الغرف حتى أتخلص من جميع الأوزاغ قبل وصول الضيوف."
+                    },
+
+                    {
+                        avatar: "👦🏻",
+                        name: "الولد",
+                        role: "البطل بالثوب والجنبية",
+                        scene: "المشهد الرابع",
+                        title: "وأنا أيضًا مستعد!",
+                        text: "سأرتدي ثوبي وجنبيتي، وسأساعد في تنظيف البيت. اختر واحدًا منا ليبدأ المهمة ويجهز البيت للمصايفين."
+                    },
+
+                    {
+                        avatar: "👨🏻",
+                        name: "الأب",
+                        role: "صاحب البيت الحجري",
+                        scene: "المشهد الأخير",
+                        title: "أسرعوا، السيارة في طريقها!",
+                        text: "لم يتبقَ وقت طويل. اختاروا الشخصية المناسبة، وتخلصوا من الوزغ، وبعد نجاح المهمة سنستقبل المصايفين ونساعدهم في حمل الحقائب."
+                    }
+
+                ];
+
+
+                let currentSceneIndex = 0;
+
+
+                const characterAvatar =
+                    document.getElementById(
+                        "characterAvatar"
+                    );
+
+                const characterName =
+                    document.getElementById(
+                        "characterName"
+                    );
+
+                const characterRole =
+                    document.getElementById(
+                        "characterRole"
+                    );
+
+                const dialogueNumber =
+                    document.getElementById(
+                        "dialogueNumber"
+                    );
+
+                const dialogueTitle =
+                    document.getElementById(
+                        "dialogueTitle"
+                    );
+
+                const dialogueText =
+                    document.getElementById(
+                        "dialogueText"
+                    );
+
+                const previousButton =
+                    document.getElementById(
+                        "previousButton"
+                    );
+
+                const nextButton =
+                    document.getElementById(
+                        "nextButton"
+                    );
+
+                const skipButton =
+                    document.getElementById(
+                        "skipButton"
+                    );
+
+                const progressText =
+                    document.getElementById(
+                        "progressText"
+                    );
+
+                const progressFill =
+                    document.getElementById(
+                        "progressFill"
+                    );
+
+
+                function displayScene() {
+
+                    const currentScene =
+                        storyScenes[currentSceneIndex];
+
+                    characterAvatar.textContent =
+                        currentScene.avatar;
+
+                    characterName.textContent =
+                        currentScene.name;
+
+                    characterRole.textContent =
+                        currentScene.role;
+
+                    dialogueNumber.textContent =
+                        currentScene.scene;
+
+                    dialogueTitle.textContent =
+                        currentScene.title;
+
+                    dialogueText.textContent =
+                        currentScene.text;
+
+                    previousButton.disabled =
+                        currentSceneIndex === 0;
+
+
+                    const isLastScene =
+                        currentSceneIndex ===
+                        storyScenes.length - 1;
+
+
+                    if (isLastScene) {
+
+                        nextButton.textContent =
+                            "اختيار الشخصية ←";
+
+                    } else {
+
+                        nextButton.textContent =
+                            "التالي ←";
+
+                    }
+
+
+                    const currentNumber =
+                        currentSceneIndex + 1;
+
+                    const totalScenes =
+                        storyScenes.length;
+
+                    progressText.textContent =
+                        `${currentNumber} من ${totalScenes}`;
+
+                    progressFill.style.width =
+                        `${(currentNumber / totalScenes) * 100}%`;
+
+                }
+
+
+                nextButton.addEventListener(
+                    "click",
+                    function () {
+
+                        if (
+                            currentSceneIndex <
+                            storyScenes.length - 1
+                        ) {
+
+                            currentSceneIndex++;
+
+                            displayScene();
+
+                        } else {
+
+                            window.location.href =
+                                "{% url 'game:characters' %}";
+
+                        }
+
+                    }
+                );
+
+
+                previousButton.addEventListener(
+                    "click",
+                    function () {
+
+                        if (currentSceneIndex > 0) {
+
+                            currentSceneIndex--;
+
+                            displayScene();
+
+                        }
+
+                    }
+                );
+
+
+                skipButton.addEventListener(
+                    "click",
+                    function () {
+
+                        window.location.href =
+                            "{% url 'game:characters' %}";
+
+                    }
+                );
+
+
+                displayScene();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

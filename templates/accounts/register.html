@@ -1,0 +1,2214 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بيت المصايف | إنشاء حساب</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --dark: #2d2118;
+            --brown: #785536;
+            --cream: #fff8ed;
+            --beige: #ead8ba;
+            --green: #4f6f52;
+            --yellow: #f3c13a;
+            --red: #a53d2d;
+            --white: #ffffff;
+            --gray: #756a60;
+            --light-gray: #f4ede2;
+            --shadow: 0 22px 50px rgba(0, 0, 0, 0.14);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Cairo", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(243, 193, 58, 0.22),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(79, 111, 82, 0.18),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    180deg,
+                    #fffaf2,
+                    #ead8ba
+                );
+            color: var(--dark);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .register-page {
+            min-height: 100vh;
+            padding: 120px 20px 90px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        .register-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 35px;
+            align-items: stretch;
+        }
+
+        /* القسم التعريفي */
+
+        .register-intro {
+            min-height: 740px;
+            position: relative;
+            overflow: hidden;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 7px solid rgba(255, 255, 255, 0.16);
+            border-radius: 32px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(45, 33, 24, 0.96),
+                    rgba(120, 85, 54, 0.94)
+                );
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .register-intro::before {
+            content: "";
+            width: 230px;
+            height: 230px;
+            position: absolute;
+            top: -90px;
+            left: -80px;
+            border-radius: 50%;
+            background: rgba(243, 193, 58, 0.2);
+        }
+
+        .register-intro::after {
+            content: "";
+            width: 280px;
+            height: 280px;
+            position: absolute;
+            right: -110px;
+            bottom: -110px;
+            border-radius: 50%;
+            background: rgba(79, 111, 82, 0.24);
+        }
+
+        .intro-content,
+        .intro-features,
+        .intro-character {
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.19);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.09);
+            color: var(--yellow);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .intro-content h1 {
+            margin-bottom: 18px;
+            font-size: clamp(34px, 5vw, 54px);
+            line-height: 1.35;
+        }
+
+        .intro-content p {
+            max-width: 520px;
+            color: rgba(255, 255, 255, 0.76);
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .intro-features {
+            margin: 35px 0;
+            display: grid;
+            gap: 13px;
+        }
+
+        .intro-feature {
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .intro-feature-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 13px;
+            background: rgba(243, 193, 58, 0.17);
+            font-size: 20px;
+        }
+
+        .intro-feature strong {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--yellow);
+            font-size: 14px;
+        }
+
+        .intro-feature span {
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 11px;
+        }
+
+        /* رسمة الشخصية */
+
+        .intro-character {
+            height: 230px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .character-scene {
+            width: 330px;
+            height: 220px;
+            position: relative;
+        }
+
+        .scene-house {
+            width: 240px;
+            height: 145px;
+            position: absolute;
+            right: 50%;
+            bottom: 0;
+            border: 6px solid #2a1d15;
+            border-radius: 70px 70px 8px 8px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0 34px,
+                    rgba(46, 31, 21, 0.35) 35px 39px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    #8f6744 0 55px,
+                    #745036 55px 110px
+                );
+            transform: translateX(50%);
+        }
+
+        .scene-house::before {
+            content: "";
+            width: 76px;
+            height: 94px;
+            position: absolute;
+            right: 50%;
+            bottom: -1px;
+            border: 5px solid #2a1d15;
+            border-radius: 40px 40px 0 0;
+            background: #503321;
+            transform: translateX(50%);
+        }
+
+        .scene-house::after {
+            content: "";
+            width: 54px;
+            height: 54px;
+            position: absolute;
+            top: 30px;
+            right: 23px;
+            border: 5px solid #2a1d15;
+            border-radius: 50% 50% 8px 8px;
+            background: #8fc4cf;
+        }
+
+        .scene-boy,
+        .scene-girl {
+            width: 70px;
+            height: 120px;
+            position: absolute;
+            bottom: 12px;
+            z-index: 4;
+        }
+
+        .scene-boy {
+            right: 27px;
+        }
+
+        .scene-girl {
+            left: 27px;
+        }
+
+        .scene-head {
+            width: 44px;
+            height: 47px;
+            position: absolute;
+            top: 0;
+            right: 13px;
+            border: 3px solid #2a1c14;
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle at 31% 43%,
+                    #21130e 0 3px,
+                    transparent 4px
+                ),
+                radial-gradient(
+                    circle at 69% 43%,
+                    #21130e 0 3px,
+                    transparent 4px
+                ),
+                #d99b70;
+        }
+
+        .scene-body {
+            width: 58px;
+            height: 76px;
+            position: absolute;
+            right: 6px;
+            bottom: 0;
+            border: 3px solid #2a1c14;
+            border-radius: 18px 18px 7px 7px;
+            background: #fffdf8;
+        }
+
+        .scene-boy::after {
+            content: "";
+            width: 21px;
+            height: 45px;
+            position: absolute;
+            right: -5px;
+            bottom: 18px;
+            border: 3px solid #2a1c14;
+            border-radius: 6px 6px 15px 15px;
+            background: var(--yellow);
+            transform: rotate(-12deg);
+        }
+
+        .scene-girl::before {
+            content: "";
+            width: 66px;
+            height: 48px;
+            position: absolute;
+            top: -7px;
+            right: 2px;
+            z-index: -1;
+            border-radius: 36px 36px 15px 15px;
+            background: var(--yellow);
+        }
+
+        .scene-girl .scene-body {
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #171311 0 16px,
+                    var(--red) 16px 23px,
+                    var(--yellow) 23px 30px,
+                    var(--green) 30px 37px
+                );
+        }
+
+        /* بطاقة التسجيل */
+
+        .register-card {
+            min-height: 740px;
+            padding: 42px;
+            border: 7px solid rgba(120, 85, 54, 0.12);
+            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: var(--shadow);
+        }
+
+        .form-heading {
+            margin-bottom: 28px;
+        }
+
+        .form-heading span {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 6px 15px;
+            border-radius: 25px;
+            background: rgba(165, 61, 45, 0.1);
+            color: var(--red);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .form-heading h2 {
+            margin-bottom: 8px;
+            font-size: clamp(29px, 4vw, 42px);
+        }
+
+        .form-heading p {
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 13px;
+        }
+
+        .register-form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .required {
+            color: var(--red);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            width: 46px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            place-items: center;
+            color: var(--brown);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            min-height: 54px;
+            padding: 0 46px 0 15px;
+            border: 2px solid #e5dacb;
+            outline: none;
+            border-radius: 14px;
+            background: #fffdf9;
+            color: var(--dark);
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .form-input::placeholder {
+            color: #a69b90;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(79, 111, 82, 0.09);
+        }
+
+        .form-input.error,
+        .form-select.error {
+            border-color: var(--red);
+            box-shadow: 0 0 0 4px rgba(165, 61, 45, 0.08);
+        }
+
+        .form-input.success,
+        .form-select.success {
+            border-color: var(--green);
+        }
+
+        .password-toggle {
+            width: 45px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            border: 0;
+            background: transparent;
+            color: var(--gray);
+            font-size: 17px;
+        }
+
+        .password-toggle:hover {
+            color: var(--green);
+        }
+
+        .password-input {
+            padding-left: 46px;
+        }
+
+        .error-message {
+            min-height: 18px;
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .field-note {
+            color: #8b8076;
+            font-size: 10px;
+        }
+                /* اختيار الشخصية */
+
+        .character-choice-section {
+            padding: 18px;
+            border: 2px solid #eadfce;
+            border-radius: 18px;
+            background: #fffaf3;
+        }
+
+        .character-choice-title {
+            margin-bottom: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .character-choice-title strong {
+            font-size: 13px;
+        }
+
+        .character-choice-title span {
+            color: var(--gray);
+            font-size: 10px;
+        }
+
+        .character-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .character-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .character-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .character-option-card {
+            min-height: 130px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 2px solid #e7dac9;
+            border-radius: 16px;
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .character-option-card:hover {
+            border-color: var(--yellow);
+            transform: translateY(-3px);
+        }
+
+        .character-option input:checked +
+        .character-option-card {
+            border-color: var(--green);
+            background: rgba(79, 111, 82, 0.07);
+            box-shadow: 0 0 0 4px rgba(79, 111, 82, 0.08);
+        }
+
+        .option-avatar {
+            width: 72px;
+            height: 94px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .option-avatar-head {
+            width: 41px;
+            height: 43px;
+            position: absolute;
+            top: 4px;
+            right: 15px;
+            z-index: 3;
+            border: 3px solid #2d2118;
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle at 31% 43%,
+                    #24150f 0 3px,
+                    transparent 4px
+                ),
+                radial-gradient(
+                    circle at 69% 43%,
+                    #24150f 0 3px,
+                    transparent 4px
+                ),
+                #d99b70;
+        }
+
+        .option-avatar-body {
+            width: 58px;
+            height: 58px;
+            position: absolute;
+            right: 7px;
+            bottom: 0;
+            border: 3px solid #2d2118;
+            border-radius: 16px 16px 6px 6px;
+            background: #fffdf8;
+        }
+
+        .option-avatar.girl::before {
+            content: "";
+            width: 65px;
+            height: 45px;
+            position: absolute;
+            top: -3px;
+            right: 3px;
+            z-index: 1;
+            border-radius: 35px 35px 15px 15px;
+            background: var(--yellow);
+        }
+
+        .option-avatar.girl .option-avatar-body {
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #171311 0 14px,
+                    var(--red) 14px 20px,
+                    var(--yellow) 20px 26px,
+                    var(--green) 26px 32px
+                );
+        }
+
+        .option-avatar.boy::after {
+            content: "";
+            width: 18px;
+            height: 37px;
+            position: absolute;
+            right: -2px;
+            bottom: 11px;
+            border: 3px solid #2d2118;
+            border-radius: 5px 5px 13px 13px;
+            background: var(--yellow);
+            transform: rotate(-10deg);
+        }
+
+        .option-info strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .option-info span {
+            color: var(--gray);
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .choice-check {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: grid;
+            place-items: center;
+            border: 2px solid #d7c9b8;
+            border-radius: 50%;
+            background: var(--white);
+            color: transparent;
+            font-size: 12px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .character-option input:checked +
+        .character-option-card .choice-check {
+            border-color: var(--green);
+            background: var(--green);
+            color: var(--white);
+        }
+
+        /* قوة كلمة المرور */
+
+        .password-strength {
+            margin-top: 7px;
+        }
+
+        .strength-bars {
+            margin-bottom: 6px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .strength-bar {
+            height: 5px;
+            border-radius: 20px;
+            background: #e7ded2;
+            transition: var(--transition);
+        }
+
+        .strength-bar.active.weak {
+            background: var(--red);
+        }
+
+        .strength-bar.active.medium {
+            background: var(--yellow);
+        }
+
+        .strength-bar.active.strong {
+            background: var(--green);
+        }
+
+        .strength-text {
+            color: var(--gray);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* الموافقة على الشروط */
+
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .terms-group input {
+            width: 18px;
+            height: 18px;
+            margin-top: 3px;
+            flex-shrink: 0;
+            accent-color: var(--green);
+            cursor: pointer;
+        }
+
+        .terms-group label {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .terms-group a {
+            color: var(--red);
+            font-weight: 800;
+        }
+
+        /* زر التسجيل */
+
+        .register-button {
+            width: 100%;
+            min-height: 57px;
+            border: 0;
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    #38543c
+                );
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 13px 28px rgba(79, 111, 82, 0.25);
+            transition: var(--transition);
+        }
+
+        .register-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 17px 32px rgba(79, 111, 82, 0.3);
+        }
+
+        .register-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #eadfce;
+            color: var(--gray);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .login-link a {
+            color: var(--red);
+            font-weight: 800;
+        }
+
+        /* رسائل النموذج */
+
+        .form-alert {
+            display: none;
+            padding: 14px 17px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.8;
+        }
+
+        .form-alert.show {
+            display: block;
+        }
+
+        .form-alert.success {
+            border: 1px solid rgba(79, 111, 82, 0.24);
+            background: rgba(79, 111, 82, 0.1);
+            color: var(--green);
+        }
+
+        .form-alert.error {
+            border: 1px solid rgba(165, 61, 45, 0.22);
+            background: rgba(165, 61, 45, 0.09);
+            color: var(--red);
+        }
+
+        .loading-spinner {
+            width: 18px;
+            height: 18px;
+            display: none;
+            margin-left: 8px;
+            vertical-align: middle;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .register-button.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* التجاوب */
+
+        @media (max-width: 1000px) {
+
+            .register-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .register-intro {
+                min-height: auto;
+            }
+
+            .intro-character {
+                display: none;
+            }
+
+            .register-card {
+                min-height: auto;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .register-page {
+                padding: 95px 10px 65px;
+            }
+
+            .register-intro,
+            .register-card {
+                padding: 28px 18px;
+                border-width: 5px;
+                border-radius: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .character-options {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-content h1 {
+                font-size: 34px;
+            }
+
+        }
+
+        @media (max-width: 420px) {
+
+            .register-page {
+                padding-right: 7px;
+                padding-left: 7px;
+            }
+
+            .register-intro,
+            .register-card {
+                padding-right: 13px;
+                padding-left: 13px;
+            }
+
+            .character-option-card {
+                padding: 12px 9px;
+            }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+    {% include 'includes/header.html' %}
+
+    <main class="register-page">
+
+        <div class="container">
+
+            <section class="register-layout">
+
+                <div class="register-intro">
+
+                    <div class="intro-content">
+
+                        <span class="intro-badge">
+                            🏠 انضم إلى بيت المصايف
+                        </span>
+
+                        <h1>
+                            أنشئ حسابك وابدأ المغامرة
+                        </h1>
+
+                        <p>
+                            سجّل بياناتك، اختر شخصيتك المفضلة،
+                            وابدأ رحلة تنظيف بيت المصايف من الوزغ
+                            وجمع أعلى عدد من النقاط.
+                        </p>
+
+                    </div>
+
+                    <div class="intro-features">
+
+                        <div class="intro-feature">
+
+                            <div class="intro-feature-icon">
+                                🎮
+                            </div>
+
+                            <div>
+                                <strong>
+                                    العب واحفظ تقدمك
+                                </strong>
+
+                                <span>
+                                    يتم حفظ حسابك ونتائجك على جهازك.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="intro-feature">
+
+                            <div class="intro-feature-icon">
+                                🏆
+                            </div>
+
+                            <div>
+                                <strong>
+                                    نافس في لوحة المتصدرين
+                                </strong>
+
+                                <span>
+                                    اجمع النقاط وحاول الوصول للمركز الأول.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="intro-feature">
+
+                            <div class="intro-feature-icon">
+                                👧👦
+                            </div>
+
+                            <div>
+                                <strong>
+                                    اختر بطلك
+                                </strong>
+
+                                <span>
+                                    اختاري صالحة أو مفرح قبل بدء المهمة.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="intro-character">
+
+                        <div class="character-scene">
+
+                            <div class="scene-house"></div>
+
+                            <div class="scene-boy">
+
+                                <div class="scene-head"></div>
+
+                                <div class="scene-body"></div>
+
+                            </div>
+
+                            <div class="scene-girl">
+
+                                <div class="scene-head"></div>
+
+                                <div class="scene-body"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="register-card">
+
+                    <div class="form-heading">
+
+                        <span>
+                            إنشاء حساب جديد
+                        </span>
+
+                        <h2>
+                            أهلاً بك في اللعبة
+                        </h2>
+
+                        <p>
+                            املأ البيانات التالية لإنشاء حسابك.
+                        </p>
+
+                    </div>
+
+                    <form
+                        class="register-form"
+                        id="registerForm"
+                        novalidate
+                    >
+
+                        <div
+                            class="form-alert"
+                            id="formAlert"
+                        ></div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="fullName">
+                                    الاسم الكامل
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <span class="input-icon">
+                                        👤
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        class="form-input"
+                                        id="fullName"
+                                        name="fullName"
+                                        placeholder="اكتب اسمك الكامل"
+                                        autocomplete="name"
+                                    >
+
+                                </div>
+
+                                <span
+                                    class="error-message"
+                                    id="fullNameError"
+                                ></span>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="username">
+                                    اسم المستخدم
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <span class="input-icon">
+                                        @
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        class="form-input"
+                                        id="username"
+                                        name="username"
+                                        placeholder="مثال: lama123"
+                                        autocomplete="username"
+                                    >
+
+                                </div>
+
+                                <span
+                                    class="error-message"
+                                    id="usernameError"
+                                ></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                البريد الإلكتروني
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    ✉️
+                                </span>
+
+                                <input
+                                    type="email"
+                                    class="form-input"
+                                    id="email"
+                                    name="email"
+                                    placeholder="example@email.com"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+                            <span
+                                class="error-message"
+                                id="emailError"
+                            ></span>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="password">
+                                    كلمة المرور
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <span class="input-icon">
+                                        🔒
+                                    </span>
+
+                                    <input
+                                        type="password"
+                                        class="form-input password-input"
+                                        id="password"
+                                        name="password"
+                                        placeholder="6 أحرف على الأقل"
+                                        autocomplete="new-password"
+                                    >
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        data-target="password"
+                                        aria-label="إظهار كلمة المرور"
+                                    >
+                                        👁️
+                                    </button>
+
+                                </div>
+
+                                <div class="password-strength">
+
+                                    <div class="strength-bars">
+
+                                        <span class="strength-bar"></span>
+                                        <span class="strength-bar"></span>
+                                        <span class="strength-bar"></span>
+                                        <span class="strength-bar"></span>
+
+                                    </div>
+
+                                    <span
+                                        class="strength-text"
+                                        id="strengthText"
+                                    >
+                                        قوة كلمة المرور
+                                    </span>
+
+                                </div>
+
+                                <span
+                                    class="error-message"
+                                    id="passwordError"
+                                ></span>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="confirmPassword">
+                                    تأكيد كلمة المرور
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <span class="input-icon">
+                                        🔐
+                                    </span>
+
+                                    <input
+                                        type="password"
+                                        class="form-input password-input"
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        placeholder="أعد كتابة كلمة المرور"
+                                        autocomplete="new-password"
+                                    >
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        data-target="confirmPassword"
+                                        aria-label="إظهار كلمة المرور"
+                                    >
+                                        👁️
+                                    </button>
+
+                                </div>
+
+                                <span
+                                    class="error-message"
+                                    id="confirmPasswordError"
+                                ></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="character-choice-section">
+
+                            <div class="character-choice-title">
+
+                                <strong>
+                                    اختر شخصيتك المفضلة
+                                </strong>
+
+                                <span>
+                                    يمكنك تغييرها لاحقًا
+                                </span>
+
+                            </div>
+
+                            <div class="character-options">
+
+                                <label class="character-option">
+
+                                    <input
+                                        type="radio"
+                                        name="favoriteCharacter"
+                                        value="girl"
+                                        checked
+                                    >
+
+                                    <div class="character-option-card">
+
+                                        <span class="choice-check">
+                                            ✓
+                                        </span>
+
+                                        <div class="option-avatar girl">
+
+                                            <div class="option-avatar-head"></div>
+
+                                            <div class="option-avatar-body"></div>
+
+                                        </div>
+
+                                        <div class="option-info">
+
+                                            <strong>
+                                                صالحة
+                                            </strong>
+
+                                            <span>
+                                                البطلة العسيرية بالزي التقليدي.
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </label>
+
+                                <label class="character-option">
+
+                                    <input
+                                        type="radio"
+                                        name="favoriteCharacter"
+                                        value="boy"
+                                    >
+
+                                    <div class="character-option-card">
+
+                                        <span class="choice-check">
+                                            ✓
+                                        </span>
+
+                                        <div class="option-avatar boy">
+
+                                            <div class="option-avatar-head"></div>
+
+                                            <div class="option-avatar-body"></div>
+
+                                        </div>
+
+                                        <div class="option-info">
+
+                                            <strong>
+                                                مفرح
+                                            </strong>
+
+                                            <span>
+                                                البطل السعودي بالثوب والجنبية.
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="terms-group">
+
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                name="terms"
+                            >
+
+                            <label for="terms">
+                                أوافق على
+                                <a href="#">
+                                    شروط الاستخدام
+                                </a>
+                                وسياسة الخصوصية الخاصة بلعبة بيت المصايف.
+                            </label>
+
+                        </div>
+
+                        <span
+                            class="error-message"
+                            id="termsError"
+                        ></span>
+
+                        <button
+                            type="submit"
+                            class="register-button"
+                            id="registerButton"
+                        >
+
+                            <span class="loading-spinner"></span>
+
+                            <span id="registerButtonText">
+                                إنشاء الحساب
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                    <div class="login-link">
+
+                        لديك حساب بالفعل؟
+
+   href="{% url 'accounts:login' %}"                     <a >
+                            تسجيل الدخول
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <script src="js/components.js"></script>
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const fullNameInput =
+            document.getElementById("fullName");
+
+        const usernameInput =
+            document.getElementById("username");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+
+        const termsInput =
+            document.getElementById("terms");
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+        const registerButtonText =
+            document.getElementById("registerButtonText");
+
+        const formAlert =
+            document.getElementById("formAlert");
+
+        const strengthText =
+            document.getElementById("strengthText");
+
+        const strengthBars =
+            document.querySelectorAll(".strength-bar");
+
+
+        function showFieldError(
+            input,
+            errorElementId,
+            message
+        ) {
+
+            const errorElement =
+                document.getElementById(errorElementId);
+
+            input.classList.remove("success");
+
+            input.classList.add("error");
+
+            errorElement.textContent = message;
+
+        }
+
+
+        function showFieldSuccess(
+            input,
+            errorElementId
+        ) {
+
+            const errorElement =
+                document.getElementById(errorElementId);
+
+            input.classList.remove("error");
+
+            input.classList.add("success");
+
+            errorElement.textContent = "";
+
+        }
+
+
+        function clearFieldState(
+            input,
+            errorElementId
+        ) {
+
+            const errorElement =
+                document.getElementById(errorElementId);
+
+            input.classList.remove(
+                "error",
+                "success"
+            );
+
+            errorElement.textContent = "";
+
+        }
+
+
+        function showAlert(
+            message,
+            type
+        ) {
+
+            formAlert.textContent = message;
+
+            formAlert.className =
+                `form-alert show ${type}`;
+
+        }
+
+
+        function hideAlert() {
+
+            formAlert.textContent = "";
+
+            formAlert.className =
+                "form-alert";
+
+        }
+
+
+        function validateFullName() {
+
+            const fullName =
+                fullNameInput.value.trim();
+
+            if (fullName.length < 3) {
+
+                showFieldError(
+                    fullNameInput,
+                    "fullNameError",
+                    "الاسم الكامل يجب أن يتكون من 3 أحرف على الأقل."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                fullNameInput,
+                "fullNameError"
+            );
+
+            return true;
+
+        }
+
+
+        function validateUsername() {
+
+            const username =
+                usernameInput.value.trim();
+
+            const usernamePattern =
+                /^[a-zA-Z0-9_]{3,20}$/;
+
+            if (!usernamePattern.test(username)) {
+
+                showFieldError(
+                    usernameInput,
+                    "usernameError",
+                    "استخدم 3 إلى 20 حرفًا إنجليزيًا أو رقمًا أو علامة _."
+                );
+
+                return false;
+
+            }
+
+            const users =
+                getSavedUsers();
+
+            const usernameExists =
+                users.some(
+                    function (user) {
+
+                        return (
+                            user.username.toLowerCase() ===
+                            username.toLowerCase()
+                        );
+
+                    }
+                );
+
+            if (usernameExists) {
+
+                showFieldError(
+                    usernameInput,
+                    "usernameError",
+                    "اسم المستخدم مستخدم بالفعل."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                usernameInput,
+                "usernameError"
+            );
+
+            return true;
+
+        }
+
+
+        function validateEmail() {
+
+            const email =
+                emailInput.value.trim();
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+
+                showFieldError(
+                    emailInput,
+                    "emailError",
+                    "اكتب بريدًا إلكترونيًا صحيحًا."
+                );
+
+                return false;
+
+            }
+
+            const users =
+                getSavedUsers();
+
+            const emailExists =
+                users.some(
+                    function (user) {
+
+                        return (
+                            user.email.toLowerCase() ===
+                            email.toLowerCase()
+                        );
+
+                    }
+                );
+
+            if (emailExists) {
+
+                showFieldError(
+                    emailInput,
+                    "emailError",
+                    "البريد الإلكتروني مسجل بالفعل."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                emailInput,
+                "emailError"
+            );
+
+            return true;
+
+        }
+
+
+        function getPasswordStrength(password) {
+
+            let score = 0;
+
+            if (password.length >= 6) {
+                score += 1;
+            }
+
+            if (password.length >= 10) {
+                score += 1;
+            }
+
+            if (/[A-Z]/.test(password) &&
+                /[a-z]/.test(password)) {
+                score += 1;
+            }
+
+            if (/\d/.test(password) &&
+                /[^a-zA-Z0-9]/.test(password)) {
+                score += 1;
+            }
+
+            return score;
+
+        }
+
+
+        function updatePasswordStrength() {
+
+            const password =
+                passwordInput.value;
+
+            const strength =
+                getPasswordStrength(password);
+
+            strengthBars.forEach(
+                function (bar) {
+
+                    bar.className =
+                        "strength-bar";
+
+                }
+            );
+
+            if (password.length === 0) {
+
+                strengthText.textContent =
+                    "قوة كلمة المرور";
+
+                return;
+
+            }
+
+            if (strength <= 1) {
+
+                strengthText.textContent =
+                    "كلمة المرور ضعيفة";
+
+                strengthBars[0].classList.add(
+                    "active",
+                    "weak"
+                );
+
+                return;
+
+            }
+
+            if (strength <= 3) {
+
+                strengthText.textContent =
+                    "كلمة المرور متوسطة";
+
+                for (
+                    let index = 0;
+                    index < strength;
+                    index += 1
+                ) {
+
+                    strengthBars[index].classList.add(
+                        "active",
+                        "medium"
+                    );
+
+                }
+
+                return;
+
+            }
+
+            strengthText.textContent =
+                "كلمة المرور قوية";
+
+            strengthBars.forEach(
+                function (bar) {
+
+                    bar.classList.add(
+                        "active",
+                        "strong"
+                    );
+
+                }
+            );
+
+        }
+
+
+        function validatePassword() {
+
+            const password =
+                passwordInput.value;
+
+            if (password.length < 6) {
+
+                showFieldError(
+                    passwordInput,
+                    "passwordError",
+                    "كلمة المرور يجب أن تتكون من 6 أحرف على الأقل."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                passwordInput,
+                "passwordError"
+            );
+
+            return true;
+
+        }
+
+
+        function validateConfirmPassword() {
+
+            const password =
+                passwordInput.value;
+
+            const confirmPassword =
+                confirmPasswordInput.value;
+
+            if (!confirmPassword) {
+
+                showFieldError(
+                    confirmPasswordInput,
+                    "confirmPasswordError",
+                    "أعد كتابة كلمة المرور."
+                );
+
+                return false;
+
+            }
+
+            if (password !== confirmPassword) {
+
+                showFieldError(
+                    confirmPasswordInput,
+                    "confirmPasswordError",
+                    "كلمتا المرور غير متطابقتين."
+                );
+
+                return false;
+
+            }
+
+            showFieldSuccess(
+                confirmPasswordInput,
+                "confirmPasswordError"
+            );
+
+            return true;
+
+        }
+
+
+        function validateTerms() {
+
+            const termsError =
+                document.getElementById("termsError");
+
+            if (!termsInput.checked) {
+
+                termsError.textContent =
+                    "يجب الموافقة على شروط الاستخدام.";
+
+                return false;
+
+            }
+
+            termsError.textContent = "";
+
+            return true;
+
+        }
+
+
+        function getSavedUsers() {
+
+            try {
+
+                const users =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "masayefUsers"
+                        ) || "[]"
+                    );
+
+                return Array.isArray(users)
+                    ? users
+                    : [];
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        function saveUser(user) {
+
+            const users =
+                getSavedUsers();
+
+            users.push(user);
+
+            localStorage.setItem(
+                "masayefUsers",
+                JSON.stringify(users)
+            );
+
+        }
+
+
+        function getSelectedCharacter() {
+
+            const selectedCharacter =
+                document.querySelector(
+                    'input[name="favoriteCharacter"]:checked'
+                );
+
+            return selectedCharacter
+                ? selectedCharacter.value
+                : "girl";
+
+        }
+
+
+        function setLoadingState(isLoading) {
+
+            registerButton.disabled =
+                isLoading;
+
+            registerButton.classList.toggle(
+                "loading",
+                isLoading
+            );
+
+            registerButtonText.textContent =
+                isLoading
+                    ? "جارٍ إنشاء الحساب..."
+                    : "إنشاء الحساب";
+
+        }
+
+
+        document
+            .querySelectorAll(".password-toggle")
+            .forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const targetId =
+                                button.dataset.target;
+
+                            const targetInput =
+                                document.getElementById(
+                                    targetId
+                                );
+
+                            const isPassword =
+                                targetInput.type ===
+                                "password";
+
+                            targetInput.type =
+                                isPassword
+                                    ? "text"
+                                    : "password";
+
+                            button.textContent =
+                                isPassword
+                                    ? "🙈"
+                                    : "👁️";
+
+                            button.setAttribute(
+                                "aria-label",
+                                isPassword
+                                    ? "إخفاء كلمة المرور"
+                                    : "إظهار كلمة المرور"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        fullNameInput.addEventListener(
+            "blur",
+            validateFullName
+        );
+
+        usernameInput.addEventListener(
+            "blur",
+            validateUsername
+        );
+
+        emailInput.addEventListener(
+            "blur",
+            validateEmail
+        );
+
+        passwordInput.addEventListener(
+            "input",
+            function () {
+
+                updatePasswordStrength();
+
+                if (
+                    confirmPasswordInput.value
+                ) {
+
+                    validateConfirmPassword();
+
+                }
+
+            }
+        );
+
+        passwordInput.addEventListener(
+            "blur",
+            validatePassword
+        );
+
+        confirmPasswordInput.addEventListener(
+            "blur",
+            validateConfirmPassword
+        );
+
+        termsInput.addEventListener(
+            "change",
+            validateTerms
+        );
+
+
+        registerForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                hideAlert();
+
+                const isFullNameValid =
+                    validateFullName();
+
+                const isUsernameValid =
+                    validateUsername();
+
+                const isEmailValid =
+                    validateEmail();
+
+                const isPasswordValid =
+                    validatePassword();
+
+                const isConfirmPasswordValid =
+                    validateConfirmPassword();
+
+                const areTermsValid =
+                    validateTerms();
+
+                const isFormValid =
+                    isFullNameValid &&
+                    isUsernameValid &&
+                    isEmailValid &&
+                    isPasswordValid &&
+                    isConfirmPasswordValid &&
+                    areTermsValid;
+
+                if (!isFormValid) {
+
+                    showAlert(
+                        "تحقق من البيانات المكتوبة ثم حاول مرة أخرى.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+                setLoadingState(true);
+
+                const selectedCharacter =
+                    getSelectedCharacter();
+
+                const characterName =
+                    selectedCharacter === "girl"
+                        ? "صالحة"
+                        : "مفرح";
+
+                const newUser = {
+
+                    id:
+                        Date.now(),
+
+                    fullName:
+                        fullNameInput.value.trim(),
+
+                    username:
+                        usernameInput.value.trim(),
+
+                    email:
+                        emailInput.value.trim(),
+
+                    password:
+                        passwordInput.value,
+
+                    favoriteCharacter:
+                        selectedCharacter,
+
+                    characterName:
+                        characterName,
+
+                    createdAt:
+                        new Date().toLocaleString(
+                            "ar-SA"
+                        )
+
+                };
+
+                setTimeout(
+                    function () {
+
+                        saveUser(newUser);
+
+                        localStorage.setItem(
+                            "selectedCharacter",
+                            selectedCharacter
+                        );
+
+                        localStorage.setItem(
+                            "selectedCharacterName",
+                            characterName
+                        );
+
+                        localStorage.setItem(
+                            "registeredUsername",
+                            newUser.username
+                        );
+
+                        showAlert(
+                            "تم إنشاء الحساب بنجاح، سيتم نقلك إلى تسجيل الدخول.",
+                            "success"
+                        );
+
+                        registerForm.reset();
+
+                        clearFieldState(
+                            fullNameInput,
+                            "fullNameError"
+                        );
+
+                        clearFieldState(
+                            usernameInput,
+                            "usernameError"
+                        );
+
+                        clearFieldState(
+                            emailInput,
+                            "emailError"
+                        );
+
+                        clearFieldState(
+                            passwordInput,
+                            "passwordError"
+                        );
+
+                        clearFieldState(
+                            confirmPasswordInput,
+                            "confirmPasswordError"
+                        );
+
+                        updatePasswordStrength();
+
+                        setLoadingState(false);
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "login.html";
+
+                            },
+                            1200
+                        );
+
+                    },
+                    700
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,1627 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>بيت المصايف | نتيجة اللعبة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--dark:#2d2118;
+--brown:#785536;
+--green:#4f6f52;
+--red:#a53d2d;
+--yellow:#f3c13a;
+--cream:#fff9ef;
+--white:#ffffff;
+--gray:#7d7268;
+--shadow:0 20px 45px rgba(0,0,0,.15);
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+
+}
+
+body{
+
+background:
+radial-gradient(circle at top right,#f3c13a33,transparent 35%),
+linear-gradient(#fffaf3,#ead8ba);
+
+min-height:100vh;
+
+color:var(--dark);
+
+overflow-x:hidden;
+
+}
+
+a{
+
+text-decoration:none;
+
+color:inherit;
+
+}
+
+button{
+
+font-family:inherit;
+
+cursor:pointer;
+
+}
+
+.page{
+
+padding:120px 20px 80px;
+
+}
+
+.container{
+
+max-width:1100px;
+
+margin:auto;
+
+}
+
+.result-card{
+
+background:white;
+
+border-radius:30px;
+
+overflow:hidden;
+
+box-shadow:var(--shadow);
+
+border:7px solid rgba(120,85,54,.1);
+
+}
+
+.hero{
+
+padding:45px;
+
+text-align:center;
+
+position:relative;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(135deg,#4f6f52,#2f4632);
+
+color:white;
+
+}
+
+.hero.lose{
+
+background:
+
+linear-gradient(135deg,#a53d2d,#6d2218);
+
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+
+height:300px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.07);
+
+top:-150px;
+
+left:-120px;
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:250px;
+
+height:250px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.05);
+
+bottom:-120px;
+
+right:-100px;
+
+}
+
+.icon{
+
+width:120px;
+
+height:120px;
+
+margin:auto;
+
+margin-bottom:20px;
+
+border-radius:50%;
+
+display:grid;
+
+place-items:center;
+
+background:rgba(255,255,255,.15);
+
+font-size:65px;
+
+backdrop-filter:blur(5px);
+
+position:relative;
+
+z-index:2;
+
+}
+
+.hero h1{
+
+font-size:42px;
+
+margin-bottom:10px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.hero p{
+
+font-size:15px;
+
+opacity:.95;
+
+line-height:2;
+
+position:relative;
+
+z-index:2;
+
+max-width:700px;
+
+margin:auto;
+
+}
+
+.content{
+
+padding:40px;
+
+display:grid;
+
+gap:30px;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
+}
+
+.stat{
+
+background:var(--cream);
+
+border-radius:20px;
+
+padding:25px;
+
+text-align:center;
+
+border:2px solid #ead8ba;
+
+transition:.3s;
+
+}
+
+.stat:hover{
+
+transform:translateY(-5px);
+
+}
+
+.stat .emoji{
+
+font-size:34px;
+
+margin-bottom:12px;
+
+}
+
+.stat strong{
+
+display:block;
+
+font-size:32px;
+
+margin-bottom:5px;
+
+color:var(--brown);
+
+}
+
+.stat span{
+
+font-size:13px;
+
+color:var(--gray);
+
+}
+.rating-box{
+
+background:#fff;
+
+border-radius:22px;
+
+padding:30px;
+
+border:2px solid #ead8ba;
+
+text-align:center;
+
+}
+
+.rating-box h2{
+
+margin-bottom:20px;
+
+font-size:28px;
+
+color:var(--brown);
+
+}
+
+.stars{
+
+display:flex;
+
+justify-content:center;
+
+gap:10px;
+
+margin-bottom:15px;
+
+font-size:42px;
+
+}
+
+.star{
+
+opacity:.2;
+
+transform:scale(.8);
+
+transition:.4s;
+
+}
+
+.star.active{
+
+opacity:1;
+
+transform:scale(1);
+
+animation:pop .5s;
+
+}
+
+@keyframes pop{
+
+0%{
+
+transform:scale(.3) rotate(-20deg);
+
+}
+
+70%{
+
+transform:scale(1.2);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+.message{
+
+background:#fff9e8;
+
+border:2px dashed #f3c13a;
+
+padding:20px;
+
+border-radius:18px;
+
+line-height:2;
+
+font-size:15px;
+
+color:#6a543e;
+
+text-align:center;
+
+}
+
+.character-card{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:25px;
+
+padding:25px;
+
+background:#faf7f2;
+
+border-radius:20px;
+
+border:2px solid #ead8ba;
+
+flex-wrap:wrap;
+
+}
+
+.avatar{
+
+width:120px;
+
+height:120px;
+
+border-radius:50%;
+
+display:grid;
+
+place-items:center;
+
+font-size:70px;
+
+background:white;
+
+border:5px solid #ead8ba;
+
+}
+
+.character-info h3{
+
+font-size:28px;
+
+margin-bottom:8px;
+
+color:var(--brown);
+
+}
+
+.character-info p{
+
+color:var(--gray);
+
+font-size:15px;
+
+line-height:2;
+
+}
+
+.buttons{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:15px;
+
+}
+
+.btn{
+
+height:58px;
+
+border:none;
+
+border-radius:15px;
+
+font-size:15px;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-4px);
+
+}
+
+.play{
+
+background:#4f6f52;
+
+color:white;
+
+}
+
+.profile{
+
+background:#785536;
+
+color:white;
+
+}
+
+.rank{
+
+background:#f3c13a;
+
+color:#2d2118;
+
+}
+
+.home{
+
+background:#ece6db;
+
+}
+
+.confetti{
+
+position:fixed;
+
+top:-20px;
+
+width:12px;
+
+height:12px;
+
+border-radius:50%;
+
+pointer-events:none;
+
+animation:fall linear forwards;
+
+}
+
+@keyframes fall{
+
+to{
+
+transform:translateY(110vh) rotate(720deg);
+
+opacity:0;
+
+}
+
+}
+
+@media(max-width:900px){
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.buttons{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+
+padding:35px 20px;
+
+}
+
+.hero h1{
+
+font-size:30px;
+
+}
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.buttons{
+
+grid-template-columns:1fr;
+
+}
+
+.content{
+
+padding:25px;
+
+}
+
+.avatar{
+
+width:90px;
+
+height:90px;
+
+font-size:55px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+{% include "includes/header.html" %}
+
+<main class="page">
+
+<div class="container">
+
+<div class="result-card">
+
+<div
+class="hero"
+id="heroSection"
+>
+
+<div
+class="icon"
+id="resultIcon"
+>
+
+🏆
+
+</div>
+
+<h1 id="resultTitle">
+
+أحسنت!
+
+</h1>
+
+<p id="resultDescription">
+
+لقد أنهيت المهمة بنجاح.
+
+</p>
+
+</div>
+
+<div class="content">
+
+<section class="stats">
+
+<div class="stat">
+
+<div class="emoji">
+
+⭐
+
+</div>
+
+<strong id="scoreValue">
+
+0
+
+</strong>
+
+<span>
+
+النقاط
+
+</span>
+
+</div>
+
+<div class="stat">
+
+<div class="emoji">
+
+🦎
+
+</div>
+
+<strong id="geckoValue">
+
+0
+
+</strong>
+
+<span>
+
+تم التخلص منها
+
+</span>
+
+</div>
+
+<div class="stat">
+
+<div class="emoji">
+
+⏱
+
+</div>
+
+<strong id="timeValue">
+
+0
+
+</strong>
+
+<span>
+
+الوقت المتبقي
+
+</span>
+
+</div>
+
+<div class="stat">
+
+<div class="emoji">
+
+❤️
+
+</div>
+
+<strong id="livesValue">
+
+0
+
+</strong>
+
+<span>
+
+القلوب
+
+</span>
+
+</div>
+
+</section>
+<section class="character-card">
+
+    <div
+        class="avatar"
+        id="characterAvatar"
+    >
+        👧
+    </div>
+
+    <div class="character-info">
+
+        <h3 id="characterName">
+            صالحة
+        </h3>
+
+        <p id="characterDescription">
+            الشخصية التي خاضت مهمة تنظيف بيت المصايف.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="rating-box">
+
+    <h2>
+        تقييم أدائك
+    </h2>
+
+    <div
+        class="stars"
+        id="starsContainer"
+    >
+
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+
+    </div>
+
+    <div
+        class="message"
+        id="ratingMessage"
+    >
+        أداء رائع داخل بيت المصايف.
+    </div>
+
+</section>
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="emoji">
+            📈
+        </div>
+
+        <strong id="levelValue">
+            1
+        </strong>
+
+        <span>
+            المستوى
+        </span>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="emoji">
+            🎯
+        </div>
+
+        <strong id="accuracyValue">
+            0%
+        </strong>
+
+        <span>
+            نسبة الإنجاز
+        </span>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="emoji">
+            🏅
+        </div>
+
+        <strong id="rankValue">
+            مبتدئ
+        </strong>
+
+        <span>
+            التصنيف
+        </span>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="emoji">
+            📅
+        </div>
+
+        <strong id="dateValue">
+            اليوم
+        </strong>
+
+        <span>
+            تاريخ اللعب
+        </span>
+
+    </div>
+
+</section>
+
+<section class="buttons">
+
+    <section class="actions">
+
+    <a href="{% url 'game:play' %}" class="btn play">
+        🔄 العب مرة أخرى
+    </a>
+
+    <a href="{% url 'accounts:profile' %}" class="btn profile">
+        👤 الملف الشخصي
+    </a>
+
+    <a href="{% url 'game:leaderboard' %}" class="btn rank">
+        🏆 لوحة المتصدرين
+    </a>
+
+    <a href="{% url 'core:home' %}" class="btn home">
+        🏠 الرئيسية
+    </a>
+
+</section>
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+{% include "includes/footer.html" %}
+
+<script src="{% static 'js/components.js' %}"></script>
+
+<script>
+
+const heroSection =
+    document.getElementById("heroSection");
+
+const resultIcon =
+    document.getElementById("resultIcon");
+
+const resultTitle =
+    document.getElementById("resultTitle");
+
+const resultDescription =
+    document.getElementById("resultDescription");
+
+const scoreValue =
+    document.getElementById("scoreValue");
+
+const geckoValue =
+    document.getElementById("geckoValue");
+
+const timeValue =
+    document.getElementById("timeValue");
+
+const livesValue =
+    document.getElementById("livesValue");
+
+const levelValue =
+    document.getElementById("levelValue");
+
+const accuracyValue =
+    document.getElementById("accuracyValue");
+
+const rankValue =
+    document.getElementById("rankValue");
+
+const dateValue =
+    document.getElementById("dateValue");
+
+const characterAvatar =
+    document.getElementById("characterAvatar");
+
+const characterName =
+    document.getElementById("characterName");
+
+const characterDescription =
+    document.getElementById("characterDescription");
+
+const starsContainer =
+    document.getElementById("starsContainer");
+
+const ratingMessage =
+    document.getElementById("ratingMessage");
+
+
+const gameScore =
+    Number(
+        localStorage.getItem("gameScore")
+    ) || 0;
+
+const gameTimeRemaining =
+    Number(
+        localStorage.getItem("gameTimeRemaining")
+    ) || 0;
+
+const gameStatus =
+    localStorage.getItem("gameStatus") || "lose";
+
+const geckosCaught =
+    Number(
+        localStorage.getItem("geckosCaught")
+    ) || 0;
+
+const gameLevel =
+    Number(
+        localStorage.getItem("gameLevel")
+    ) || 1;
+
+const gameLives =
+    Number(
+        localStorage.getItem("gameLives")
+    ) || 0;
+
+const selectedCharacter =
+    localStorage.getItem("selectedCharacter") || "girl";
+
+const selectedCharacterName =
+    selectedCharacter === "boy"
+        ? "مفرح"
+        : "صالحة";
+
+
+function calculateStars() {
+
+    if (gameStatus === "lose") {
+
+        if (gameScore >= 1400) {
+            return 3;
+        }
+
+        if (gameScore >= 700) {
+            return 2;
+        }
+
+        return 1;
+
+    }
+
+    if (
+        gameScore >= 4200 &&
+        gameLives === 3
+    ) {
+        return 5;
+    }
+
+    if (gameScore >= 3000) {
+        return 4;
+    }
+
+    if (gameScore >= 1800) {
+        return 3;
+    }
+
+    return 2;
+
+}
+
+
+function calculateRank() {
+
+    if (
+        gameStatus === "win" &&
+        gameScore >= 4200
+    ) {
+        return "خبير";
+    }
+
+    if (gameScore >= 3000) {
+        return "محترف";
+    }
+
+    if (gameScore >= 1800) {
+        return "متقدم";
+    }
+
+    if (gameScore >= 700) {
+        return "متمرس";
+    }
+
+    return "مبتدئ";
+
+}
+
+
+function calculateCompletion() {
+
+    const totalRequiredGeckos = 24;
+
+    const percentage =
+        (
+            geckosCaught /
+            totalRequiredGeckos
+        ) * 100;
+
+    return Math.min(
+        Math.round(percentage),
+        100
+    );
+
+}
+
+
+function configureCharacter() {
+
+    characterName.textContent =
+        selectedCharacterName;
+
+    if (selectedCharacter === "boy") {
+
+        characterAvatar.textContent =
+            "👦";
+
+        characterDescription.textContent =
+            "مفرح شارك بثوبه السعودي وجنبيته في مهمة تنظيف البيت.";
+
+    } else {
+
+        characterAvatar.textContent =
+            "👧";
+
+        characterDescription.textContent =
+            "صالحة شاركت بزيها العسيري في مهمة تنظيف بيت المصايف.";
+
+    }
+
+}
+function configureResult() {
+
+    const stars =
+        calculateStars();
+
+    const completion =
+        calculateCompletion();
+
+    scoreValue.textContent =
+        gameScore.toLocaleString("ar-SA");
+
+    geckoValue.textContent =
+        geckosCaught;
+
+    timeValue.textContent =
+        `${gameTimeRemaining} ث`;
+
+    livesValue.textContent =
+        `${gameLives} / 3`;
+
+    levelValue.textContent =
+        `${gameLevel} / 3`;
+
+    accuracyValue.textContent =
+        `${completion}%`;
+
+    rankValue.textContent =
+        calculateRank();
+
+    dateValue.textContent =
+        new Date().toLocaleDateString(
+            "ar-SA",
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }
+        );
+
+    if (gameStatus === "win") {
+
+        heroSection.classList.remove(
+            "lose"
+        );
+
+        resultIcon.textContent =
+            "🏆";
+
+        resultTitle.textContent =
+            "تم تنظيف بيت المصايف!";
+
+        resultDescription.textContent =
+            `أحسنت يا ${selectedCharacterName}، لقد أنهيت المهمة وتخلصت من جميع الوزغ بنجاح.`;
+
+        createConfetti();
+
+    } else {
+
+        heroSection.classList.add(
+            "lose"
+        );
+
+        resultIcon.textContent =
+            "🦎";
+
+        resultTitle.textContent =
+            "المهمة لم تكتمل";
+
+        if (gameLives <= 0) {
+
+            resultDescription.textContent =
+                `نفدت القلوب يا ${selectedCharacterName}. حاول مرة أخرى وتحرك بحذر بعيدًا عن الوزغ.`;
+
+        } else if (gameTimeRemaining <= 0) {
+
+            resultDescription.textContent =
+                `انتهى الوقت يا ${selectedCharacterName}. حاول التخلص من الوزغ بسرعة أكبر في المحاولة القادمة.`;
+
+        } else {
+
+            resultDescription.textContent =
+                `اقتربت كثيرًا يا ${selectedCharacterName}. أعد المحاولة وأكمل تنظيف بيت المصايف.`;
+
+        }
+
+    }
+
+    animateStars(stars);
+
+    configureRatingMessage(
+        stars,
+        completion
+    );
+
+}
+
+
+function animateStars(starCount) {
+
+    const stars =
+        starsContainer.querySelectorAll(
+            ".star"
+        );
+
+    stars.forEach(
+        function (star) {
+
+            star.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+    for (
+        let index = 0;
+        index < starCount;
+        index += 1
+    ) {
+
+        window.setTimeout(
+            function () {
+
+                stars[index].classList.add(
+                    "active"
+                );
+
+            },
+            250 * (index + 1)
+        );
+
+    }
+
+}
+
+
+function configureRatingMessage(
+    starCount,
+    completion
+) {
+
+    if (starCount === 5) {
+
+        ratingMessage.textContent =
+            "أداء استثنائي! أنهيت المهمة بسرعة وحافظت على جميع القلوب.";
+
+        return;
+
+    }
+
+    if (starCount === 4) {
+
+        ratingMessage.textContent =
+            "أداء ممتاز جدًا، بقيت خطوات بسيطة للوصول إلى تقييم الخمس نجوم.";
+
+        return;
+
+    }
+
+    if (starCount === 3) {
+
+        ratingMessage.textContent =
+            `أداء جيد، أنجزت ${completion}% من مهمة تنظيف البيت.`;
+
+        return;
+
+    }
+
+    if (starCount === 2) {
+
+        ratingMessage.textContent =
+            "بداية جميلة، أعد المحاولة واجمع نقاطًا أكثر مع الحفاظ على القلوب.";
+
+        return;
+
+    }
+
+    ratingMessage.textContent =
+        "لا تستسلم، استخدم الحركة والضرب في الوقت المناسب وجرّب مرة أخرى.";
+
+}
+
+
+function createConfetti() {
+
+    const symbols = [
+        "🎉",
+        "✨",
+        "⭐",
+        "🌟",
+        "🎊"
+    ];
+
+    for (
+        let index = 0;
+        index < 55;
+        index += 1
+    ) {
+
+        const confetti =
+            document.createElement(
+                "div"
+            );
+
+        confetti.className =
+            "confetti";
+
+        confetti.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        confetti.style.left =
+            `${Math.random() * 100}vw`;
+
+        confetti.style.width =
+            "auto";
+
+        confetti.style.height =
+            "auto";
+
+        confetti.style.fontSize =
+            `${12 + Math.random() * 15}px`;
+
+        confetti.style.animationDuration =
+            `${3 + Math.random() * 4}s`;
+
+        confetti.style.animationDelay =
+            `${Math.random() * 2}s`;
+
+        document.body.appendChild(
+            confetti
+        );
+
+        window.setTimeout(
+            function () {
+
+                confetti.remove();
+
+            },
+            7500
+        );
+
+    }
+
+}
+
+
+function getCurrentUser() {
+
+    try {
+
+        const storedUser =
+            localStorage.getItem(
+                "currentMasayefUser"
+            );
+
+        return storedUser
+            ? JSON.parse(storedUser)
+            : null;
+
+    } catch (error) {
+
+        console.error(
+            "تعذر قراءة المستخدم الحالي:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+function createResultRecord() {
+
+    const currentUser =
+        getCurrentUser();
+
+    return {
+
+        id:
+            `${Date.now()}-${Math.random()
+                .toString(16)
+                .slice(2)}`,
+
+        userId:
+            currentUser?.id || null,
+
+        username:
+            currentUser?.username || "زائر",
+
+        fullName:
+            currentUser?.fullName || "لاعب زائر",
+
+        character:
+            selectedCharacter,
+
+        characterName:
+            selectedCharacterName,
+
+        score:
+            gameScore,
+
+        geckosCaught:
+            geckosCaught,
+
+        timeRemaining:
+            gameTimeRemaining,
+
+        status:
+            gameStatus,
+
+        level:
+            gameLevel,
+
+        lives:
+            gameLives,
+
+        stars:
+            calculateStars(),
+
+        completion:
+            calculateCompletion(),
+
+        date:
+            new Date().toISOString()
+
+    };
+
+}
+
+
+async function saveGameResult() {
+    const currentUser = getCurrentUser();
+    let submissionKey = localStorage.getItem("gameRunId");
+    if (!submissionKey) {
+        submissionKey = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        localStorage.setItem("gameRunId", submissionKey);
+    }
+    const payload = {
+        submissionKey,
+        playerName: currentUser?.fullName || currentUser?.username || "لاعب زائر",
+        character: selectedCharacter,
+        characterName: selectedCharacterName,
+        score: gameScore,
+        geckosCaught,
+        timeRemaining: gameTimeRemaining,
+        status: gameStatus,
+        level: gameLevel,
+        lives: gameLives,
+        stars: calculateStars(),
+        completion: calculateCompletion()
+    };
+    try {
+        const response = await fetch("{% url 'game:save_result' %}", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}"},
+            body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error("تعذر حفظ النتيجة.");
+        const saved = await response.json();
+        localStorage.setItem("lastSavedGameResult", JSON.stringify({ ...payload, id: saved.id }));
+    } catch (error) {
+        console.error("تعذر حفظ النتيجة في قاعدة البيانات:", error);
+    }
+}
+
+function updateCurrentUserStatistics() {
+
+    const currentUser =
+        getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    let users = [];
+
+    try {
+
+        const storedUsers =
+            localStorage.getItem(
+                "masayefUsers"
+            );
+
+        users =
+            storedUsers
+                ? JSON.parse(
+                    storedUsers
+                )
+                : [];
+
+        if (!Array.isArray(users)) {
+
+            users = [];
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "تعذر قراءة المستخدمين:",
+            error
+        );
+
+        return;
+
+    }
+
+    const userIndex =
+        users.findIndex(
+            function (user) {
+
+                return (
+                    user.id ===
+                        currentUser.id ||
+                    user.username ===
+                        currentUser.username
+                );
+
+            }
+        );
+
+    if (userIndex === -1) {
+        return;
+    }
+
+    const oldStatistics =
+        users[userIndex].statistics || {};
+
+    const attempts =
+        Number(
+            oldStatistics.attempts
+        ) || 0;
+
+    const wins =
+        Number(
+            oldStatistics.wins
+        ) || 0;
+
+    const totalGeckos =
+        Number(
+            oldStatistics.totalGeckos
+        ) || 0;
+
+    const highestScore =
+        Number(
+            oldStatistics.highestScore
+        ) || 0;
+
+    users[userIndex].statistics = {
+
+        attempts:
+            attempts + 1,
+
+        wins:
+            wins +
+            (
+                gameStatus === "win"
+                    ? 1
+                    : 0
+            ),
+
+        totalGeckos:
+            totalGeckos +
+            geckosCaught,
+
+        highestScore:
+            Math.max(
+                highestScore,
+                gameScore
+            ),
+
+        lastScore:
+            gameScore,
+
+        lastGameDate:
+            new Date().toISOString()
+
+    };
+
+    const updatedCurrentUser = {
+        ...currentUser,
+        statistics:
+            users[userIndex].statistics
+    };
+
+    localStorage.setItem(
+        "masayefUsers",
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        "currentMasayefUser",
+        JSON.stringify(
+            updatedCurrentUser
+        )
+    );
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        configureCharacter();
+
+        configureResult();
+
+        void saveGameResult();
+
+        updateCurrentUserStatistics();
+
+    }
+);
+
+</script>
+<script src="{% static 'js/components.js' %}"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+

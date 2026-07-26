@@ -1,0 +1,3235 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بيت المصايف | اللعبة</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --dark: #2d2118;
+            --brown: #785536;
+            --brown-dark: #4e3422;
+            --cream: #fff8ed;
+            --beige: #ead8ba;
+            --green: #4f6f52;
+            --green-dark: #38543c;
+            --yellow: #f3c13a;
+            --red: #a53d2d;
+            --white: #ffffff;
+            --gray: #756a60;
+            --border: #e5dacb;
+            --shadow: 0 20px 45px rgba(0, 0, 0, 0.14);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Cairo", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(243, 193, 58, 0.2),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(79, 111, 82, 0.17),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    180deg,
+                    #fffaf2,
+                    #ead8ba
+                );
+        }
+
+        button,
+        a {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .game-page {
+            min-height: 100vh;
+            padding: 115px 18px 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .game-heading {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .heading-content span {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 7px 15px;
+            border-radius: 25px;
+            background: rgba(165, 61, 45, 0.1);
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .heading-content h1 {
+            margin-bottom: 6px;
+            font-size: clamp(31px, 5vw, 49px);
+        }
+
+        .heading-content p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        .heading-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .small-button {
+            min-height: 45px;
+            padding: 0 17px;
+            border: 2px solid rgba(120, 85, 54, 0.16);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--brown);
+            font-size: 11px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .small-button:hover {
+            transform: translateY(-3px);
+            background: var(--white);
+        }
+
+        .game-dashboard {
+            margin-bottom: 19px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .dashboard-card {
+            min-height: 91px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            border: 5px solid rgba(120, 85, 54, 0.09);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.93);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .dashboard-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 13px;
+            background: rgba(79, 111, 82, 0.1);
+            font-size: 20px;
+        }
+
+        .dashboard-card span {
+            display: block;
+            color: var(--gray);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .dashboard-card strong {
+            display: block;
+            margin-top: 2px;
+            font-size: 19px;
+        }
+
+        .lives-value {
+            color: var(--red);
+            letter-spacing: 2px;
+        }
+
+        .combo-value.active {
+            color: var(--yellow);
+            animation: comboPulse 0.5s ease;
+        }
+
+        @keyframes comboPulse {
+
+            50% {
+                transform: scale(1.25);
+            }
+
+        }
+
+        .game-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .game-wrapper {
+            position: relative;
+            overflow: hidden;
+            border: 8px solid rgba(120, 85, 54, 0.18);
+            border-radius: 27px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .game-area {
+            width: 100%;
+            height: 610px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            user-select: none;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.08),
+                    rgba(0, 0, 0, 0.03)
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    #b8875e 0 42px,
+                    #9e704b 42px 47px
+                );
+        }
+
+        .game-wall {
+            height: 52%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            overflow: hidden;
+            border-bottom: 9px solid #5e422d;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0 64px,
+                    rgba(73, 45, 28, 0.2) 64px 69px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    #9b724f 0 95px,
+                    #795339 95px 190px
+                );
+        }
+
+        .game-wall::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            background:
+                linear-gradient(
+                    135deg,
+                    transparent 0 43%,
+                    var(--yellow) 43% 49%,
+                    transparent 49% 100%
+                );
+            background-size: 100px 100px;
+        }
+
+        .game-window {
+            width: 175px;
+            height: 150px;
+            position: absolute;
+            top: 54px;
+            right: 10%;
+            z-index: 2;
+            overflow: hidden;
+            border: 9px solid #422b1d;
+            border-radius: 65px 65px 5px 5px;
+            background:
+                linear-gradient(
+                    #8fcbd7 0 60%,
+                    #799356 60% 100%
+                );
+            box-shadow:
+                inset 0 0 0 5px #b47c45,
+                0 12px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .game-window::before,
+        .game-window::after {
+            content: "";
+            position: absolute;
+            background: #422b1d;
+        }
+
+        .game-window::before {
+            width: 7px;
+            top: 0;
+            bottom: 0;
+            right: 50%;
+        }
+
+        .game-window::after {
+            height: 7px;
+            top: 53%;
+            right: 0;
+            left: 0;
+        }
+
+        .game-door {
+            width: 138px;
+            height: 225px;
+            position: absolute;
+            left: 10%;
+            bottom: -8px;
+            z-index: 2;
+            border: 9px solid #3f291c;
+            border-radius: 70px 70px 0 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    #624029 0 24px,
+                    #4b3020 24px 48px
+                );
+        }
+
+        .game-door::after {
+            content: "";
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 53%;
+            right: 20px;
+            border-radius: 50%;
+            background: var(--yellow);
+            box-shadow: 0 0 0 3px #2f2017;
+        }
+
+        .wall-decoration {
+            position: absolute;
+            top: 43px;
+            right: 44%;
+            z-index: 2;
+            padding: 10px 15px;
+            border: 5px solid #3e291c;
+            border-radius: 7px;
+            background:
+                linear-gradient(
+                    45deg,
+                    var(--red) 0 25%,
+                    var(--yellow) 25% 50%,
+                    var(--green) 50% 75%,
+                    #16120f 75%
+                );
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 800;
+            transform: rotate(-2deg);
+        }
+
+        .floor-rug {
+            width: 46%;
+            height: 130px;
+            position: absolute;
+            right: 27%;
+            bottom: 30px;
+            border: 7px solid #39261a;
+            border-radius: 50%;
+            background:
+                repeating-radial-gradient(
+                    ellipse,
+                    var(--red) 0 18px,
+                    var(--yellow) 18px 31px,
+                    var(--green) 31px 45px,
+                    #1f1915 45px 60px
+                );
+            transform: perspective(250px) rotateX(62deg);
+        }
+
+        .player {
+            width: 80px;
+            height: 115px;
+            position: absolute;
+            right: 50%;
+            bottom: 70px;
+            z-index: 20;
+            transform: translateX(50%);
+            transition:
+                right 0.07s linear,
+                bottom 0.07s linear;
+        }
+
+        .player.walking {
+            animation: playerWalk 0.25s infinite alternate;
+        }
+
+        .player.attacking {
+            animation: playerAttack 0.22s ease;
+        }
+
+        @keyframes playerWalk {
+
+            to {
+                transform: translateX(50%) translateY(-4px) rotate(2deg);
+            }
+
+        }
+
+        @keyframes playerAttack {
+
+            50% {
+                transform: translateX(50%) scale(1.12) rotate(-8deg);
+            }
+
+        }
+
+        .player-head {
+            width: 44px;
+            height: 46px;
+            position: absolute;
+            top: 2px;
+            right: 18px;
+            z-index: 4;
+            border: 3px solid #2c1e16;
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle at 31% 43%,
+                    #20130e 0 3px,
+                    transparent 4px
+                ),
+                radial-gradient(
+                    circle at 69% 43%,
+                    #20130e 0 3px,
+                    transparent 4px
+                ),
+                #d99b70;
+        }
+
+        .player-body {
+            width: 64px;
+            height: 70px;
+            position: absolute;
+            right: 8px;
+            bottom: 0;
+            border: 3px solid #2c1e16;
+            border-radius: 20px 20px 8px 8px;
+            background: #fffdf8;
+        }
+
+        .player.girl::before {
+            content: "";
+            width: 72px;
+            height: 50px;
+            position: absolute;
+            top: -3px;
+            right: 4px;
+            z-index: 2;
+            border-radius: 42px 42px 14px 14px;
+            background: var(--yellow);
+        }
+
+        .player.girl .player-body {
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #171311 0 14px,
+                    var(--red) 14px 22px,
+                    var(--yellow) 22px 30px,
+                    var(--green) 30px 38px
+                );
+        }
+
+        .player.boy::after {
+            content: "";
+            width: 18px;
+            height: 48px;
+            position: absolute;
+            right: -2px;
+            bottom: 8px;
+            border: 3px solid #2c1e16;
+            border-radius: 6px 6px 14px 14px;
+            background: var(--yellow);
+            transform: rotate(-12deg);
+        }
+
+        /* أزياء الشخصيات داخل ساحة اللعب */
+        .player.girl::before {
+            width: 76px;
+            height: 52px;
+            top: -6px;
+            right: 2px;
+            border: 3px solid #51351e;
+            border-radius: 48px 48px 18px 18px;
+            background:
+                repeating-linear-gradient(90deg, transparent 0 10px, rgba(162, 60, 49, 0.72) 10px 14px),
+                linear-gradient(135deg, #f5ce49, #c99027);
+            box-shadow: inset 0 -9px 0 rgba(45, 38, 29, 0.12);
+        }
+
+        .player.girl .player-body {
+            width: 70px;
+            right: 5px;
+            border: 4px solid #2e2a22;
+            border-radius: 22px 22px 10px 10px;
+            background:
+                repeating-linear-gradient(45deg, transparent 0 12px, #bb4334 12px 16px, transparent 16px 23px, #e6b53c 23px 27px, transparent 27px 35px),
+                #151713;
+            box-shadow: inset 0 18px 0 rgba(255, 244, 204, 0.14);
+        }
+
+        .player.girl .player-body::after {
+            content: "";
+            height: 9px;
+            position: absolute;
+            right: 4px;
+            left: 4px;
+            top: 29px;
+            border-top: 2px solid #f4d46b;
+            border-bottom: 2px solid #f4d46b;
+            background: #151713;
+        }
+
+        .player.boy::before {
+            content: "";
+            width: 62px;
+            height: 19px;
+            position: absolute;
+            top: -2px;
+            right: 9px;
+            z-index: 5;
+            border: 3px solid #d8d0c3;
+            border-radius: 22px 22px 8px 8px;
+            background: repeating-linear-gradient(90deg, #fff 0 12px, #e4dfd6 12px 15px);
+        }
+
+        .player.boy .player-body {
+            width: 69px;
+            right: 5px;
+            border-color: #d8d0c3;
+            background:
+                linear-gradient(90deg, transparent 47%, #ded7cb 48% 52%, transparent 53%),
+                #fffdf9;
+        }
+
+        .player.boy .player-body::after {
+            content: "";
+            height: 8px;
+            position: absolute;
+            right: 3px;
+            left: 3px;
+            top: 33px;
+            border-radius: 8px;
+            background: #725033;
+            box-shadow: 0 2px 0 #c9994d;
+        }
+
+        .player.boy::after {
+            width: 25px;
+            height: 42px;
+            right: -7px;
+            bottom: 5px;
+            z-index: 8;
+            border: 4px solid #53351f;
+            border-radius: 9px 9px 22px 22px;
+            background: linear-gradient(90deg, #ddb86a, #8d5d31);
+            box-shadow: 0 -8px 0 -2px #2e2017;
+            transform: rotate(-20deg);
+        }
+        .attack-range {
+            width: 115px;
+            height: 115px;
+            position: absolute;
+            top: 0;
+            right: 50%;
+            z-index: -1;
+            border: 4px solid rgba(243, 193, 58, 0);
+            border-radius: 50%;
+            transform: translateX(50%);
+            pointer-events: none;
+        }
+
+        .player.attacking .attack-range {
+            z-index: 1;
+            border-color: rgba(243, 193, 58, 0.85);
+            box-shadow:
+                0 0 0 12px rgba(243, 193, 58, 0.13),
+                0 0 32px rgba(243, 193, 58, 0.6);
+        }
+
+        .gecko {
+            width: 92px;
+            height: 62px;
+            position: absolute;
+            z-index: 15;
+            cursor: crosshair;
+            background: url("{% static 'images/realistic-gecko.png' %}") center / contain no-repeat;
+            filter: drop-shadow(0 7px 5px rgba(21, 27, 15, 0.34));
+            transition:
+                left 0.12s linear,
+                top 0.12s linear,
+                transform 0.12s linear;
+        }
+
+        .gecko::before,
+        .gecko::after {
+            content: none;
+        }
+        .gecko.hit {
+            animation: geckoHit 0.32s ease forwards;
+        }
+
+        @keyframes geckoHit {
+
+            100% {
+                opacity: 0;
+                transform: scale(1.8) rotate(70deg);
+            }
+
+        }
+
+        .score-effect {
+            position: absolute;
+            z-index: 90;
+            color: var(--yellow);
+            font-size: 19px;
+            font-weight: 800;
+            text-shadow:
+                0 2px 0 var(--dark),
+                0 0 10px rgba(243, 193, 58, 0.7);
+            pointer-events: none;
+            animation: scoreFloat 0.8s ease forwards;
+        }
+
+        @keyframes scoreFloat {
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.3);
+            }
+
+        }
+
+        .damage-effect {
+            position: absolute;
+            z-index: 90;
+            color: var(--red);
+            font-size: 28px;
+            font-weight: 800;
+            pointer-events: none;
+            animation: damageFloat 0.9s ease forwards;
+        }
+
+        @keyframes damageFloat {
+
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) rotate(20deg);
+            }
+
+        }
+
+        .game-area.shake {
+            animation: areaShake 0.35s ease;
+        }
+
+        @keyframes areaShake {
+
+            25% {
+                transform: translateX(6px);
+            }
+
+            50% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(4px);
+            }
+
+        }
+
+        .level-banner {
+            position: absolute;
+            top: 25px;
+            right: 50%;
+            z-index: 150;
+            padding: 13px 25px;
+            display: none;
+            border: 4px solid var(--yellow);
+            border-radius: 15px;
+            background: rgba(45, 33, 24, 0.92);
+            color: var(--white);
+            font-size: 17px;
+            font-weight: 800;
+            transform: translateX(50%);
+            animation: levelBanner 1.6s ease forwards;
+        }
+
+        .level-banner.show {
+            display: block;
+        }
+
+        @keyframes levelBanner {
+
+            0% {
+                opacity: 0;
+                transform: translateX(50%) translateY(-30px);
+            }
+
+            25%,
+            70% {
+                opacity: 1;
+                transform: translateX(50%) translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(50%) translateY(-20px);
+            }
+
+        }
+
+        .game-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 300;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(31, 21, 15, 0.82);
+            backdrop-filter: blur(6px);
+        }
+
+        .game-overlay.hidden {
+            display: none;
+        }
+
+        .overlay-card {
+            width: 100%;
+            max-width: 510px;
+            padding: 36px;
+            border: 7px solid rgba(243, 193, 58, 0.23);
+            border-radius: 27px;
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .overlay-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 17px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(243, 193, 58, 0.14);
+            font-size: 42px;
+        }
+
+        .overlay-card h2 {
+            margin-bottom: 8px;
+            font-size: 31px;
+        }
+
+        .overlay-card p {
+            margin-bottom: 22px;
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 12px;
+        }
+
+        .overlay-info {
+            margin-bottom: 22px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+        }
+
+        .overlay-info div {
+            padding: 12px 8px;
+            border-radius: 13px;
+            background: var(--cream);
+        }
+
+        .overlay-info strong {
+            display: block;
+            font-size: 17px;
+        }
+
+        .overlay-info span {
+            color: var(--gray);
+            font-size: 9px;
+        }
+
+        .main-button {
+            width: 100%;
+            min-height: 54px;
+            border: 0;
+            border-radius: 14px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--green),
+                    var(--green-dark)
+                );
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 13px 26px rgba(79, 111, 82, 0.28);
+            transition: var(--transition);
+        }
+
+        .main-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .countdown-number {
+            position: absolute;
+            inset: 0;
+            z-index: 350;
+            display: none;
+            place-items: center;
+            background: rgba(36, 24, 16, 0.72);
+            color: var(--yellow);
+            font-size: clamp(90px, 20vw, 170px);
+            font-weight: 800;
+            text-shadow:
+                0 8px 0 var(--dark),
+                0 0 28px rgba(243, 193, 58, 0.7);
+        }
+
+        .countdown-number.show {
+            display: grid;
+            animation: countdownPulse 0.9s ease;
+        }
+
+        @keyframes countdownPulse {
+
+            0% {
+                opacity: 0;
+                transform: scale(1.8);
+            }
+
+            45% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+
+        }
+
+        .side-panel {
+            display: grid;
+            gap: 16px;
+        }
+
+        .panel-card {
+            padding: 20px;
+            border: 6px solid rgba(120, 85, 54, 0.1);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.93);
+            box-shadow: 0 12px 29px rgba(0, 0, 0, 0.09);
+        }
+
+        .panel-card h3 {
+            margin-bottom: 13px;
+            font-size: 17px;
+        }
+
+        .instruction-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--gray);
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .instruction-key {
+            min-width: 37px;
+            height: 32px;
+            padding: 0 8px;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--cream);
+            color: var(--dark);
+            font-size: 10px;
+            font-weight: 800;
+            box-shadow: 0 3px 0 #cdbca6;
+        }
+
+        .level-progress {
+            height: 13px;
+            margin: 12px 0 8px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #eadfce;
+        }
+
+        .level-progress-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--green),
+                    var(--yellow)
+                );
+            transition: width 0.3s ease;
+        }
+
+        .level-progress-text {
+            color: var(--gray);
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .mobile-controls {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .direction-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 48px);
+            grid-template-rows: repeat(2, 46px);
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .control-button {
+            border: 2px solid rgba(120, 85, 54, 0.17);
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            font-size: 20px;
+            font-weight: 800;
+            box-shadow: 0 5px 0 #cdbca6;
+            touch-action: manipulation;
+        }
+
+        .control-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #cdbca6;
+        }
+
+        .up-control {
+            grid-column: 2;
+        }
+
+        .left-control {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .down-control {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .right-control {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .attack-button {
+            border: 0;
+            border-radius: 20px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--red),
+                    #72291f
+                );
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: 0 8px 0 #5a211a;
+            touch-action: manipulation;
+        }
+
+        .attack-button:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #5a211a;
+        }
+
+        @media (max-width: 1050px) {
+
+            .game-dashboard {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .game-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            .game-page {
+                padding: 95px 8px 65px;
+            }
+
+            .game-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .heading-actions {
+                width: 100%;
+            }
+
+            .small-button {
+                flex: 1;
+            }
+
+            .game-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-card {
+                min-height: 75px;
+            }
+
+            .game-area {
+                height: 520px;
+            }
+
+            .game-window {
+                width: 130px;
+                height: 120px;
+                right: 6%;
+            }
+
+            .game-door {
+                width: 105px;
+                height: 195px;
+                left: 5%;
+            }
+
+            .wall-decoration {
+                display: none;
+            }
+
+            .side-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-controls {
+                display: grid;
+            }
+
+            .overlay-card {
+                padding: 27px 18px;
+            }
+
+        }
+
+        @media (max-width: 470px) {
+
+            .game-dashboard {
+                gap: 7px;
+            }
+
+            .dashboard-card {
+                padding: 9px;
+                border-width: 4px;
+            }
+
+            .dashboard-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+
+            .dashboard-card strong {
+                font-size: 15px;
+            }
+
+            .game-area {
+                height: 480px;
+            }
+
+            .game-wrapper {
+                border-width: 5px;
+            }
+
+            .overlay-info {
+                grid-template-columns: 1fr;
+            }
+
+            .direction-controls {
+                grid-template-columns: repeat(3, 43px);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    {% include 'includes/header.html' %}
+
+    <main class="game-page">
+
+        <div class="container">
+
+            <div class="game-heading">
+
+                <div class="heading-content">
+
+                    <span>
+                        🦎 مهمة تنظيف البيت
+                    </span>
+
+                    <h1>
+                        بيت المصايف
+                    </h1>
+
+                    <p>
+                        تحرك داخل البيت وتخلص من الوزغ قبل انتهاء الوقت.
+                    </p>
+
+                </div>
+
+                <div class="heading-actions">
+
+                    <button
+                        type="button"
+                        class="small-button"
+                        id="pauseButton"
+                    >
+                        ⏸ إيقاف
+                    </button>
+
+                    <a
+                        href="{% url 'game:characters' %}"
+                        class="small-button"
+                        style="
+                            display: grid;
+                            place-items: center;
+                        "
+                    >
+                        تغيير الشخصية
+                    </a>
+
+                </div>
+
+            </div>
+
+            <section class="game-dashboard">
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <span>
+                            الشخصية
+                        </span>
+
+                        <strong id="characterName">
+                            صالحة
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        ⭐
+                    </div>
+
+                    <div>
+
+                        <span>
+                            النقاط
+                        </span>
+
+                        <strong id="scoreValue">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        🦎
+                    </div>
+
+                    <div>
+
+                        <span>
+                            الوزغ المتبقي
+                        </span>
+
+                        <strong id="geckosValue">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        ⏱
+                    </div>
+
+                    <div>
+
+                        <span>
+                            الوقت
+                        </span>
+
+                        <strong id="timeValue">
+                            60
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        ❤️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            الحياة
+                        </span>
+
+                        <strong
+                            class="lives-value"
+                            id="livesValue"
+                        >
+                            ❤❤❤
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <article class="dashboard-card">
+
+                    <div class="dashboard-icon">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Combo
+                        </span>
+
+                        <strong
+                            class="combo-value"
+                            id="comboValue"
+                        >
+                            أ—1
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <section class="game-layout">
+
+                <div class="game-wrapper">
+
+                    <div
+                        class="game-area"
+                        id="gameArea"
+                    >
+
+                        <div class="game-wall">
+
+                            <div class="game-window"></div>
+
+                            <div class="game-door"></div>
+
+                            <div class="wall-decoration">
+                                بيتنا نظيف وجميل
+                            </div>
+
+                        </div>
+
+                        <div class="floor-rug"></div>
+
+                        <div
+                            class="player girl"
+                            id="player"
+                        >
+
+                            <div class="player-head"></div>
+
+                            <div class="player-body"></div>
+
+                            <div class="attack-range"></div>
+
+                        </div>
+
+                        <div
+                            class="level-banner"
+                            id="levelBanner"
+                        >
+                            المستوى الأول
+                        </div>
+
+                        <div
+                            class="countdown-number"
+                            id="countdownNumber"
+                        >
+                            3
+                        </div>
+
+                        <div
+                            class="game-overlay"
+                            id="startOverlay"
+                        >
+
+                            <div class="overlay-card">
+
+                                <div class="overlay-icon">
+                                    🏠
+                                </div>
+
+                                <h2>
+                                    ابدأ مهمة التنظيف
+                                </h2>
+
+                                <p>
+                                    لديك ثلاثة مستويات. تخلص من جميع الوزغ،
+                                    واحذر من اصطدامه بالشخصية حتى لا تفقد حياتك.
+                                </p>
+
+                                <div class="overlay-info">
+
+                                    <div>
+
+                                        <strong>
+                                            3
+                                        </strong>
+
+                                        <span>
+                                            مستويات
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            3
+                                        </strong>
+
+                                        <span>
+                                            قلوب
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            60
+                                        </strong>
+
+                                        <span>
+                                            ثانية
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="main-button"
+                                    id="startButton"
+                                >
+                                    ابدأ اللعبة
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="game-overlay hidden"
+                            id="pauseOverlay"
+                        >
+
+                            <div class="overlay-card">
+
+                                <div class="overlay-icon">
+                                    ⏸
+                                </div>
+
+                                <h2>
+                                    اللعبة متوقفة
+                                </h2>
+
+                                <p>
+                                    اضغط على زر الاستكمال للعودة إلى المهمة.
+                                </p>
+
+                                <button
+                                    type="button"
+                                    class="main-button"
+                                    id="resumeButton"
+                                >
+                                    استكمال اللعبة
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <aside class="side-panel">
+
+                    <section class="panel-card">
+
+                        <h3>
+                            طريقة اللعب
+                        </h3>
+
+                        <div class="instruction-list">
+
+                            <div class="instruction-item">
+
+                                <span class="instruction-key">
+                                    ↑↓
+                                </span>
+
+                                <span>
+                                    التحرك إلى الأعلى والأسفل.
+                                </span>
+
+                            </div>
+
+                            <div class="instruction-item">
+
+                                <span class="instruction-key">
+                                    ←→
+                                </span>
+
+                                <span>
+                                    التحرك إلى اليمين واليسار.
+                                </span>
+
+                            </div>
+
+                            <div class="instruction-item">
+
+                                <span class="instruction-key">
+                                    Space
+                                </span>
+
+                                <span>
+                                    تنفيذ الضربة بالقرب من الوزغ.
+                                </span>
+
+                            </div>
+
+                            <div class="instruction-item">
+
+                                <span class="instruction-key">
+                                    P
+                                </span>
+
+                                <span>
+                                    إيقاف أو استكمال اللعبة.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="panel-card">
+
+                        <h3>
+                            تقدم المستوى
+                        </h3>
+
+                        <div class="level-progress">
+
+                            <div
+                                class="level-progress-fill"
+                                id="levelProgressFill"
+                            ></div>
+
+                        </div>
+
+                        <div
+                            class="level-progress-text"
+                            id="levelProgressText"
+                        >
+                            المستوى 1 من 3
+                        </div>
+
+                    </section>
+
+                    <section class="mobile-controls">
+
+                        <div class="direction-controls">
+
+                            <button
+                                type="button"
+                                class="control-button up-control"
+                                data-direction="up"
+                            >
+                                ↑
+                            </button>
+
+                            <button
+                                type="button"
+                                class="control-button left-control"
+                                data-direction="left"
+                            >
+                                ←
+                            </button>
+
+                            <button
+                                type="button"
+                                class="control-button down-control"
+                                data-direction="down"
+                            >
+                                ↓
+                            </button>
+
+                            <button
+                                type="button"
+                                class="control-button right-control"
+                                data-direction="right"
+                            >
+                                →
+                            </button>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="attack-button"
+                            id="mobileAttackButton"
+                        >
+                            اضرب
+                        </button>
+
+                    </section>
+
+                </aside>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+<script src="{% static 'js/components.js' %}"></script>
+    <script>
+
+        const gameArea =
+            document.getElementById("gameArea");
+
+        const player =
+            document.getElementById("player");
+
+        const startOverlay =
+            document.getElementById("startOverlay");
+
+        const pauseOverlay =
+            document.getElementById("pauseOverlay");
+
+        const startButton =
+            document.getElementById("startButton");
+
+        const pauseButton =
+            document.getElementById("pauseButton");
+
+        const resumeButton =
+            document.getElementById("resumeButton");
+
+        const mobileAttackButton =
+            document.getElementById("mobileAttackButton");
+
+        const characterNameElement =
+            document.getElementById("characterName");
+
+        const scoreValue =
+            document.getElementById("scoreValue");
+
+        const geckosValue =
+            document.getElementById("geckosValue");
+
+        const timeValue =
+            document.getElementById("timeValue");
+
+        const livesValue =
+            document.getElementById("livesValue");
+
+        const comboValue =
+            document.getElementById("comboValue");
+
+        const levelBanner =
+            document.getElementById("levelBanner");
+
+        const countdownNumber =
+            document.getElementById("countdownNumber");
+
+        const levelProgressFill =
+            document.getElementById("levelProgressFill");
+
+        const levelProgressText =
+            document.getElementById("levelProgressText");
+
+
+        const levelSettings = {
+
+            1: {
+                geckos: 6,
+                speed: 1.3,
+                time: 60
+            },
+
+            2: {
+                geckos: 8,
+                speed: 1.8,
+                time: 55
+            },
+
+            3: {
+                geckos: 10,
+                speed: 2.3,
+                time: 50
+            }
+
+        };
+
+
+        let selectedCharacter =
+            localStorage.getItem(
+                "selectedCharacter"
+            ) || "girl";
+
+        let selectedCharacterName =
+            selectedCharacter === "boy"
+                ? "مفرح"
+                : "صالحة";
+
+        let currentLevel = 1;
+
+        let score = 0;
+
+        let lives = 3;
+
+        let combo = 1;
+
+        let comboTimer = null;
+
+        let timeRemaining =
+            levelSettings[1].time;
+
+        let geckosCaught = 0;
+
+        let totalGeckosCaught = 0;
+
+        let gameStarted = false;
+
+        let gamePaused = false;
+
+        let gameFinished = false;
+
+        let timerInterval = null;
+
+        let movementInterval = null;
+
+        let collisionInterval = null;
+
+        let lastCollisionTime = 0;
+
+        let geckos = [];
+
+        let pressedKeys = {};
+
+        let playerPosition = {
+            x: 50,
+            y: 70
+        };
+
+
+        function configureCharacter() {
+
+            player.classList.remove(
+                "boy",
+                "girl"
+            );
+
+            player.classList.add(
+                selectedCharacter === "boy"
+                    ? "boy"
+                    : "girl"
+            );
+
+            characterNameElement.textContent =
+                selectedCharacterName;
+
+        }
+
+
+        function updateDashboard() {
+
+            scoreValue.textContent =
+                score;
+
+            geckosValue.textContent =
+                geckos.length;
+
+            timeValue.textContent =
+                timeRemaining;
+
+            livesValue.textContent =
+                "❤".repeat(lives) +
+                "♡".repeat(3 - lives);
+
+            comboValue.textContent =
+                `أ—${combo}`;
+
+            levelProgressText.textContent =
+                `المستوى ${currentLevel} من 3`;
+
+            const currentLevelTotal =
+                levelSettings[currentLevel].geckos;
+
+            const progress =
+                currentLevelTotal > 0
+                    ? (
+                        geckosCaught /
+                        currentLevelTotal
+                    ) * 100
+                    : 0;
+
+            levelProgressFill.style.width =
+                `${Math.min(progress, 100)}%`;
+
+        }
+
+
+        function positionPlayer() {
+
+            player.style.right =
+                `${playerPosition.x}%`;
+
+            player.style.bottom =
+                `${playerPosition.y}px`;
+
+        }
+
+
+        function clamp(
+            value,
+            minimum,
+            maximum
+        ) {
+
+            return Math.min(
+                Math.max(value, minimum),
+                maximum
+            );
+
+        }
+
+
+        function movePlayer(direction) {
+
+            if (
+                !gameStarted ||
+                gamePaused ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            const stepX = 2.1;
+
+            const stepY = 7;
+
+            if (direction === "left") {
+
+                playerPosition.x += stepX;
+
+            }
+
+            if (direction === "right") {
+
+                playerPosition.x -= stepX;
+
+            }
+
+            if (direction === "up") {
+
+                playerPosition.y += stepY;
+
+            }
+
+            if (direction === "down") {
+
+                playerPosition.y -= stepY;
+
+            }
+
+            playerPosition.x =
+                clamp(
+                    playerPosition.x,
+                    7,
+                    93
+                );
+
+            playerPosition.y =
+                clamp(
+                    playerPosition.y,
+                    25,
+                    gameArea.clientHeight - 135
+                );
+
+            player.classList.add("walking");
+
+            positionPlayer();
+
+            window.clearTimeout(
+                player.walkTimeout
+            );
+
+            player.walkTimeout =
+
+            window.setTimeout(
+                function () {
+
+                        player.classList.remove(
+                            "walking"
+                        );
+
+                    },
+                    130
+                );
+
+        }
+
+
+        function getRandomPosition() {
+
+            return {
+
+                x:
+                    Math.random() *
+                    (
+                        gameArea.clientWidth -
+                        90
+                    ) +
+                    20,
+
+                y:
+                    Math.random() *
+                    (
+                        gameArea.clientHeight -
+                        180
+                    ) +
+                    30
+
+            };
+
+        }
+
+
+        function createGecko() {
+
+            const geckoElement =
+                document.createElement("div");
+
+            geckoElement.className =
+                "gecko";
+
+            const position =
+                getRandomPosition();
+
+            const directionAngle =
+                Math.random() * Math.PI * 2;
+
+            const speed =
+                levelSettings[currentLevel].speed +
+                Math.random() * 0.7;
+
+            const geckoObject = {
+
+                element:
+                    geckoElement,
+
+                x:
+                    position.x,
+
+                y:
+                    position.y,
+
+                velocityX:
+                    Math.cos(directionAngle) *
+                    speed,
+
+                velocityY:
+                    Math.sin(directionAngle) *
+                    speed,
+
+                alive:
+                    true
+
+            };
+
+            geckoElement.style.left =
+                `${geckoObject.x}px`;
+
+            geckoElement.style.top =
+                `${geckoObject.y}px`;
+
+            geckoElement.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    attemptHitGecko(
+                        geckoObject,
+                        true
+                    );
+
+                }
+            );
+
+            gameArea.appendChild(
+                geckoElement
+            );
+
+            geckos.push(
+                geckoObject
+            );
+
+        }
+
+
+        function spawnLevelGeckos() {
+
+            clearGeckos();
+
+            geckosCaught = 0;
+
+            const amount =
+                levelSettings[currentLevel].geckos;
+
+            for (
+                let index = 0;
+                index < amount;
+                index += 1
+            ) {
+
+                createGecko();
+
+            }
+
+            updateDashboard();
+
+        }
+
+
+        function clearGeckos() {
+
+            geckos.forEach(
+                function (gecko) {
+
+                    gecko.element.remove();
+
+                }
+            );
+
+            geckos = [];
+
+        }
+
+
+        function animateGeckos() {
+
+            if (
+                !gameStarted ||
+                gamePaused ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            const areaWidth =
+                gameArea.clientWidth;
+
+            const areaHeight =
+                gameArea.clientHeight;
+
+            geckos.forEach(
+                function (gecko) {
+
+                    if (!gecko.alive) {
+                        return;
+                    }
+
+                    gecko.x +=
+                        gecko.velocityX;
+
+                    gecko.y +=
+                        gecko.velocityY;
+
+                    if (
+                        gecko.x <= 6 ||
+                        gecko.x >= areaWidth - 95
+                    ) {
+
+                        gecko.velocityX *= -1;
+
+                    }
+
+                    if (
+                        gecko.y <= 8 ||
+                        gecko.y >= areaHeight - 45
+                    ) {
+
+                        gecko.velocityY *= -1;
+
+                    }
+
+                    gecko.x =
+                        clamp(
+                            gecko.x,
+                            6,
+                            areaWidth - 95
+                        );
+
+                    gecko.y =
+                        clamp(
+                            gecko.y,
+                            8,
+                            areaHeight - 45
+                        );
+
+                    const rotation =
+                        gecko.velocityX >= 0
+                            ? 0
+                            : 180;
+
+                    gecko.element.style.left =
+                        `${gecko.x}px`;
+
+                    gecko.element.style.top =
+                        `${gecko.y}px`;
+
+                    gecko.element.style.transform =
+                        `rotateY(${rotation}deg)`;
+
+                }
+            );
+
+        }
+
+
+        function getElementCenter(element) {
+
+            const areaRect =
+                gameArea.getBoundingClientRect();
+
+            const elementRect =
+                element.getBoundingClientRect();
+
+            return {
+
+                x:
+                    elementRect.left -
+                    areaRect.left +
+                    elementRect.width / 2,
+
+                y:
+                    elementRect.top -
+                    areaRect.top +
+                    elementRect.height / 2
+
+            };
+
+        }
+
+
+        function getDistance(
+            firstPoint,
+            secondPoint
+        ) {
+
+            const differenceX =
+                firstPoint.x -
+                secondPoint.x;
+
+            const differenceY =
+                firstPoint.y -
+                secondPoint.y;
+
+            return Math.sqrt(
+                differenceX * differenceX +
+                differenceY * differenceY
+            );
+
+        }
+
+
+        function performAttack() {
+
+            if (
+                !gameStarted ||
+                gamePaused ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            player.classList.remove(
+                "attacking"
+            );
+
+            void player.offsetWidth;
+
+            player.classList.add(
+                "attacking"
+            );
+
+            const playerCenter =
+                getElementCenter(player);
+
+            let hitAnyGecko = false;
+
+            geckos.forEach(
+                function (gecko) {
+
+                    if (!gecko.alive) {
+                        return;
+                    }
+
+                    const geckoCenter =
+                        getElementCenter(
+                            gecko.element
+                        );
+
+                    const distance =
+                        getDistance(
+                            playerCenter,
+                            geckoCenter
+                        );
+
+                    if (distance <= 105) {
+
+                        attemptHitGecko(
+                            gecko,
+                            false
+                        );
+
+                        hitAnyGecko = true;
+
+                    }
+
+                }
+            );
+
+            if (!hitAnyGecko) {
+
+                resetCombo();
+
+            }
+
+            window.setTimeout(
+                function () {
+
+                    player.classList.remove(
+                        "attacking"
+                    );
+
+                },
+                240
+            );
+
+        }
+
+
+        function attemptHitGecko(
+            gecko,
+            clickedDirectly
+        ) {
+
+            if (
+                !gecko.alive ||
+                !gameStarted ||
+                gamePaused ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            if (clickedDirectly) {
+
+                const playerCenter =
+                    getElementCenter(player);
+
+                const geckoCenter =
+                    getElementCenter(
+                        gecko.element
+                    );
+
+                const distance =
+                    getDistance(
+                        playerCenter,
+                        geckoCenter
+                    );
+
+                if (distance > 180) {
+
+                    showDamageEffect(
+                        gecko.x,
+                        gecko.y,
+                        "بعيد!"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+            hitGecko(gecko);
+
+        }
+
+
+        function hitGecko(gecko) {
+
+            gecko.alive = false;
+
+            gecko.element.classList.add(
+                "hit"
+            );
+
+            geckosCaught += 1;
+
+            totalGeckosCaught += 1;
+
+            score +=
+                100 * combo;
+
+            showScoreEffect(
+                gecko.x,
+                gecko.y,
+                `+${100 * combo}`
+            );
+
+            increaseCombo();
+
+            window.setTimeout(
+                function () {
+
+                    gecko.element.remove();
+
+                    geckos =
+                        geckos.filter(
+                            function (item) {
+
+                                return item !== gecko;
+
+                            }
+                        );
+
+                    updateDashboard();
+
+                    checkLevelCompletion();
+
+                },
+                280
+            );
+
+        }
+
+
+        function increaseCombo() {
+
+            combo =
+                Math.min(
+                    combo + 1,
+                    5
+                );
+
+            comboValue.classList.remove(
+                "active"
+            );
+
+            void comboValue.offsetWidth;
+
+            comboValue.classList.add(
+                "active"
+            );
+
+            window.clearTimeout(
+                comboTimer
+            );
+
+            comboTimer =
+                window.setTimeout(
+                    resetCombo,
+                    2500
+                );
+
+        }
+
+
+        function resetCombo() {
+
+            combo = 1;
+
+            comboValue.classList.remove(
+                "active"
+            );
+
+            updateDashboard();
+
+        }
+
+
+        function showScoreEffect(
+            x,
+            y,
+            text
+        ) {
+
+            const effect =
+                document.createElement("div");
+
+            effect.className =
+                "score-effect";
+
+            effect.textContent =
+                text;
+
+            effect.style.left =
+                `${x}px`;
+
+            effect.style.top =
+                `${y}px`;
+
+            gameArea.appendChild(
+                effect
+            );
+
+            window.setTimeout(
+                function () {
+
+                    effect.remove();
+
+                },
+                850
+            );
+
+        }
+
+
+        function showDamageEffect(
+            x,
+            y,
+            text
+        ) {
+
+            const effect =
+                document.createElement("div");
+
+            effect.className =
+                "damage-effect";
+
+            effect.textContent =
+                text;
+
+            effect.style.left =
+                `${x}px`;
+
+            effect.style.top =
+                `${y}px`;
+
+            gameArea.appendChild(
+                effect
+            );
+
+            window.setTimeout(
+                function () {
+
+                    effect.remove();
+
+                },
+                900
+            );
+
+        }
+
+
+        function checkPlayerCollisions() {
+
+            if (
+                !gameStarted ||
+                gamePaused ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            const currentTime =
+                Date.now();
+
+            if (
+                currentTime -
+                lastCollisionTime <
+                1400
+            ) {
+                return;
+            }
+
+            const playerCenter =
+                getElementCenter(player);
+
+            geckos.some(
+                function (gecko) {
+
+                    if (!gecko.alive) {
+                        return false;
+                    }
+
+                    const geckoCenter =
+                        getElementCenter(
+                            gecko.element
+                        );
+
+                    const distance =
+                        getDistance(
+                            playerCenter,
+                            geckoCenter
+                        );
+
+                    if (distance < 48) {
+
+                        loseLife();
+
+                        lastCollisionTime =
+                            currentTime;
+
+                        gecko.velocityX *= -1.5;
+
+                        gecko.velocityY *= -1.5;
+
+                        return true;
+
+                    }
+
+                    return false;
+
+                }
+            );
+
+        }
+
+
+        function loseLife() {
+
+            lives -= 1;
+
+            resetCombo();
+
+            gameArea.classList.remove(
+                "shake"
+            );
+
+            void gameArea.offsetWidth;
+
+            gameArea.classList.add(
+                "shake"
+            );
+
+            showDamageEffect(
+                gameArea.clientWidth / 2,
+                gameArea.clientHeight / 2,
+                "-❤"
+            );
+
+            updateDashboard();
+
+            if (lives <= 0) {
+
+                finishGame("lose");
+
+            }
+
+        }
+
+
+        function checkLevelCompletion() {
+
+            if (
+                geckos.length > 0 ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            if (currentLevel < 3) {
+
+                currentLevel += 1;
+
+                score +=
+                    timeRemaining * 10;
+
+                timeRemaining =
+                    levelSettings[currentLevel].time;
+
+                showLevelBanner();
+
+            window.setTimeout(
+                function () {
+
+                        spawnLevelGeckos();
+
+                    },
+                    1200
+                );
+
+            } else {
+
+                finishGame("win");
+
+            }
+
+        }
+
+
+        function showLevelBanner() {
+
+            const levelNames = {
+                1: "المستوى الأول",
+                2: "المستوى الثاني",
+                3: "المستوى الأخير"
+            };
+
+            levelBanner.textContent =
+                levelNames[currentLevel];
+
+            levelBanner.classList.remove(
+                "show"
+            );
+
+            void levelBanner.offsetWidth;
+
+            levelBanner.classList.add(
+                "show"
+            );
+
+            updateDashboard();
+
+        }
+
+
+        function startTimer() {
+
+            window.clearInterval(
+                timerInterval
+            );
+
+            timerInterval =
+                window.setInterval(
+                    function () {
+
+                        if (
+                            !gameStarted ||
+                            gamePaused ||
+                            gameFinished
+                        ) {
+                            return;
+                        }
+
+                        timeRemaining -= 1;
+
+                        updateDashboard();
+
+                        if (
+                            timeRemaining <= 0
+                        ) {
+
+                            finishGame("lose");
+
+                        }
+
+                    },
+                    1000
+                );
+
+        }
+
+
+        function startGameLoops() {
+
+            window.clearInterval(
+                movementInterval
+            );
+
+            window.clearInterval(
+                collisionInterval
+            );
+
+            movementInterval =
+                window.setInterval(
+                    animateGeckos,
+                    30
+                );
+
+            collisionInterval =
+                window.setInterval(
+                    checkPlayerCollisions,
+                    100
+                );
+
+        }
+
+
+        function startCountdown() {
+
+            let count = 3;
+
+            startOverlay.classList.add(
+                "hidden"
+            );
+
+            countdownNumber.textContent =
+                count;
+
+            countdownNumber.classList.add(
+                "show"
+            );
+
+            const countdownInterval =
+                window.setInterval(
+                    function () {
+
+                        count -= 1;
+
+                        countdownNumber.classList.remove(
+                            "show"
+                        );
+
+                        void countdownNumber.offsetWidth;
+
+                        if (count > 0) {
+
+                            countdownNumber.textContent =
+                                count;
+
+                            countdownNumber.classList.add(
+                                "show"
+                            );
+
+                            return;
+
+                        }
+
+                        if (count === 0) {
+
+                            countdownNumber.textContent =
+                                "ابدأ!";
+
+                            countdownNumber.classList.add(
+                                "show"
+                            );
+
+                            return;
+
+                        }
+
+                        window.clearInterval(
+                            countdownInterval
+                        );
+
+                        countdownNumber.classList.remove(
+                            "show"
+                        );
+
+                        beginGame();
+
+                    },
+                    900
+                );
+
+        }
+
+
+        function beginGame() {
+
+            resetGameState();
+
+            gameStarted = true;
+
+            gamePaused = false;
+
+            gameFinished = false;
+
+            pauseButton.textContent =
+                "⏸ إيقاف";
+
+            spawnLevelGeckos();
+
+            showLevelBanner();
+
+            startTimer();
+
+            startGameLoops();
+
+            updateDashboard();
+
+        }
+
+
+        function resetGameState() {
+
+            window.clearInterval(
+                timerInterval
+            );
+
+            window.clearInterval(
+                movementInterval
+            );
+
+            window.clearInterval(
+                collisionInterval
+            );
+
+            clearGeckos();
+
+            currentLevel = 1;
+
+            score = 0;
+
+            lives = 3;
+
+            combo = 1;
+
+            timeRemaining =
+                levelSettings[1].time;
+
+            geckosCaught = 0;
+
+            totalGeckosCaught = 0;
+
+            playerPosition = {
+                x: 50,
+                y: 70
+            };
+
+            positionPlayer();
+
+            updateDashboard();
+
+        }
+
+
+        function togglePause() {
+
+            if (
+                !gameStarted ||
+                gameFinished
+            ) {
+                return;
+            }
+
+            gamePaused =
+                !gamePaused;
+
+            if (gamePaused) {
+
+                pauseOverlay.classList.remove(
+                    "hidden"
+                );
+
+                pauseButton.textContent =
+                    "▶ استكمال";
+
+            } else {
+
+                pauseOverlay.classList.add(
+                    "hidden"
+                );
+
+                pauseButton.textContent =
+                    "⏸ إيقاف";
+
+            }
+
+        }
+
+
+        function finishGame(status) {
+
+            if (gameFinished) {
+                return;
+            }
+
+            localStorage.setItem("gameRunId", window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+
+            gameFinished = true;
+
+            gameStarted = false;
+
+            gamePaused = false;
+
+            window.clearInterval(
+                timerInterval
+            );
+
+            window.clearInterval(
+                movementInterval
+            );
+
+            window.clearInterval(
+                collisionInterval
+            );
+
+            if (status === "win") {
+
+                score +=
+                    Math.max(
+                        timeRemaining,
+                        0
+                    ) * 15;
+
+            }
+
+            localStorage.setItem(
+                "gameScore",
+                String(score)
+            );
+
+            localStorage.setItem(
+                "gameTimeRemaining",
+                String(
+                    Math.max(
+                        timeRemaining,
+                        0
+                    )
+                )
+            );
+
+            localStorage.setItem(
+                "gameStatus",
+                status
+            );
+
+            localStorage.setItem(
+                "geckosCaught",
+                String(totalGeckosCaught)
+            );
+
+            localStorage.setItem(
+                "gameLevel",
+                String(currentLevel)
+            );
+
+            localStorage.setItem(
+                "gameLives",
+                String(Math.max(lives, 0))
+            );
+
+            window.setTimeout(
+                function () {
+
+                  window.location.href = "{% url 'game:result' %}";
+                },
+                750
+            );
+
+        }
+
+
+        function processKeyboardMovement() {
+
+            if (
+                pressedKeys.ArrowUp ||
+                pressedKeys.w ||
+                pressedKeys.W
+            ) {
+
+                movePlayer("up");
+
+            }
+
+            if (
+                pressedKeys.ArrowDown ||
+                pressedKeys.s ||
+                pressedKeys.S
+            ) {
+
+                movePlayer("down");
+
+            }
+
+            if (
+                pressedKeys.ArrowLeft ||
+                pressedKeys.a ||
+                pressedKeys.A
+            ) {
+
+                movePlayer("left");
+
+            }
+
+            if (
+                pressedKeys.ArrowRight ||
+                pressedKeys.d ||
+                pressedKeys.D
+            ) {
+
+                movePlayer("right");
+
+            }
+
+            window.requestAnimationFrame(
+                processKeyboardMovement
+            );
+
+        }
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                const blockedKeys = [
+                    "ArrowUp",
+                    "ArrowDown",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    " "
+                ];
+
+                if (
+                    blockedKeys.includes(
+                        event.key
+                    )
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+                pressedKeys[event.key] =
+                    true;
+
+                if (
+                    event.code === "Space"
+                ) {
+
+                    performAttack();
+
+                }
+
+                if (
+                    event.key === "p" ||
+                    event.key === "P"
+                ) {
+
+                    togglePause();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keyup",
+            function (event) {
+
+                pressedKeys[event.key] =
+                    false;
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                ".control-button"
+            )
+            .forEach(
+                function (button) {
+
+                    const direction =
+                        button.dataset.direction;
+
+                    let holdInterval = null;
+
+                    function startMoving(event) {
+
+                        event.preventDefault();
+
+                        movePlayer(direction);
+
+                        holdInterval =
+                            window.setInterval(
+                                function () {
+
+                                    movePlayer(
+                                        direction
+                                    );
+
+                                },
+                                80
+                            );
+
+                    }
+
+                    function stopMoving() {
+
+                        window.clearInterval(
+                            holdInterval
+                        );
+
+                    }
+
+                    button.addEventListener(
+                        "pointerdown",
+                        startMoving
+                    );
+
+                    button.addEventListener(
+                        "pointerup",
+                        stopMoving
+                    );
+
+                    button.addEventListener(
+                        "pointerleave",
+                        stopMoving
+                    );
+
+                    button.addEventListener(
+                        "pointercancel",
+                        stopMoving
+                    );
+
+                }
+            );
+
+
+        startButton.addEventListener(
+            "click",
+            startCountdown
+        );
+
+
+        pauseButton.addEventListener(
+            "click",
+            togglePause
+        );
+
+
+        resumeButton.addEventListener(
+            "click",
+            togglePause
+        );
+
+
+        mobileAttackButton.addEventListener(
+            "click",
+            performAttack
+        );
+
+
+        gameArea.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === gameArea
+                ) {
+
+                    performAttack();
+
+                }
+
+            }
+        );
+
+
+        window.addEventListener(
+            "blur",
+            function () {
+
+                if (
+                    gameStarted &&
+                    !gamePaused &&
+                    !gameFinished
+                ) {
+
+                    togglePause();
+
+                }
+
+            }
+        );
+
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                playerPosition.x =
+                    clamp(
+                        playerPosition.x,
+                        7,
+                        93
+                    );
+
+                playerPosition.y =
+                    clamp(
+                        playerPosition.y,
+                        25,
+                        gameArea.clientHeight - 135
+                    );
+
+                positionPlayer();
+
+            }
+        );
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                configureCharacter();
+
+                positionPlayer();
+
+                updateDashboard();
+
+                processKeyboardMovement();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

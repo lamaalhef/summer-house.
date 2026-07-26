@@ -1,0 +1,91 @@
+﻿<style>
+.site-header{position:sticky;top:0;z-index:1000;width:100%;border-top:6px solid #2d2118;border-bottom:1px solid rgba(112,73,45,.16);background:rgba(255,250,242,.97);box-shadow:0 8px 22px rgba(48,31,17,.09);backdrop-filter:blur(12px)}
+.header-container{width:min(1180px,92%);min-height:78px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}.logo-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#38513b;color:#fff;font-size:25px;box-shadow:0 6px 14px rgba(56,81,59,.23)}.logo-text{display:flex;flex-direction:column;line-height:1.35}.logo-text strong{font-size:19px;color:#2d2118}.logo-text small{font-size:10px;font-weight:700;color:#70492d}.main-nav{display:flex;align-items:center;gap:3px}.nav-link{padding:8px 10px;border-radius:9px;font-size:13px;font-weight:700;white-space:nowrap;transition:.2s}.nav-link:hover,.nav-link.active{background:#eaf0e5;color:#38513b}.account-button{margin-right:5px;padding:9px 14px;border-radius:10px;background:#38513b;color:#fff;font-size:13px;font-weight:800;white-space:nowrap;box-shadow:0 7px 15px rgba(56,81,59,.18)}.account-button:hover{background:#70492d}.menu-button{display:none}
+@media(max-width:900px){.menu-button{width:42px;height:38px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;border:0;border-radius:9px;background:#38513b}.menu-button span{width:19px;height:2px;border-radius:3px;background:#fff}.main-nav{display:none;position:absolute;top:78px;right:4%;left:4%;padding:12px;align-items:stretch;flex-direction:column;background:#fffaf2;border:1px solid rgba(112,73,45,.12);border-radius:0 0 14px 14px;box-shadow:0 14px 28px rgba(41,28,15,.14)}.main-nav.open{display:flex}.account-button{margin:4px 0 0;text-align:center}.nav-link{padding:10px}}
+@media(max-width:440px){.logo-text small{display:none}.logo-text strong{font-size:17px}}
+</style>
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a href="{% url 'core:home' %}" class="logo">
+
+            <span class="logo-icon">🏡</span>
+
+            <span class="logo-text">
+
+                <strong>بيت المصايف</strong>
+
+                <small>
+                    مغامرة صيفية من الجنوب
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="فتح القائمة"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <nav class="main-nav" id="mainNav">
+
+            <a
+                href="{% url 'core:home' %}"
+                class="nav-link"
+            >
+                الرئيسية
+            </a>
+
+            <a
+                href="{% url 'core:story' %}"
+                class="nav-link"
+            >
+                القصة
+            </a>
+
+            <a
+                href="{% url 'game:characters' %}"
+                class="nav-link"
+            >
+                الشخصيات
+            </a>
+
+            <a
+                href="{% url 'game:leaderboard' %}"
+                class="nav-link"
+            >
+                النتائج
+            </a>
+
+            <a
+                href="{% url 'accounts:login' %}"
+                class="nav-link"
+            >
+                تسجيل الدخول
+            </a>
+
+            <a
+                href="{% url 'accounts:register' %}"
+                class="account-button"
+            >
+                إنشاء حساب
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>

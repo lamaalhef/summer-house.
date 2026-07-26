@@ -1,0 +1,35 @@
+﻿<style>
+.site-footer{margin-top:0;background:#292219;color:#f7eddc}.footer-pattern{height:8px;background:repeating-linear-gradient(135deg,#dfaf42 0 14px,#a24738 14px 28px,#779069 28px 42px)}.footer-container{width:min(1180px,92%);margin:auto;padding:45px 0 35px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:35px}.footer-logo{display:flex;align-items:center;gap:10px}.footer-logo-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:#dfaf42;color:#292219;font-size:24px}.footer-logo-text{display:flex;flex-direction:column;line-height:1.35}.footer-logo-text strong{font-size:19px}.footer-logo-text small{font-size:10px;color:#ddcda9}.footer-about p{max-width:430px;color:#d5c7ae;font-size:13px;line-height:1.9}.saudi-label{display:inline-block;padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.08);font-size:12px}.footer-links{display:flex;flex-direction:column;gap:7px}.footer-links h3{margin:0 0 5px;font-size:15px;color:#fff}.footer-links a{font-size:13px;color:#d5c7ae}.footer-links a:hover{color:#dfaf42}.footer-bottom{padding:15px 4%;display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(255,255,255,.13);color:#bcae97;font-size:11px}.footer-bottom p{margin:0}@media(max-width:720px){.footer-container{grid-template-columns:1fr 1fr}.footer-about{grid-column:span 2}.footer-bottom{flex-direction:column;text-align:center}}@media(max-width:440px){.footer-container{grid-template-columns:1fr}.footer-about{grid-column:auto}}
+</style>
+<footer class="site-footer" aria-label="تذييل الموقع">
+    <div class="footer-pattern" aria-hidden="true"></div>
+    <div class="footer-container">
+        <section class="footer-about">
+            <a href="{% url 'core:home' %}" class="footer-logo" aria-label="بيت المصايف - الرئيسية">
+                <span class="footer-logo-icon">⌂</span>
+                <span class="footer-logo-text"><strong>بيت المصايف</strong><small>مغامرة صيفية من الجنوب</small></span>
+            </a>
+            <p>لعبة سعودية دافئة مستوحاة من أجواء عسير. اختر شخصيتك، جهّز البيت الحجري، واستقبل ضيوف الصيف.</p>
+            <span class="saudi-label">صُنع بحب في السعودية 🇸🇦</span>
+        </section>
+        <nav class="footer-links" aria-label="روابط اللعبة">
+            <h3>اكتشف اللعبة</h3>
+            <a href="{% url 'core:home' %}">الرئيسية</a>
+            <a href="{% url 'core:story' %}">قصة اللعبة</a>
+            <a href="{% url 'game:characters' %}">اختيار الشخصية</a>
+            <a href="{% url 'game:play' %}">ابدأ اللعب</a>
+        </nav>
+        <nav class="footer-links" aria-label="روابط الحساب">
+            <h3>حساب اللاعب</h3>
+            <a href="{% url 'accounts:login' %}">تسجيل الدخول</a>
+            <a href="{% url 'accounts:register' %}">إنشاء حساب</a>
+            <a href="{% url 'accounts:profile' %}">الملف الشخصي</a>
+            <a href="{% url 'game:leaderboard' %}">لوحة النتائج</a>
+        </nav>
+    </div>
+    <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة © <span id="currentYear"></span> بيت المصايف</p>
+        <p>صُمّم لتبدأ المغامرة</p>
+    </div>
+</footer>
+

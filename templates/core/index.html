@@ -1,0 +1,3046 @@
+﻿{% load static %}
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="بيت المصايف - لعبة سعودية مستوحاة من أجواء عسير"
+    >
+
+    <title>
+        بيت المصايف | الرئيسية
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        :root {
+
+            --dark-brown: #26170f;
+            --brown: #573820;
+            --light-brown: #91643d;
+
+            --green-dark: #304628;
+            --green: #5d7544;
+            --green-light: #8da06c;
+
+            --cream: #f4e5c9;
+            --cream-light: #fffaf0;
+
+            --yellow: #e1b13f;
+            --red: #a23c31;
+            --blue: #4c7478;
+
+            --stone-dark: #403a31;
+            --stone: #746957;
+            --stone-light: #9d9179;
+
+            --white: #ffffff;
+
+            --text: #39281d;
+            --muted: #786655;
+
+            --shadow:
+                0 20px 50px
+                rgba(38, 23, 15, 0.16);
+
+            --transition:
+                0.3s ease;
+
+        }
+
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            background:
+                var(--cream-light);
+
+            color:
+                var(--text);
+
+            font-family:
+                "Cairo",
+                sans-serif;
+
+        }
+
+
+        a {
+
+            color: inherit;
+            text-decoration: none;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
+        }
+
+
+        /* =========================
+           الهيدر
+        ========================== */
+
+        .site-header {
+
+            width: 100%;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            border-top:
+                10px solid
+                var(--dark-brown);
+
+            border-bottom:
+                1px solid
+                rgba(87, 56, 32, 0.14);
+
+            background:
+                rgba(255, 250, 240, 0.96);
+
+            box-shadow:
+                0 8px 25px
+                rgba(38, 23, 15, 0.09);
+
+            backdrop-filter:
+                blur(15px);
+
+        }
+
+
+        .site-header::before {
+
+            content: "";
+
+            height: 10px;
+
+            position: absolute;
+
+            top: -10px;
+            right: 0;
+            left: 0;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    transparent 25%,
+                    var(--yellow) 25% 43%,
+                    transparent 43%
+                )
+                0 0 / 34px 17px,
+
+                linear-gradient(
+                    45deg,
+                    transparent 25%,
+                    var(--red) 25% 43%,
+                    transparent 43%
+                )
+                17px 0 / 34px 17px,
+
+                var(--dark-brown);
+
+        }
+
+
+        .header-container {
+
+            width:
+                min(1200px, 92%);
+
+            min-height: 88px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 25px;
+
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .logo-icon {
+
+            width: 56px;
+            height: 56px;
+
+            display: grid;
+
+            place-items: center;
+
+            border:
+                3px solid
+                var(--brown);
+
+            border-radius: 16px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    0deg,
+
+                    #766957 0 8px,
+
+                    #493d32 9px 11px
+
+                );
+
+            font-size: 28px;
+
+            box-shadow:
+                0 9px 20px
+                rgba(38, 23, 15, 0.19);
+
+        }
+
+
+        .logo-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            line-height: 1.4;
+
+        }
+
+
+        .logo-text strong {
+
+            color:
+                var(--dark-brown);
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+        }
+
+
+        .logo-text small {
+
+            color:
+                var(--light-brown);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .main-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+
+        }
+
+
+        .nav-link {
+
+            padding:
+                10px 13px;
+
+            border-radius: 12px;
+
+            color:
+                var(--text);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition:
+                var(--transition);
+
+        }
+
+
+        .nav-link:hover,
+        .nav-link.active {
+
+            background:
+                rgba(93, 117, 68, 0.12);
+
+            color:
+                var(--green-dark);
+
+        }
+
+
+        .nav-link.active {
+
+            position: relative;
+
+        }
+
+
+        .nav-link.active::after {
+
+            content: "";
+
+            height: 3px;
+
+            position: absolute;
+
+            right: 14px;
+            left: 14px;
+            bottom: 3px;
+
+            border-radius: 10px;
+
+            background:
+                var(--green);
+
+        }
+
+
+        .account-button {
+
+            margin-right: 7px;
+
+            padding:
+                11px 19px;
+
+            border-radius: 13px;
+
+            background:
+                var(--green-dark);
+
+            color:
+                var(--white);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 10px 22px
+                rgba(48, 70, 40, 0.22);
+
+            transition:
+                var(--transition);
+
+        }
+
+
+        .account-button:hover {
+
+            background:
+                var(--brown);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .menu-button {
+
+            width: 46px;
+            height: 42px;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            background:
+                var(--dark-brown);
+
+            cursor: pointer;
+
+        }
+
+
+        .menu-button span {
+
+            width: 21px;
+            height: 2px;
+
+            border-radius: 10px;
+
+            background:
+                var(--white);
+
+        }
+
+
+        /* =========================
+           البانر الرئيسي
+        ========================== */
+
+        .hero {
+
+            min-height:
+                calc(100vh - 98px);
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            background:
+
+                radial-gradient(
+
+                    circle at 78% 20%,
+
+                    rgba(225, 177, 63, 0.25),
+
+                    transparent 27%
+
+                ),
+
+                linear-gradient(
+
+                    125deg,
+
+                    #fffaf0 0%,
+
+                    #f1ddbc 55%,
+
+                    #d3be98 100%
+
+                );
+
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    transparent 0 42px,
+
+                    rgba(162, 60, 49, 0.025)
+                    43px 45px
+
+                );
+
+        }
+
+
+        .hero-container {
+
+            width:
+                min(1200px, 92%);
+
+            margin: auto;
+
+            padding:
+                70px 0;
+
+            position: relative;
+
+            z-index: 2;
+
+            display: grid;
+
+            grid-template-columns:
+                0.95fr 1.05fr;
+
+            align-items: center;
+
+            gap: 55px;
+
+        }
+
+
+        .hero-label {
+
+            width: fit-content;
+
+            margin-bottom: 20px;
+
+            padding:
+                9px 16px;
+
+            border:
+                1px solid
+                rgba(162, 60, 49, 0.2);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.58);
+
+            color:
+                var(--red);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .hero-content h1 {
+
+            margin-bottom: 12px;
+
+            color:
+                var(--dark-brown);
+
+            font-size:
+                clamp(51px, 7vw, 88px);
+
+            line-height: 1.12;
+
+            font-weight: 800;
+
+        }
+
+
+        .hero-content h1 span {
+
+            color:
+                var(--green-dark);
+
+            position: relative;
+
+        }
+
+
+        .hero-content h1 span::after {
+
+            content: "";
+
+            height: 10px;
+
+            position: absolute;
+
+            right: 0;
+            left: 0;
+            bottom: 5px;
+
+            z-index: -1;
+
+            border-radius: 20px;
+
+            background:
+                var(--yellow);
+
+            opacity: 0.65;
+
+        }
+
+
+        .hero-subtitle {
+
+            margin-bottom: 16px;
+
+            color:
+                var(--light-brown);
+
+            font-size:
+                clamp(21px, 3vw, 31px);
+
+            font-weight: 800;
+
+        }
+
+
+        .hero-description {
+
+            max-width: 590px;
+
+            margin-bottom: 28px;
+
+            color:
+                var(--muted);
+
+            font-size: 17px;
+
+            line-height: 2;
+
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+        }
+
+
+        .primary-button,
+        .secondary-button {
+
+            min-height: 56px;
+
+            padding:
+                0 27px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            border-radius: 15px;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            transition:
+                var(--transition);
+
+        }
+
+
+        .primary-button {
+
+            background:
+                var(--green-dark);
+
+            color:
+                var(--white);
+
+            box-shadow:
+                0 14px 28px
+                rgba(48, 70, 40, 0.22);
+
+        }
+
+
+        .primary-button:hover {
+
+            background:
+                var(--brown);
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        .secondary-button {
+
+            border:
+                1px solid
+                rgba(87, 56, 32, 0.22);
+
+            background:
+                rgba(255, 255, 255, 0.58);
+
+            color:
+                var(--dark-brown);
+
+        }
+
+
+        .secondary-button:hover {
+
+            background:
+                var(--white);
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        /* =========================
+           مشهد البيت الحجري
+        ========================== */
+
+        .hero-scene {
+
+            min-height: 570px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: center;
+
+        }
+
+
+        .sun {
+
+            width: 100px;
+            height: 100px;
+
+            position: absolute;
+
+            top: 17px;
+            left: 25px;
+
+            border-radius: 50%;
+
+            background:
+                var(--yellow);
+
+            box-shadow:
+                0 0 0 22px
+                rgba(225, 177, 63, 0.13);
+
+        }
+
+
+        .mountain {
+
+            width: 530px;
+            height: 285px;
+
+            position: absolute;
+
+            right: 0;
+            bottom: 0;
+
+            clip-path:
+
+                polygon(
+
+                    0 100%,
+
+                    18% 45%,
+
+                    31% 70%,
+
+                    50% 16%,
+
+                    69% 63%,
+
+                    83% 37%,
+
+                    100% 100%
+
+                );
+
+            background:
+
+                linear-gradient(
+
+                    145deg,
+
+                    var(--green-light),
+
+                    var(--green-dark)
+
+                );
+
+            opacity: 0.7;
+
+        }
+
+
+        .stone-house {
+
+            width: 380px;
+            height: 395px;
+
+            position: absolute;
+
+            right: 45px;
+            bottom: 32px;
+
+            z-index: 3;
+
+            border:
+                8px solid
+                var(--stone-dark);
+
+            border-radius: 9px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    0deg,
+
+                    transparent 0 34px,
+
+                    rgba(48, 42, 35, 0.55)
+                    35px 38px
+
+                ),
+
+                repeating-linear-gradient(
+
+                    90deg,
+
+                    #7d725e 0 50px,
+
+                    #51493d 51px 55px,
+
+                    #91846c 56px 94px,
+
+                    #5e5547 95px 100px
+
+                );
+
+            box-shadow:
+                var(--shadow);
+
+        }
+
+
+        .stone-house::before {
+
+            content: "";
+
+            height: 58px;
+
+            position: absolute;
+
+            top: -31px;
+            right: -17px;
+            left: -17px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    90deg,
+
+                    #3e3025 0 38px,
+
+                    #654c36 39px 73px
+
+                );
+
+            clip-path:
+
+                polygon(
+
+                    0 42%,
+                    5% 5%,
+                    10% 42%,
+                    15% 5%,
+                    20% 42%,
+                    25% 5%,
+                    30% 42%,
+                    35% 5%,
+                    40% 42%,
+                    45% 5%,
+                    50% 42%,
+                    55% 5%,
+                    60% 42%,
+                    65% 5%,
+                    70% 42%,
+                    75% 5%,
+                    80% 42%,
+                    85% 5%,
+                    90% 42%,
+                    95% 5%,
+                    100% 42%,
+                    100% 100%,
+                    0 100%
+
+                );
+
+        }
+
+
+        .house-pattern {
+
+            height: 22px;
+
+            position: absolute;
+
+            top: 33px;
+            right: 0;
+            left: 0;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    var(--red) 0 10px,
+
+                    var(--yellow) 10px 20px,
+
+                    var(--green) 20px 30px,
+
+                    var(--cream) 30px 40px
+
+                );
+
+        }
+
+
+        .house-door {
+
+            width: 105px;
+            height: 170px;
+
+            position: absolute;
+
+            right: 136px;
+            bottom: 0;
+
+            border:
+                9px solid
+                var(--cream);
+
+            border-radius:
+                48px 48px 3px 3px;
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    #362217,
+
+                    #6a4329,
+
+                    #362217
+
+                );
+
+        }
+
+
+        .house-door::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 13px;
+
+            border:
+                3px solid
+                var(--yellow);
+
+            background:
+
+                linear-gradient(
+
+                    45deg,
+
+                    transparent 44%,
+
+                    var(--red) 45% 55%,
+
+                    transparent 56%
+
+                ),
+
+                linear-gradient(
+
+                    -45deg,
+
+                    transparent 44%,
+
+                    var(--green) 45% 55%,
+
+                    transparent 56%
+
+                );
+
+        }
+
+
+        .house-window {
+
+            width: 74px;
+            height: 82px;
+
+            position: absolute;
+
+            top: 103px;
+
+            border:
+                8px solid
+                var(--cream);
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    transparent 46%,
+
+                    var(--brown) 46% 54%,
+
+                    transparent 54%
+
+                ),
+
+                linear-gradient(
+
+                    0deg,
+
+                    transparent 46%,
+
+                    var(--brown) 46% 54%,
+
+                    transparent 54%
+
+                ),
+
+                var(--blue);
+
+        }
+
+
+        .window-right {
+
+            right: 30px;
+
+        }
+
+
+        .window-left {
+
+            left: 30px;
+
+        }
+
+
+        .house-lamp {
+
+            position: absolute;
+
+            top: 235px;
+            right: 25px;
+
+            font-size: 38px;
+
+        }
+
+
+        /* =========================
+           الشخصيات
+        ========================== */
+
+        .characters {
+
+            width: 330px;
+            height: 390px;
+
+            position: absolute;
+
+            right: -5px;
+            bottom: 0;
+
+            z-index: 7;
+
+        }
+
+
+        .girl {
+
+            width: 150px;
+            height: 350px;
+
+            position: absolute;
+
+            right: 0;
+            bottom: 0;
+
+        }
+
+
+        .girl-scarf {
+
+            width: 126px;
+            height: 144px;
+
+            position: absolute;
+
+            top: 5px;
+            right: 12px;
+
+            z-index: 3;
+
+            border:
+                5px solid
+                #b88425;
+
+            border-radius:
+                63px 63px 25px 25px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    transparent 0 15px,
+
+                    rgba(162, 60, 49, 0.55)
+                    16px 21px
+
+                ),
+
+                var(--yellow);
+
+        }
+
+
+        .girl-head {
+
+            width: 86px;
+            height: 95px;
+
+            position: absolute;
+
+            top: 42px;
+            right: 31px;
+
+            z-index: 5;
+
+            border:
+                4px solid
+                #3b2418;
+
+            border-radius: 47%;
+
+            background:
+
+                radial-gradient(
+
+                    circle at 31% 46%,
+
+                    #24150f 0 5px,
+
+                    transparent 6px
+
+                ),
+
+                radial-gradient(
+
+                    circle at 69% 46%,
+
+                    #24150f 0 5px,
+
+                    transparent 6px
+
+                ),
+
+                radial-gradient(
+
+                    ellipse at 50% 70%,
+
+                    #a9564a 0 7px,
+
+                    transparent 8px
+
+                ),
+
+                #d99b70;
+
+        }
+
+
+        .girl-dress {
+
+            width: 135px;
+            height: 220px;
+
+            position: absolute;
+
+            right: 7px;
+            bottom: 0;
+
+            z-index: 2;
+
+            border:
+                4px solid
+                #171310;
+
+            border-radius:
+                30px 30px 8px 8px;
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    transparent 0 15%,
+
+                    var(--red) 15% 21%,
+
+                    var(--yellow) 21% 27%,
+
+                    var(--green) 27% 33%,
+
+                    transparent 33% 67%,
+
+                    var(--green) 67% 73%,
+
+                    var(--yellow) 73% 79%,
+
+                    var(--red) 79% 85%,
+
+                    transparent 85%
+
+                ),
+
+                #181513;
+
+        }
+
+
+        .girl-dress::after {
+
+            content: "";
+
+            height: 28px;
+
+            position: absolute;
+
+            right: 8px;
+            bottom: 24px;
+            left: 8px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    var(--red) 0 8px,
+
+                    var(--yellow) 8px 16px,
+
+                    var(--green) 16px 24px,
+
+                    var(--cream) 24px 32px
+
+                );
+
+        }
+
+
+        .boy {
+
+            width: 155px;
+            height: 365px;
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+        }
+
+
+        .boy-head {
+
+            width: 89px;
+            height: 99px;
+
+            position: absolute;
+
+            top: 43px;
+            right: 32px;
+
+            z-index: 5;
+
+            border:
+                4px solid
+                #3b2418;
+
+            border-radius: 47%;
+
+            background:
+
+                radial-gradient(
+
+                    circle at 31% 46%,
+
+                    #24150f 0 5px,
+
+                    transparent 6px
+
+                ),
+
+                radial-gradient(
+
+                    circle at 69% 46%,
+
+                    #24150f 0 5px,
+
+                    transparent 6px
+
+                ),
+
+                radial-gradient(
+
+                    ellipse at 50% 70%,
+
+                    #a9564a 0 7px,
+
+                    transparent 8px
+
+                ),
+
+                #d99b70;
+
+        }
+
+
+        .boy-headband {
+
+            width: 111px;
+            height: 31px;
+
+            position: absolute;
+
+            top: 27px;
+            right: 20px;
+
+            z-index: 7;
+
+            border:
+                4px solid
+                var(--dark-brown);
+
+            border-radius: 20px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    var(--red) 0 9px,
+
+                    var(--yellow) 9px 18px,
+
+                    var(--green) 18px 27px
+
+                );
+
+        }
+
+
+        .boy-thobe {
+
+            width: 124px;
+            height: 224px;
+
+            position: absolute;
+
+            right: 14px;
+            bottom: 0;
+
+            z-index: 2;
+
+            border:
+                3px solid
+                #d0c7b8;
+
+            border-radius:
+                27px 27px 7px 7px;
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    #e7e1d7,
+
+                    #fffdf7 50%,
+
+                    #ddd6ca
+
+                );
+
+        }
+
+
+        .boy-thobe::before {
+
+            content: "";
+
+            width: 3px;
+            height: 76px;
+
+            position: absolute;
+
+            top: 10px;
+            right: 58px;
+
+            background:
+                #bcb2a3;
+
+        }
+
+
+        .boy-belt {
+
+            width: 135px;
+            height: 28px;
+
+            position: absolute;
+
+            top: 194px;
+            right: 8px;
+
+            z-index: 8;
+
+            border:
+                4px solid
+                var(--dark-brown);
+
+            border-radius: 7px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    var(--red) 0 8px,
+
+                    var(--yellow) 8px 16px,
+
+                    var(--green) 16px 24px,
+
+                    var(--brown) 24px 32px
+
+                );
+
+        }
+
+
+        .janbiya {
+
+            width: 43px;
+            height: 89px;
+
+            position: absolute;
+
+            top: 201px;
+            left: 14px;
+
+            z-index: 9;
+
+            border:
+                4px solid
+                var(--dark-brown);
+
+            border-radius:
+                5px 5px 25px 25px;
+
+            background:
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    var(--yellow) 0 7px,
+
+                    var(--brown) 7px 14px,
+
+                    var(--red) 14px 21px
+
+                );
+
+            transform:
+                rotate(8deg);
+
+        }
+
+
+        .janbiya::before {
+
+            content: "";
+
+            width: 18px;
+            height: 25px;
+
+            position: absolute;
+
+            top: -24px;
+            right: 8px;
+
+            border:
+                3px solid
+                var(--dark-brown);
+
+            border-radius: 7px;
+
+            background:
+                var(--yellow);
+
+        }
+
+
+        .gecko {
+
+            position: absolute;
+
+            left: 8px;
+            bottom: 85px;
+
+            z-index: 8;
+
+            font-size: 52px;
+
+            animation:
+                geckoMove
+                2.2s ease-in-out
+                infinite;
+
+        }
+
+
+        @keyframes geckoMove {
+
+            0%,
+            100% {
+
+                transform:
+                    rotate(-15deg)
+                    translateX(0);
+
+            }
+
+            50% {
+
+                transform:
+                    rotate(-4deg)
+                    translateX(18px);
+
+            }
+
+        }
+
+
+        /* =========================
+           خصائص اللعبة
+        ========================== */
+
+        .features-section {
+
+            background:
+
+                linear-gradient(
+
+                    90deg,
+
+                    #ead5b3,
+
+                    #fff7e7,
+
+                    #ead5b3
+
+                );
+
+            border-top:
+                1px solid
+                rgba(87, 56, 32, 0.18);
+
+            border-bottom:
+                1px solid
+                rgba(87, 56, 32, 0.18);
+
+        }
+
+
+        .features-container {
+
+            width:
+                min(1200px, 92%);
+
+            margin: auto;
+
+            padding:
+                28px 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+        }
+
+
+        .feature-item {
+
+            padding:
+                13px 27px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+
+        }
+
+
+        .feature-item:not(:last-child) {
+
+            border-left:
+                1px dashed
+                rgba(87, 56, 32, 0.28);
+
+        }
+
+
+        .feature-icon {
+
+            min-width: 65px;
+            height: 65px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(93, 117, 68, 0.12);
+
+            font-size: 34px;
+
+        }
+
+
+        .feature-item h3 {
+
+            margin-bottom: 5px;
+
+            color:
+                var(--dark-brown);
+
+            font-size: 18px;
+
+        }
+
+
+        .feature-item p {
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =========================
+           القصة
+        ========================== */
+
+        .story-section {
+
+            padding:
+                100px 0;
+
+            background:
+
+                linear-gradient(
+
+                    rgba(255, 250, 240, 0.95),
+
+                    rgba(255, 250, 240, 0.95)
+
+                ),
+
+                repeating-linear-gradient(
+
+                    45deg,
+
+                    transparent 0 23px,
+
+                    rgba(162, 60, 49, 0.05)
+                    24px 26px
+
+                );
+
+        }
+
+
+        .section-container {
+
+            width:
+                min(1200px, 92%);
+
+            margin: auto;
+
+        }
+
+
+        .section-heading {
+
+            max-width: 700px;
+
+            margin:
+                0 auto 48px;
+
+            text-align: center;
+
+        }
+
+
+        .section-label {
+
+            margin-bottom: 9px;
+
+            display: inline-block;
+
+            color:
+                var(--red);
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+        }
+
+
+        .section-heading h2 {
+
+            margin-bottom: 13px;
+
+            color:
+                var(--dark-brown);
+
+            font-size:
+                clamp(31px, 4vw, 47px);
+
+        }
+
+
+        .section-heading p {
+
+            color:
+                var(--muted);
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .story-card {
+
+            padding: 43px;
+
+            display: grid;
+
+            grid-template-columns:
+                175px 1fr;
+
+            align-items: center;
+
+            gap: 38px;
+
+            border:
+                1px solid
+                rgba(87, 56, 32, 0.14);
+
+            border-radius: 32px;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #ead2aa,
+
+                    #fff9ec
+
+                );
+
+            box-shadow:
+                var(--shadow);
+
+        }
+
+
+        .father-avatar {
+
+            width: 150px;
+            height: 150px;
+
+            margin: auto;
+
+            display: grid;
+
+            place-items: center;
+
+            border:
+                8px solid
+                var(--cream-light);
+
+            border-radius: 50%;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    var(--green),
+
+                    var(--green-dark)
+
+                );
+
+            font-size: 78px;
+
+            box-shadow:
+                0 15px 30px
+                rgba(38, 23, 15, 0.18);
+
+        }
+
+
+        .father-name {
+
+            margin-bottom: 6px;
+
+            color:
+                var(--red);
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+        }
+
+
+        .story-dialogue h3 {
+
+            margin-bottom: 12px;
+
+            color:
+                var(--dark-brown);
+
+            font-size: 26px;
+
+        }
+
+
+        .story-dialogue blockquote {
+
+            margin-bottom: 20px;
+
+            padding-right: 21px;
+
+            border-right:
+                4px solid
+                var(--yellow);
+
+            color:
+                var(--text);
+
+            font-size: 17px;
+
+            line-height: 2;
+
+        }
+
+
+        .story-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color:
+                var(--green-dark);
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+        }
+
+
+        .story-link:hover {
+
+            color:
+                var(--red);
+
+        }
+
+
+        /* =========================
+           الدعوة للعب
+        ========================== */
+
+        .cta-section {
+
+            padding:
+                0 0 100px;
+
+            background:
+                var(--cream-light);
+
+        }
+
+
+        .cta-box {
+
+            min-height: 290px;
+
+            padding: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 35px;
+
+            border-radius: 32px;
+
+            background:
+
+                linear-gradient(
+
+                    125deg,
+
+                    var(--dark-brown),
+
+                    #54341f
+
+                );
+
+            color:
+                var(--white);
+
+            box-shadow:
+                var(--shadow);
+
+        }
+
+
+        .cta-content {
+
+            max-width: 630px;
+
+        }
+
+
+        .cta-content h2 {
+
+            margin-bottom: 13px;
+
+            font-size:
+                clamp(29px, 4vw, 45px);
+
+        }
+
+
+        .cta-content p {
+
+            margin-bottom: 23px;
+
+            color:
+                rgba(255, 255, 255, 0.74);
+
+            line-height: 1.9;
+
+        }
+
+
+        .cta-button {
+
+            padding:
+                13px 25px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            border-radius: 13px;
+
+            background:
+                var(--yellow);
+
+            color:
+                var(--dark-brown);
+
+            font-weight: 800;
+
+            transition:
+                var(--transition);
+
+        }
+
+
+        .cta-button:hover {
+
+            background:
+                var(--cream-light);
+
+            transform:
+                translateY(-3px);
+
+        }
+
+
+        .cta-icon {
+
+            font-size: 95px;
+
+        }
+
+
+        /* =========================
+           الفوتر
+        ========================== */
+
+        .site-footer {
+
+            overflow: hidden;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    #21150e,
+
+                    #3d2819
+
+                );
+
+            color:
+                var(--white);
+
+        }
+
+
+        .footer-pattern {
+
+            height: 13px;
+
+            background:
+
+                linear-gradient(
+
+                    135deg,
+
+                    transparent 25%,
+
+                    var(--yellow) 25% 42%,
+
+                    transparent 42%
+
+                )
+                0 0 / 31px 17px,
+
+                linear-gradient(
+
+                    45deg,
+
+                    transparent 25%,
+
+                    var(--red) 25% 42%,
+
+                    transparent 42%
+
+                )
+                15px 0 / 31px 17px,
+
+                linear-gradient(
+
+                    -45deg,
+
+                    transparent 25%,
+
+                    var(--green) 25% 42%,
+
+                    transparent 42%
+
+                )
+                8px 0 / 31px 17px,
+
+                var(--dark-brown);
+
+        }
+
+
+        .footer-container {
+
+            width:
+                min(1200px, 92%);
+
+            margin: auto;
+
+            padding:
+                65px 0 50px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 0.7fr 0.7fr 0.7fr;
+
+            gap: 43px;
+
+        }
+
+
+        .footer-logo {
+
+            margin-bottom: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .footer-logo-icon {
+
+            width: 54px;
+            height: 54px;
+
+            display: grid;
+
+            place-items: center;
+
+            border:
+                1px solid
+                rgba(225, 177, 63, 0.28);
+
+            border-radius: 16px;
+
+            background:
+                rgba(225, 177, 63, 0.13);
+
+            font-size: 28px;
+
+        }
+
+
+        .footer-logo-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .footer-logo-text strong {
+
+            color:
+                var(--cream);
+
+            font-size: 20px;
+
+        }
+
+
+        .footer-logo-text small {
+
+            color:
+                rgba(255, 255, 255, 0.56);
+
+            font-size: 11px;
+
+        }
+
+
+        .footer-about p {
+
+            max-width: 350px;
+
+            color:
+                rgba(255, 255, 255, 0.64);
+
+            font-size: 13px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .saudi-label {
+
+            width: fit-content;
+
+            margin-top: 17px;
+
+            padding:
+                8px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.07);
+
+            color:
+                rgba(255, 255, 255, 0.72);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .footer-links {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-start;
+
+        }
+
+
+        .footer-links h3 {
+
+            margin-bottom: 18px;
+
+            color:
+                var(--yellow);
+
+            font-size: 16px;
+
+        }
+
+
+        .footer-links a {
+
+            margin-bottom: 10px;
+
+            color:
+                rgba(255, 255, 255, 0.65);
+
+            font-size: 13px;
+
+            transition:
+                var(--transition);
+
+        }
+
+
+        .footer-links a:hover {
+
+            color:
+                var(--yellow);
+
+            transform:
+                translateX(-4px);
+
+        }
+
+
+        .footer-bottom {
+
+            width:
+                min(1200px, 92%);
+
+            margin: auto;
+
+            padding:
+                20px 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.09);
+
+            color:
+                rgba(255, 255, 255, 0.48);
+
+            font-size: 11px;
+
+        }
+
+
+        .component-error {
+
+            padding: 18px;
+
+            text-align: center;
+
+            background:
+                #ffe7df;
+
+            color:
+                var(--red);
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================
+           الشاشات الصغيرة
+        ========================== */
+
+        @media (max-width: 1050px) {
+
+            .menu-button {
+
+                display: flex;
+
+            }
+
+
+            .main-nav {
+
+                width:
+                    min(370px, 92%);
+
+                padding: 18px;
+
+                position: fixed;
+
+                top: 105px;
+                right: 4%;
+
+                display: none;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                border-radius: 20px;
+
+                background:
+                    var(--cream-light);
+
+                box-shadow:
+                    var(--shadow);
+
+            }
+
+
+            .main-nav.open {
+
+                display: flex;
+
+            }
+
+
+            .nav-link,
+            .account-button {
+
+                width: 100%;
+
+                margin: 0;
+
+                text-align: center;
+
+            }
+
+
+            .hero-container {
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+            }
+
+
+            .hero-label,
+            .hero-buttons {
+
+                margin-right: auto;
+                margin-left: auto;
+
+                justify-content: center;
+
+            }
+
+
+            .hero-description {
+
+                margin-right: auto;
+                margin-left: auto;
+
+            }
+
+
+            .footer-container {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 760px) {
+
+            .hero-content h1 {
+
+                font-size: 51px;
+
+            }
+
+
+            .hero-subtitle {
+
+                font-size: 23px;
+
+            }
+
+
+            .hero-description {
+
+                font-size: 14px;
+
+            }
+
+
+            .hero-scene {
+
+                min-height: 480px;
+
+                transform:
+                    scale(0.82);
+
+                margin:
+                    -40px 0;
+
+            }
+
+
+            .features-container {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .feature-item:not(:last-child) {
+
+                border-left: 0;
+
+                border-bottom:
+                    1px dashed
+                    rgba(87, 56, 32, 0.25);
+
+            }
+
+
+            .story-card {
+
+                padding:
+                    30px 23px;
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+            }
+
+
+            .story-dialogue blockquote {
+
+                padding-right: 0;
+
+                border-right: 0;
+
+            }
+
+
+            .cta-box {
+
+                padding:
+                    43px 25px;
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+
+            .cta-icon {
+
+                font-size: 75px;
+
+            }
+
+
+            .footer-container {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .footer-bottom {
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .logo-text small {
+
+                display: none;
+
+            }
+
+
+            .logo-text strong {
+
+                font-size: 18px;
+
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 41px;
+
+            }
+
+
+            .hero-subtitle {
+
+                font-size: 20px;
+
+            }
+
+
+            .hero-buttons {
+
+                flex-direction: column;
+
+            }
+
+
+            .primary-button,
+            .secondary-button {
+
+                width: 100%;
+
+            }
+
+
+            .hero-scene {
+
+                min-height: 400px;
+
+                transform:
+                    scale(0.64);
+
+                margin:
+                    -95px 0;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- تحميل الهيدر -->
+
+    {% include 'includes/header.html' %}
+
+
+    <main>
+
+
+        <!-- القسم الرئيسي -->
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+
+                <div class="hero-content">
+
+                    <div class="hero-label">
+                        ✦ صيف عسير بدأ ✦
+                    </div>
+
+
+                    <h1>
+
+                        أهلًا بك في
+
+                        <span>
+                            بيت المصايف
+                        </span>
+
+                    </h1>
+
+
+                    <h2 class="hero-subtitle">
+                        مغامرة صيفية من الجنوب
+                    </h2>
+
+
+                    <p class="hero-description">
+
+                        ساعد العائلة في التخلص من الوزغ
+                        وتجهيز البيت الحجري قبل وصول
+                        المصايفين.
+
+                        اختر البنت بالثوب العسيري
+                        والمنديل الأصفر، أو الولد
+                        بالثوب السعودي والجنبية.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a
+                        href="{% url 'core:story' %}"
+                            class="primary-button"
+                        >
+                            🎮 ابدأ المغامرة
+                        </a>
+
+
+                        <a
+                            href="#story"
+                            class="secondary-button"
+                        >
+                            📖 تعرف على القصة
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-scene">
+
+                    <div class="sun"></div>
+
+                    <div class="mountain"></div>
+
+
+                    <div class="stone-house">
+
+                        <div class="house-pattern"></div>
+
+
+                        <div
+                            class="house-window window-right"
+                        ></div>
+
+
+                        <div
+                            class="house-window window-left"
+                        ></div>
+
+
+                        <div class="house-door"></div>
+
+
+                        <div class="house-lamp">
+                            🏮
+                        </div>
+
+                    </div>
+
+
+                    <div class="characters">
+
+
+                        <div class="girl">
+
+                            <div class="girl-scarf"></div>
+
+                            <div class="girl-head"></div>
+
+                            <div class="girl-dress"></div>
+
+                        </div>
+
+
+                        <div class="boy">
+
+                            <div class="boy-headband"></div>
+
+                            <div class="boy-head"></div>
+
+                            <div class="boy-thobe"></div>
+
+                            <div class="boy-belt"></div>
+
+                            <div class="janbiya"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="gecko">
+                        🦎
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- خصائص اللعبة -->
+
+        <section class="features-section">
+
+            <div class="features-container">
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon">
+                        👧🏻
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            شخصيات سعودية
+                        </h3>
+
+                        <p>
+                            اختر البنت العسيرية
+                            أو الولد بالثوب والجنبية.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon">
+                        🦎
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            تحدي الوزغ
+                        </h3>
+
+                        <p>
+                            تخلص من الوزغ قبل
+                            وصول المصايفين.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon">
+                        🚙
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            وصول المصايفين
+                        </h3>
+
+                        <p>
+                            بعد الفوز تصل السيارة
+                            وينزل الضيوف بالحقائب.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- القصة -->
+
+        <section
+            class="story-section"
+            id="story"
+        >
+
+            <div class="section-container">
+
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        بداية الحكاية
+                    </span>
+
+                    <h2>
+                        البيت الحجري يحتاج مساعدتك
+                    </h2>
+
+                    <p>
+
+                        مع بداية الصيف قرر الأب
+                        تجهيز البيت وتأجيره للمصايفين،
+                        لكن ظهرت مشكلة قبل وصولهم.
+
+                    </p>
+
+                </div>
+
+
+                <div class="story-card">
+
+                    <div class="father-avatar">
+                        👨🏻
+                    </div>
+
+
+                    <div class="story-dialogue">
+
+                        <p class="father-name">
+                            الأب يقول:
+                        </p>
+
+
+                        <h3>
+                            يا عيالي، المصايفين في طريقهم!
+                        </h3>
+
+
+                        <blockquote>
+
+                            البيت لازم يكون جاهز قبل
+                            وصولهم، والوزغ أتعبني.
+
+                            اختاروا واحدًا منكم
+                            وتخلصوا منه بسرعة،
+                            وبعدها نستقبل الضيوف.
+
+                        </blockquote>
+<a
+    href="{% url 'core:story' %}"
+    class="story-link"
+>
+    متابعة القصة
+    <span>←</span>
+</a>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- زر البداية -->
+
+        <section class="cta-section">
+
+            <div class="section-container">
+
+                <div class="cta-box">
+
+
+                    <div class="cta-content">
+
+                        <h2>
+                            هل أنت مستعد للمهمة؟
+                        </h2>
+
+                        <p>
+
+                            اختر شخصيتك وساعد الأب
+                            في تجهيز البيت قبل وصول
+                            المصايفين.
+
+                        </p>
+
+                        <a
+                            href="{% url 'game:characters' %}"
+                            class="cta-button"
+                        >
+                            اختر شخصيتك
+                            🎮
+                        </a>
+
+                    </div>
+
+
+                    <div class="cta-icon">
+                        🏡🦎
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- تحميل الفوتر -->
+
+    {% include 'includes/footer.html' %}
+
+
+    <!-- ملف الجافاسكربت -->
+
+<script src="{% static 'js/components.js' %}"></script>
+
+</body>
+
+</html>
+
+
+
+

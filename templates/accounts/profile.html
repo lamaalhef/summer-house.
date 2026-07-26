@@ -1,0 +1,2072 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بيت المصايف | الملف الشخصي</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --dark: #2f241b;
+            --brown: #7a5638;
+            --brown-dark: #503625;
+            --green: #4f7054;
+            --green-dark: #37503b;
+            --red: #a34333;
+            --yellow: #f0bd3b;
+            --cream: #fff8ed;
+            --beige: #ead7b8;
+            --white: #ffffff;
+            --gray: #7c7168;
+            --border: #e7d8c4;
+            --shadow: 0 22px 50px rgba(54, 36, 24, 0.15);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Cairo", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(240, 189, 59, 0.22),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(79, 112, 84, 0.18),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    180deg,
+                    #fffaf4,
+                    #ead7b8
+                );
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 110px 18px 75px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .profile-hero {
+            margin-bottom: 25px;
+            padding: 28px;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 22px;
+            border: 7px solid rgba(122, 86, 56, 0.1);
+            border-radius: 29px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(79, 112, 84, 0.98),
+                    rgba(47, 36, 27, 0.96)
+                );
+            box-shadow: var(--shadow);
+            color: var(--white);
+        }
+
+        .profile-hero::before {
+            content: "";
+            width: 260px;
+            height: 260px;
+            position: absolute;
+            top: -150px;
+            left: -90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .profile-hero::after {
+            content: "";
+            width: 190px;
+            height: 190px;
+            position: absolute;
+            right: -90px;
+            bottom: -110px;
+            border-radius: 50%;
+            background: rgba(240, 189, 59, 0.09);
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border: 7px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 56px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-main-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-label {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            background: rgba(240, 189, 59, 0.16);
+            color: var(--yellow);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .profile-main-info h1 {
+            margin-bottom: 4px;
+            font-size: clamp(28px, 4vw, 43px);
+        }
+
+        .profile-username {
+            margin-bottom: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
+        }
+
+        .profile-summary {
+            max-width: 630px;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .hero-button {
+            min-width: 150px;
+            min-height: 44px;
+            padding: 0 16px;
+            display: inline-grid;
+            place-items: center;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .hero-button.logout {
+            background: rgba(163, 67, 51, 0.22);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 23px;
+        }
+
+        .content-column,
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+        }
+
+        .card {
+            padding: 24px;
+            border: 7px solid rgba(122, 86, 56, 0.09);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: var(--shadow);
+        }
+
+        .card-heading {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-heading h2 {
+            font-size: 21px;
+        }
+
+        .card-heading p {
+            margin-top: 3px;
+            color: var(--gray);
+            font-size: 9px;
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: rgba(79, 112, 84, 0.1);
+            font-size: 23px;
+        }
+
+        .statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .statistic-card {
+            min-height: 120px;
+            padding: 17px;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            background: var(--cream);
+            transition: var(--transition);
+        }
+
+        .statistic-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(79, 112, 84, 0.35);
+        }
+
+        .statistic-icon {
+            margin-bottom: 9px;
+            font-size: 25px;
+        }
+
+        .statistic-card span {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--gray);
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .statistic-card strong {
+            color: var(--brown-dark);
+            font-size: 23px;
+        }
+
+        .last-game-card {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--cream);
+        }
+
+        .last-game-icon {
+            width: 57px;
+            height: 57px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: rgba(79, 112, 84, 0.1);
+            font-size: 29px;
+        }
+
+        .last-game-details h3 {
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .last-game-details p {
+            color: var(--gray);
+            font-size: 9px;
+            line-height: 1.8;
+        }
+
+        .last-game-score {
+            text-align: center;
+        }
+
+        .last-game-score strong {
+            display: block;
+            color: var(--green-dark);
+            font-size: 25px;
+        }
+
+        .last-game-score span {
+            color: var(--gray);
+            font-size: 8px;
+        }
+
+        .character-panel {
+            text-align: center;
+        }
+
+        .character-preview {
+            width: 115px;
+            height: 115px;
+            margin: 0 auto 15px;
+            display: grid;
+            place-items: center;
+            border: 7px solid rgba(79, 112, 84, 0.12);
+            border-radius: 50%;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(240, 189, 59, 0.14),
+                    rgba(79, 112, 84, 0.12)
+                );
+            font-size: 59px;
+        }
+
+        .character-panel h3 {
+            margin-bottom: 4px;
+            font-size: 23px;
+        }
+
+        .character-panel p {
+            margin-bottom: 18px;
+            color: var(--gray);
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .character-button {
+            width: 100%;
+            min-height: 46px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--green);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .character-button:hover {
+            transform: translateY(-3px);
+            background: var(--green-dark);
+        }
+
+        .account-list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .account-item {
+            padding: 13px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--cream);
+        }
+
+        .account-item span {
+            color: var(--gray);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .account-item strong {
+            max-width: 220px;
+            overflow: hidden;
+            color: var(--brown-dark);
+            font-size: 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .quick-action {
+            min-height: 50px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--cream);
+            color: var(--brown-dark);
+            font-size: 10px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .quick-action:hover {
+            transform: translateX(-4px);
+            border-color: rgba(79, 112, 84, 0.35);
+            background: var(--white);
+        }
+
+        .quick-action span {
+            font-size: 20px;
+        }
+
+        .empty-message {
+            padding: 24px;
+            border: 2px dashed var(--border);
+            border-radius: 17px;
+            color: var(--gray);
+            font-size: 10px;
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        .toast {
+            min-width: 260px;
+            padding: 14px 18px;
+            position: fixed;
+            right: 50%;
+            bottom: 28px;
+            z-index: 9999;
+            border-radius: 15px;
+            background: var(--green-dark);
+            color: var(--white);
+            box-shadow: var(--shadow);
+            font-size: 10px;
+            font-weight: 800;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(50%, 30px);
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(50%, 0);
+        }
+
+        .toast.error {
+            background: var(--red);
+        }
+
+        @media (max-width: 950px) {
+
+            .profile-hero {
+                grid-template-columns: auto 1fr;
+            }
+
+            .hero-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+            }
+
+            .hero-button {
+                flex: 1;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .page {
+                padding: 95px 9px 55px;
+            }
+
+            .profile-hero {
+                padding: 22px 15px;
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin: auto;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .statistics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .last-game-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .last-game-icon {
+                margin: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    {% include 'includes/header.html' %}
+
+    <main class="page">
+
+        <div class="container">
+
+            <section class="profile-hero">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
+                    👤
+                </div>
+
+                <div class="profile-main-info">
+
+                    <span class="profile-label">
+                        👤 الملف الشخصي
+                    </span>
+
+                    <h1 id="profileFullName">
+                        اسم اللاعب
+                    </h1>
+
+                    <div
+                        class="profile-username"
+                        id="profileUsername"
+                    >
+                        @username
+                    </div>
+
+                    <p class="profile-summary">
+                        من هنا يمكنك متابعة تقدمك داخل بيت المصايف،
+                        والاطلاع على أفضل نتائجك وتغيير الشخصية المختارة.
+                    </p>
+
+                </div>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="{% url 'game:play' %}"
+                        class="hero-button"
+                    >
+                        🎮 بدء اللعب
+                    </a>
+
+                    <button
+                        type="button"
+                        class="hero-button logout"
+                        id="logoutButton"
+                    >
+                        تسجيل الخروج
+                    </button>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-grid">
+
+                <div class="content-column">
+
+                    <article class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h2>
+                                    إحصائيات اللعب
+                                </h2>
+
+                                <p>
+                                    ملخص جميع محاولاتك في بيت المصايف.
+                                </p>
+
+                            </div>
+
+                            <div class="card-icon">
+                                📊
+                            </div>
+
+                        </div>
+
+                        <div class="statistics-grid">
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    🎮
+                                </div>
+
+                                <span>
+                                    عدد المحاولات
+                                </span>
+
+                                <strong id="attemptsValue">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    🏆
+                                </div>
+
+                                <span>
+                                    مرات الفوز
+                                </span>
+
+                                <strong id="winsValue">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    ⭐
+                                </div>
+
+                                <span>
+                                    أعلى نتيجة
+                                </span>
+
+                                <strong id="highestScoreValue">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    🦎
+                                </div>
+
+                                <span>
+                                    إجمالي الوزغ
+                                </span>
+
+                                <strong id="totalGeckosValue">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    🎯
+                                </div>
+
+                                <span>
+                                    آخر نتيجة
+                                </span>
+
+                                <strong id="lastScoreValue">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="statistic-card">
+
+                                <div class="statistic-icon">
+                                    📈
+                                </div>
+
+                                <span>
+                                    نسبة الفوز
+                                </span>
+
+                                <strong id="winRateValue">
+                                    0%
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <article class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h2>
+                                    آخر لعبة
+                                </h2>
+
+                                <p>
+                                    تفاصيل آخر محاولة مسجلة في حسابك.
+                                </p>
+
+                            </div>
+
+                            <div class="card-icon">
+                                🕹
+                            </div>
+
+                        </div>
+
+                        <div id="lastGameContainer">
+
+                            <div class="empty-message">
+                                لا توجد محاولة لعب مسجلة حتى الآن.
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <aside class="side-column">
+
+                    <article class="card character-panel">
+
+                        <div
+                            class="character-preview"
+                            id="characterPreview"
+                        >
+                            ❔
+                        </div>
+
+                        <h3 id="characterName">
+                            لم تختاري شخصية
+                        </h3>
+
+                        <p id="characterDescription">
+                            اختاري مفرح أو صالحة قبل بدء المهمة داخل البيت.
+                        </p>
+
+                        <a
+                            href="{% url 'game:characters' %}"
+                            class="character-button"
+                        >
+                            تغيير الشخصية
+                        </a>
+
+                    </article>
+
+                    <article class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h2>
+                                    بيانات الحساب
+                                </h2>
+
+                                <p>
+                                    المعلومات المحفوظة في حسابك.
+                                </p>
+
+                            </div>
+
+                            <div class="card-icon">
+                                🪪
+                            </div>
+
+                        </div>
+
+                        <div class="account-list">
+
+                            <div class="account-item">
+
+                                <span>
+                                    الاسم الكامل
+                                </span>
+
+                                <strong id="accountFullName">
+                                    غير متوفر
+                                </strong>
+
+                            </div>
+
+                            <div class="account-item">
+
+                                <span>
+                                    اسم المستخدم
+                                </span>
+
+                                <strong id="accountUsername">
+                                    غير متوفر
+                                </strong>
+
+                            </div>
+
+                            <div class="account-item">
+
+                                <span>
+                                    البريد الإلكتروني
+                                </span>
+
+                                <strong id="accountEmail">
+                                    غير متوفر
+                                </strong>
+
+                            </div>
+
+                            <div class="account-item">
+
+                                <span>
+                                    تاريخ الانضمام
+                                </span>
+
+                                <strong id="accountCreatedAt">
+                                    غير متوفر
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <article class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h2>
+                                    روابط سريعة
+                                </h2>
+
+                                <p>
+                                    انتقلي بسرعة إلى صفحات اللعبة.
+                                </p>
+
+                            </div>
+
+                            <div class="card-icon">
+                                ⚡
+                            </div>
+
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <a
+                                href="{% url 'game:play' %}"
+                                class="quick-action"
+                            >
+                                بدء لعبة جديدة
+                                <span>🎮</span>
+                            </a>
+
+                            <a
+                                href="{% url 'game:leaderboard' %}"
+                                class="quick-action"
+                            >
+                                لوحة المتصدرين
+                                <span>🏆</span>
+                            </a>
+
+                            <a
+href="{% url 'game:characters' %}"                                class="quick-action"
+                            >
+                                تغيير الشخصية
+                                <span>🎭</span>
+                            </a>
+
+                            <a
+                            href="{% url 'core:home' %}"
+                                class="quick-action"
+                            >
+                                العودة للرئيسية
+                                <span>🏠</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </aside>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+<script src="{% static 'js/components.js' %}"></script>
+    <script>
+
+        const profileAvatar =
+            document.getElementById(
+                "profileAvatar"
+            );
+
+        const profileFullName =
+            document.getElementById(
+                "profileFullName"
+            );
+
+        const profileUsername =
+            document.getElementById(
+                "profileUsername"
+            );
+
+        const attemptsValue =
+            document.getElementById(
+                "attemptsValue"
+            );
+
+        const winsValue =
+            document.getElementById(
+                "winsValue"
+            );
+
+        const highestScoreValue =
+            document.getElementById(
+                "highestScoreValue"
+            );
+
+        const totalGeckosValue =
+            document.getElementById(
+                "totalGeckosValue"
+            );
+
+        const lastScoreValue =
+            document.getElementById(
+                "lastScoreValue"
+            );
+
+        const winRateValue =
+            document.getElementById(
+                "winRateValue"
+            );
+
+        const lastGameContainer =
+            document.getElementById(
+                "lastGameContainer"
+            );
+
+        const characterPreview =
+            document.getElementById(
+                "characterPreview"
+            );
+
+        const characterName =
+            document.getElementById(
+                "characterName"
+            );
+
+        const characterDescription =
+            document.getElementById(
+                "characterDescription"
+            );
+
+        const accountFullName =
+            document.getElementById(
+                "accountFullName"
+            );
+
+        const accountUsername =
+            document.getElementById(
+                "accountUsername"
+            );
+
+        const accountEmail =
+            document.getElementById(
+                "accountEmail"
+            );
+
+        const accountCreatedAt =
+            document.getElementById(
+                "accountCreatedAt"
+            );
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        let currentUser = null;
+        let userResults = [];
+        let toastTimer = null;
+
+
+        function readJsonFromStorage(
+            key,
+            fallbackValue
+        ) {
+
+            try {
+
+                const storedValue =
+                    localStorage.getItem(key);
+
+                return storedValue
+                    ? JSON.parse(storedValue)
+                    : fallbackValue;
+
+            } catch (error) {
+
+                console.error(
+                    `تعذر قراءة ${key}:`,
+                    error
+                );
+
+                return fallbackValue;
+
+            }
+
+        }
+
+
+        function saveJsonToStorage(
+            key,
+            value
+        ) {
+
+            try {
+
+                localStorage.setItem(
+                    key,
+                    JSON.stringify(value)
+                );
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    `تعذر حفظ ${key}:`,
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        function showToast(
+            message,
+            type = "success"
+        ) {
+
+            clearTimeout(toastTimer);
+
+            toast.textContent = message;
+
+            toast.classList.toggle(
+                "error",
+                type === "error"
+            );
+
+            toast.classList.add("show");
+
+            toastTimer = setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+        }
+
+
+        function getCurrentUser() {
+
+            const storedUser =
+                readJsonFromStorage(
+                    "currentMasayefUser",
+                    null
+                );
+
+            const isLoggedIn =
+                localStorage.getItem(
+                    "isLoggedIn"
+                );
+
+            if (
+                !storedUser ||
+                isLoggedIn !== "true"
+            ) {
+
+                window.location.href =
+    "{% url 'accounts:login' %}";
+
+                return null;
+
+            }
+
+            return storedUser;
+
+        }
+
+
+        function getCharacterData(
+            character
+        ) {
+
+            if (character === "boy") {
+
+                return {
+                    id: "boy",
+                    name: "مفرح",
+                    icon: "👦",
+                    description:
+                        "فتى الجنوب الشجاع، سريع الحركة ويعرف زوايا بيت المصايف جيدًا."
+                };
+
+            }
+
+            if (character === "girl") {
+
+                return {
+                    id: "girl",
+                    name: "صالحة",
+                    icon: "👧",
+                    description:
+                        "بطلة عسير الذكية، دقيقة الملاحظة وسريعة اكتشاف أماكن الوزغ."
+                };
+
+            }
+
+            return {
+                id: "",
+                name: "لم تختاري شخصية",
+                icon: "❔",
+                description:
+                    "اختاري مفرح أو صالحة قبل بدء المهمة داخل البيت."
+            };
+
+        }
+
+
+        function getUserCharacter() {
+
+            const storedCharacter =
+                localStorage.getItem(
+                    "selectedCharacter"
+                );
+
+            const userCharacter =
+                currentUser.selectedCharacter ||
+                currentUser.character ||
+                "";
+
+            if (
+                storedCharacter === "boy" ||
+                storedCharacter === "girl"
+            ) {
+
+                return storedCharacter;
+
+            }
+
+            if (
+                userCharacter === "boy" ||
+                userCharacter === "girl"
+            ) {
+
+                return userCharacter;
+
+            }
+
+            return "";
+
+        }
+
+
+        function synchronizeCharacter() {
+
+            const selectedCharacter =
+                getUserCharacter();
+
+            const characterData =
+                getCharacterData(
+                    selectedCharacter
+                );
+
+            if (!selectedCharacter) {
+
+                return characterData;
+
+            }
+
+            localStorage.setItem(
+                "selectedCharacter",
+                characterData.id
+            );
+
+            localStorage.setItem(
+                "selectedCharacterName",
+                characterData.name
+            );
+
+            currentUser = {
+                ...currentUser,
+                selectedCharacter:
+                    characterData.id,
+                selectedCharacterName:
+                    characterData.name,
+                character:
+                    characterData.id,
+                characterName:
+                    characterData.name
+            };
+
+            saveJsonToStorage(
+                "currentMasayefUser",
+                currentUser
+            );
+
+            const users =
+                readJsonFromStorage(
+                    "masayefUsers",
+                    []
+                );
+
+            if (Array.isArray(users)) {
+
+                const userIndex =
+                    users.findIndex(
+                        function (user) {
+
+                            if (
+                                currentUser.id &&
+                                user.id
+                            ) {
+
+                                return (
+                                    String(user.id) ===
+                                    String(currentUser.id)
+                                );
+
+                            }
+
+                            if (
+                                currentUser.email &&
+                                user.email
+                            ) {
+
+                                return (
+                                    String(user.email)
+                                        .toLowerCase() ===
+                                    String(currentUser.email)
+                                        .toLowerCase()
+                                );
+
+                            }
+
+                            return (
+                                currentUser.username &&
+                                user.username &&
+                                String(user.username)
+                                    .toLowerCase() ===
+                                String(currentUser.username)
+                                    .toLowerCase()
+                            );
+
+                        }
+                    );
+
+                if (userIndex !== -1) {
+
+                    users[userIndex] = {
+                        ...users[userIndex],
+                        selectedCharacter:
+                            characterData.id,
+                        selectedCharacterName:
+                            characterData.name,
+                        character:
+                            characterData.id,
+                        characterName:
+                            characterData.name
+                    };
+
+                    saveJsonToStorage(
+                        "masayefUsers",
+                        users
+                    );
+
+                }
+
+            }
+
+            return characterData;
+
+        }
+
+
+        function getAllGameResults() {
+
+            const results =
+                readJsonFromStorage(
+                    "gameResults",
+                    []
+                );
+
+            return Array.isArray(results)
+                ? results
+                : [];
+
+        }
+
+
+        function resultBelongsToCurrentUser(
+            result
+        ) {
+
+            if (
+                result.userId &&
+                currentUser.id
+            ) {
+
+                return (
+                    String(result.userId) ===
+                    String(currentUser.id)
+                );
+
+            }
+
+            if (
+                result.username &&
+                currentUser.username
+            ) {
+
+                return (
+                    String(result.username)
+                        .toLowerCase() ===
+                    String(currentUser.username)
+                        .toLowerCase()
+                );
+
+            }
+
+            return false;
+
+        }
+
+
+        function loadUserResults() {
+
+            const allResults =
+                getAllGameResults();
+
+            userResults =
+                allResults
+                    .filter(
+                        resultBelongsToCurrentUser
+                    )
+                    .map(
+                        function (result) {
+
+                            return {
+
+                                ...result,
+
+                                score:
+                                    Number(
+                                        result.score
+                                    ) || 0,
+
+                                geckosCaught:
+                                    Number(
+                                        result.geckosCaught
+                                    ) || 0,
+
+                                level:
+                                    Number(
+                                        result.level
+                                    ) || 1,
+
+                                lives:
+                                    Number(
+                                        result.lives
+                                    ) || 0,
+
+                                timeRemaining:
+                                    Number(
+                                        result.timeRemaining
+                                    ) || 0,
+
+                                status:
+                                    result.status === "win"
+                                        ? "win"
+                                        : "lose",
+
+                                date:
+                                    result.date ||
+                                    new Date().toISOString()
+
+                            };
+
+                        }
+                    )
+                    .sort(
+                        function (
+                            firstResult,
+                            secondResult
+                        ) {
+
+                            return (
+                                new Date(
+                                    secondResult.date
+                                ) -
+                                new Date(
+                                    firstResult.date
+                                )
+                            );
+
+                        }
+                    );
+
+        }
+
+
+        function formatNumber(value) {
+
+            return (
+                Number(value) || 0
+            ).toLocaleString("ar-SA");
+
+        }
+
+
+        function formatDate(dateValue) {
+
+            const date =
+                new Date(dateValue);
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "غير متوفر";
+
+            }
+
+            return date.toLocaleDateString(
+                "ar-SA",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+        }
+
+
+        function formatDateTime(dateValue) {
+
+            const date =
+                new Date(dateValue);
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "غير متوفر";
+
+            }
+
+            return date.toLocaleDateString(
+                "ar-SA",
+                {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        function updateProfileIdentity() {
+
+            const fullName =
+                currentUser.fullName ||
+                currentUser.name ||
+                currentUser.username ||
+                "لاعب بيت المصايف";
+
+            const username =
+                currentUser.username ||
+                "player";
+
+            profileFullName.textContent =
+                fullName;
+
+            profileUsername.textContent =
+                `@${username}`;
+
+            accountFullName.textContent =
+                fullName;
+
+            accountUsername.textContent =
+                username;
+
+            accountEmail.textContent =
+                currentUser.email ||
+                "غير متوفر";
+
+            accountCreatedAt.textContent =
+                formatDate(
+                    currentUser.createdAt ||
+                    currentUser.registrationDate ||
+                    currentUser.date
+                );
+
+        }
+
+
+        function updateCharacterPanel() {
+
+            const characterData =
+                synchronizeCharacter();
+
+            profileAvatar.textContent =
+                characterData.icon;
+
+            characterPreview.textContent =
+                characterData.icon;
+
+            characterName.textContent =
+                characterData.name;
+
+            characterDescription.textContent =
+                characterData.description;
+
+        }
+
+
+        function calculateStatistics() {
+
+            const attempts =
+                userResults.length;
+
+            const wins =
+                userResults.filter(
+                    function (result) {
+
+                        return (
+                            result.status === "win"
+                        );
+
+                    }
+                ).length;
+
+            const highestScore =
+                attempts > 0
+                    ? Math.max(
+                        ...userResults.map(
+                            function (result) {
+
+                                return result.score;
+
+                            }
+                        )
+                    )
+                    : 0;
+
+            const totalGeckos =
+                userResults.reduce(
+                    function (total, result) {
+
+                        return (
+                            total +
+                            result.geckosCaught
+                        );
+
+                    },
+                    0
+                );
+
+            const lastScore =
+                attempts > 0
+                    ? userResults[0].score
+                    : 0;
+
+            const winRate =
+                attempts > 0
+                    ? Math.round(
+                        (
+                            wins /
+                            attempts
+                        ) * 100
+                    )
+                    : 0;
+
+            attemptsValue.textContent =
+                formatNumber(attempts);
+
+            winsValue.textContent =
+                formatNumber(wins);
+
+            highestScoreValue.textContent =
+                formatNumber(highestScore);
+
+            totalGeckosValue.textContent =
+                formatNumber(totalGeckos);
+
+            lastScoreValue.textContent =
+                formatNumber(lastScore);
+
+            winRateValue.textContent =
+                `${formatNumber(winRate)}%`;
+
+        }
+
+
+        function renderLastGame() {
+
+            if (userResults.length === 0) {
+
+                lastGameContainer.innerHTML = `
+
+                    <div class="empty-message">
+
+                        لا توجد محاولة لعب مسجلة حتى الآن.
+                        ابدئي لعبة جديدة لتظهر نتيجتك هنا.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+            const lastGame =
+                userResults[0];
+
+            const statusLabel =
+                lastGame.status === "win"
+                    ? "فوز"
+                    : "خسارة";
+
+            const statusIcon =
+                lastGame.status === "win"
+                    ? "🏆"
+                    : "💔";
+
+            const characterData =
+                getCharacterData(
+                    lastGame.character ||
+                    getUserCharacter()
+                );
+
+            const hearts =
+                lastGame.lives > 0
+                    ? "❤".repeat(
+                        Math.min(
+                            lastGame.lives,
+                            3
+                        )
+                    )
+                    : "♡♡♡";
+
+            lastGameContainer.innerHTML = `
+
+                <div class="last-game-card">
+
+                    <div class="last-game-icon">
+                        ${statusIcon}
+                    </div>
+
+                    <div class="last-game-details">
+
+                        <h3>
+                            ${statusLabel}
+                            بشخصية
+                            ${characterData.name}
+                        </h3>
+
+                        <p>
+
+                            المستوى:
+                            ${formatNumber(lastGame.level)}
+                            من 3
+
+                            <br>
+
+                            الوزغ:
+                            ${formatNumber(lastGame.geckosCaught)}
+
+                            • القلوب:
+                            ${hearts}
+
+                            <br>
+
+                            ${formatDateTime(lastGame.date)}
+
+                        </p>
+
+                    </div>
+
+                    <div class="last-game-score">
+
+                        <strong>
+                            ${formatNumber(lastGame.score)}
+                        </strong>
+
+                        <span>
+                            نقطة
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function updateStoredUserStatistics() {
+
+            const attempts =
+                userResults.length;
+
+            const wins =
+                userResults.filter(
+                    function (result) {
+
+                        return (
+                            result.status === "win"
+                        );
+
+                    }
+                ).length;
+
+            const highestScore =
+                attempts > 0
+                    ? Math.max(
+                        ...userResults.map(
+                            function (result) {
+
+                                return result.score;
+
+                            }
+                        )
+                    )
+                    : 0;
+
+            const totalGeckos =
+                userResults.reduce(
+                    function (total, result) {
+
+                        return (
+                            total +
+                            result.geckosCaught
+                        );
+
+                    },
+                    0
+                );
+
+            const lastResult =
+                attempts > 0
+                    ? userResults[0]
+                    : null;
+
+            currentUser = {
+                ...currentUser,
+                attempts:
+                    attempts,
+                wins:
+                    wins,
+                highestScore:
+                    highestScore,
+                totalGeckos:
+                    totalGeckos,
+                lastScore:
+                    lastResult
+                        ? lastResult.score
+                        : 0,
+                lastGameDate:
+                    lastResult
+                        ? lastResult.date
+                        : null
+            };
+
+            saveJsonToStorage(
+                "currentMasayefUser",
+                currentUser
+            );
+
+            const users =
+                readJsonFromStorage(
+                    "masayefUsers",
+                    []
+                );
+
+            if (!Array.isArray(users)) {
+                return;
+            }
+
+            const userIndex =
+                users.findIndex(
+                    function (user) {
+
+                        if (
+                            currentUser.id &&
+                            user.id
+                        ) {
+
+                            return (
+                                String(user.id) ===
+                                String(currentUser.id)
+                            );
+
+                        }
+
+                        if (
+                            currentUser.email &&
+                            user.email
+                        ) {
+
+                            return (
+                                String(user.email)
+                                    .toLowerCase() ===
+                                String(currentUser.email)
+                                    .toLowerCase()
+                            );
+
+                        }
+
+                        return (
+                            currentUser.username &&
+                            user.username &&
+                            String(user.username)
+                                .toLowerCase() ===
+                            String(currentUser.username)
+                                .toLowerCase()
+                        );
+
+                    }
+                );
+
+            if (userIndex !== -1) {
+
+                users[userIndex] = {
+                    ...users[userIndex],
+                    attempts:
+                        attempts,
+                    wins:
+                        wins,
+                    highestScore:
+                        highestScore,
+                    totalGeckos:
+                        totalGeckos,
+                    lastScore:
+                        lastResult
+                            ? lastResult.score
+                            : 0,
+                    lastGameDate:
+                        lastResult
+                            ? lastResult.date
+                            : null
+                };
+
+                saveJsonToStorage(
+                    "masayefUsers",
+                    users
+                );
+
+            }
+
+        }
+
+
+        function logout() {
+
+            localStorage.removeItem(
+                "currentMasayefUser"
+            );
+
+            localStorage.setItem(
+                "isLoggedIn",
+                "false"
+            );
+
+            showToast(
+                "تم تسجيل الخروج بنجاح."
+            );
+
+            logoutButton.disabled =
+                true;
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+    "{% url 'accounts:login' %}";
+
+                },
+                700
+            );
+
+        }
+
+
+        function initializeProfile() {
+
+            currentUser =
+                getCurrentUser();
+
+            if (!currentUser) {
+                return;
+            }
+
+            updateProfileIdentity();
+
+            updateCharacterPanel();
+
+            loadUserResults();
+
+            calculateStatistics();
+
+            renderLastGame();
+
+            updateStoredUserStatistics();
+
+        }
+
+
+        logoutButton.addEventListener(
+            "click",
+            logout
+        );
+
+
+        window.addEventListener(
+            "storage",
+            function (event) {
+
+                if (
+                    event.key ===
+                        "gameResults" ||
+                    event.key ===
+                        "selectedCharacter" ||
+                    event.key ===
+                        "currentMasayefUser"
+                ) {
+
+                    initializeProfile();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeProfile
+        );
+
+    </script>
+
+</body>
+
+</html>
+

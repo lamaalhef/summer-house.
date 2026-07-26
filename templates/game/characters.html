@@ -1,0 +1,1645 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>بيت المصايف | اختيار الشخصية</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --dark: #2f241b;
+            --brown: #7a5638;
+            --brown-dark: #503625;
+            --green: #4f7054;
+            --green-dark: #37503b;
+            --red: #a34333;
+            --yellow: #f0bd3b;
+            --cream: #fff8ed;
+            --beige: #ead7b8;
+            --white: #ffffff;
+            --gray: #7c7168;
+            --border: #e7d8c4;
+            --shadow: 0 22px 50px rgba(54, 36, 24, 0.15);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Cairo", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--dark);
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(240, 189, 59, 0.22),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(79, 112, 84, 0.18),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    180deg,
+                    #fffaf4,
+                    #ead7b8
+                );
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 110px 18px 75px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        .page-heading {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .page-heading span {
+            display: inline-block;
+            margin-bottom: 11px;
+            padding: 7px 16px;
+            border-radius: 30px;
+            background: rgba(163, 67, 51, 0.1);
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .page-heading h1 {
+            margin-bottom: 9px;
+            font-size: clamp(32px, 5vw, 52px);
+        }
+
+        .page-heading p {
+            max-width: 720px;
+            margin: auto;
+            color: var(--gray);
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .current-selection {
+            max-width: 760px;
+            margin: 0 auto 25px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border: 2px solid rgba(79, 112, 84, 0.17);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .selection-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .selection-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: rgba(79, 112, 84, 0.11);
+            font-size: 25px;
+        }
+
+        .selection-text span {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--gray);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .selection-text strong {
+            color: var(--green-dark);
+            font-size: 14px;
+        }
+
+        .change-hint {
+            color: var(--brown);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .character-card {
+            min-height: 555px;
+            padding: 25px;
+            overflow: hidden;
+            position: relative;
+            border: 7px solid rgba(122, 86, 56, 0.1);
+            border-radius: 29px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .character-card::before {
+            content: "";
+            width: 210px;
+            height: 210px;
+            position: absolute;
+            top: -105px;
+            left: -95px;
+            border-radius: 50%;
+            background: rgba(240, 189, 59, 0.11);
+        }
+
+        .character-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(79, 112, 84, 0.32);
+        }
+
+        .character-card.selected {
+            border-color: var(--green);
+            box-shadow:
+                0 0 0 5px rgba(79, 112, 84, 0.13),
+                var(--shadow);
+        }
+
+        .selected-badge {
+            padding: 7px 13px;
+            display: none;
+            position: absolute;
+            top: 17px;
+            left: 17px;
+            z-index: 5;
+            border-radius: 30px;
+            background: var(--green);
+            color: var(--white);
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .character-card.selected .selected-badge {
+            display: block;
+        }
+
+        .character-scene {
+            height: 310px;
+            margin-bottom: 19px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            border-radius: 22px;
+            background:
+                linear-gradient(
+                    180deg,
+                    #b7d9de 0%,
+                    #d8ecdf 50%,
+                    #d9c29e 50%,
+                    #bd9870 100%
+                );
+        }
+
+        .character-scene::before {
+            content: "";
+            width: 85%;
+            height: 46%;
+            position: absolute;
+            right: 7.5%;
+            bottom: 0;
+            border-radius: 100px 100px 0 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.12) 0 18px,
+                    rgba(79, 112, 84, 0.08) 18px 36px
+                );
+        }
+
+        .mountain {
+            width: 180px;
+            height: 110px;
+            position: absolute;
+            bottom: 115px;
+            clip-path: polygon(
+                50% 0%,
+                100% 100%,
+                0% 100%
+            );
+            background: rgba(79, 112, 84, 0.22);
+        }
+
+        .mountain.one {
+            right: -25px;
+        }
+
+        .mountain.two {
+            left: -35px;
+            transform: scale(0.8);
+            background: rgba(122, 86, 56, 0.18);
+        }
+
+        .character-art {
+            width: 160px;
+            height: 265px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .head {
+            width: 67px;
+            height: 76px;
+            position: absolute;
+            top: 8px;
+            right: 46px;
+            border: 4px solid rgba(80, 54, 37, 0.18);
+            border-radius: 48% 48% 45% 45%;
+            background: #d9a57d;
+        }
+
+        .hair {
+            width: 74px;
+            height: 43px;
+            position: absolute;
+            top: 3px;
+            right: 43px;
+            border-radius: 50px 50px 17px 17px;
+            background: #2c211c;
+        }
+
+        .eye {
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            top: 40px;
+            border-radius: 50%;
+            background: #2d2118;
+        }
+
+        .eye.right {
+            right: 18px;
+        }
+
+        .eye.left {
+            left: 18px;
+        }
+
+        .smile {
+            width: 23px;
+            height: 10px;
+            position: absolute;
+            right: 18px;
+            bottom: 14px;
+            border-bottom: 3px solid #844f3c;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .body {
+            width: 104px;
+            height: 164px;
+            position: absolute;
+            right: 28px;
+            bottom: 12px;
+            border-radius: 24px 24px 16px 16px;
+        }
+
+        .arm {
+            width: 28px;
+            height: 125px;
+            position: absolute;
+            top: 104px;
+            border-radius: 20px;
+            transform-origin: top center;
+        }
+
+        .arm.right {
+            right: 18px;
+            transform: rotate(-9deg);
+        }
+
+        .arm.left {
+            left: 18px;
+            transform: rotate(9deg);
+        }
+
+        .hand {
+            width: 27px;
+            height: 30px;
+            position: absolute;
+            bottom: -8px;
+            border-radius: 50%;
+            background: #d9a57d;
+        }
+
+        .leg {
+            width: 36px;
+            height: 73px;
+            position: absolute;
+            bottom: -57px;
+            border-radius: 0 0 13px 13px;
+        }
+
+        .leg.right {
+            right: 20px;
+        }
+
+        .leg.left {
+            left: 20px;
+        }
+
+        .boy .body,
+        .boy .arm,
+        .boy .leg {
+            background: #fafafa;
+            border: 3px solid #e3dfd9;
+        }
+
+        .boy .body::before {
+            content: "";
+            width: 5px;
+            height: 125px;
+            position: absolute;
+            top: 17px;
+            right: 49px;
+            border-radius: 10px;
+            background: #e4ded6;
+        }
+
+        .boy .collar {
+            width: 38px;
+            height: 18px;
+            position: absolute;
+            top: 103px;
+            right: 61px;
+            z-index: 4;
+            border: 3px solid #ded8cf;
+            border-top: 0;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .janbiya {
+            width: 45px;
+            height: 49px;
+            position: absolute;
+            right: 58px;
+            bottom: 78px;
+            z-index: 5;
+            border: 5px solid #7b5437;
+            border-radius: 12px 12px 28px 28px;
+            background: #c7a16d;
+            transform: rotate(-5deg);
+        }
+
+        .janbiya::before {
+            content: "";
+            width: 57px;
+            height: 9px;
+            position: absolute;
+            top: -11px;
+            right: -11px;
+            border-radius: 10px;
+            background: #4d3526;
+        }
+
+        .girl .body {
+            width: 116px;
+            right: 22px;
+            border: 4px solid #222421;
+            border-radius: 28px 28px 18px 18px;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #202321 0 15px,
+                    #d44834 15px 20px,
+                    #f2bc39 20px 25px,
+                    #2f7554 25px 30px
+                );
+        }
+
+        .girl .arm {
+            border: 4px solid #222421;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #202321 0 12px,
+                    #d44834 12px 17px,
+                    #f2bc39 17px 22px
+                );
+        }
+
+        .girl .leg {
+            background: #272825;
+            border: 3px solid #1c1d1b;
+        }
+
+        .head-cover {
+            width: 91px;
+            height: 95px;
+            position: absolute;
+            top: -1px;
+            right: 34px;
+            z-index: 4;
+            border-radius: 50% 50% 34px 34px;
+            background: #f0bd3b;
+        }
+
+        .head-cover::before {
+            content: "";
+            width: 62px;
+            height: 69px;
+            position: absolute;
+            top: 11px;
+            right: 14px;
+            border-radius: 48%;
+            background: #d9a57d;
+        }
+
+        .girl .head {
+            z-index: 5;
+            border: 0;
+            background: transparent;
+        }
+
+        .girl .eye,
+        .girl .smile {
+            z-index: 7;
+        }
+
+        .character-info {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+        }
+
+        .character-name {
+            margin-bottom: 4px;
+            color: var(--brown-dark);
+            font-size: 29px;
+        }
+
+        .character-title {
+            margin-bottom: 12px;
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .character-description {
+            min-height: 70px;
+            margin-bottom: 16px;
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .character-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .feature {
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: var(--cream);
+            color: var(--brown);
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        /* تصميم مطابق للمرجع: ثوب عسيري أسود، وثوب أبيض مع جنبية جانبية */
+        .boy .hair {
+            width: 90px;
+            height: 34px;
+            top: 0;
+            right: 35px;
+            z-index: 7;
+            border: 4px solid #2c211c;
+            border-radius: 50% 50% 18px 18px;
+            background: repeating-linear-gradient(45deg, #c44736 0 10px, #e1b440 10px 20px, #47744f 20px 30px, #2c2b26 30px 40px);
+        }
+
+        .boy .head {
+            top: 25px;
+            border: 4px solid #3a261d;
+            border-radius: 46% 46% 44% 44%;
+            background: #dda477;
+        }
+
+        .boy .body {
+            width: 103px;
+            height: 172px;
+            right: 29px;
+            bottom: 7px;
+            border: 4px solid #ded9d1;
+            border-radius: 25px 25px 8px 8px;
+            background: linear-gradient(90deg, #fff 0 46%, #e7e1d8 47% 51%, #fff 52% 100%);
+        }
+
+        .boy .arm {
+            top: 110px;
+            height: 120px;
+            border: 4px solid #ded9d1;
+            background: #fff;
+        }
+
+        .boy .body::after {
+            content: "";
+            height: 10px;
+            position: absolute;
+            right: 4px;
+            left: 4px;
+            top: 70px;
+            border-radius: 7px;
+            background: #583a29;
+            box-shadow: 0 2px 0 #d4ad64;
+        }
+
+        .janbiya {
+            width: 31px;
+            height: 55px;
+            right: 11px;
+            bottom: 44px;
+            z-index: 9;
+            border: 4px solid #3f291d;
+            border-radius: 9px 9px 23px 23px;
+            background: linear-gradient(90deg, #e1ba6e, #9a6335);
+            transform: rotate(-20deg);
+        }
+
+        .janbiya::before {
+            width: 40px;
+            height: 9px;
+            top: -11px;
+            right: -8px;
+            background: #4d3526;
+        }
+
+        .girl .head-cover {
+            width: 112px;
+            height: 148px;
+            top: -5px;
+            right: 24px;
+            z-index: 4;
+            border: 5px solid #c18b27;
+            border-radius: 58px 58px 28px 28px;
+            background: repeating-linear-gradient(45deg, #f0c443 0 13px, #c8882b 13px 19px, #f0c443 19px 32px);
+        }
+
+        .girl .head-cover::before {
+            width: 64px;
+            height: 76px;
+            top: 42px;
+            right: 19px;
+            border: 4px solid #3a261d;
+            background: #dda477;
+        }
+
+        .girl .head {
+            top: 38px;
+            right: 46px;
+        }
+
+        .girl .body {
+            width: 98px;
+            height: 171px;
+            right: 31px;
+            bottom: 7px;
+            border: 4px solid #20211d;
+            border-radius: 12px 12px 0 0;
+            background: repeating-linear-gradient(90deg, #151713 0 17px, #b83d35 17px 24px, #e7bb42 24px 31px, #47754d 31px 38px, #151713 38px 49px);
+        }
+
+        .girl .body::after {
+            content: "";
+            height: 27px;
+            position: absolute;
+            right: -5px;
+            left: -5px;
+            bottom: -1px;
+            border: 3px solid #2d2b25;
+            background: repeating-linear-gradient(45deg, #f6ead4 0 9px, #b33d34 9px 18px, #e9bc42 18px 27px, #47744f 27px 36px);
+        }
+
+        .girl .arm {
+            top: 121px;
+            height: 111px;
+            border: 4px solid #20211d;
+            background: #151713;
+        }
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .action-button {
+            min-height: 52px;
+            padding: 0 27px;
+            border: 0;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .start-button {
+            min-width: 220px;
+            background: var(--green);
+            color: var(--white);
+            box-shadow: 0 12px 25px rgba(79, 112, 84, 0.24);
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            background: var(--green-dark);
+        }
+
+        .start-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+            transform: none;
+        }
+
+        .back-button {
+            min-width: 150px;
+            display: inline-grid;
+            place-items: center;
+            border: 2px solid rgba(122, 86, 56, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--brown);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            background: var(--white);
+        }
+
+        .toast {
+            min-width: 260px;
+            padding: 14px 18px;
+            position: fixed;
+            right: 50%;
+            bottom: 28px;
+            z-index: 9999;
+            border-radius: 15px;
+            background: var(--green-dark);
+            color: var(--white);
+            box-shadow: var(--shadow);
+            font-size: 10px;
+            font-weight: 800;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(50%, 30px);
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(50%, 0);
+        }
+
+        .toast.error {
+            background: var(--red);
+        }
+
+        @media (max-width: 850px) {
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .character-card {
+                min-height: auto;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 95px 9px 55px;
+            }
+
+            .current-selection {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .character-card {
+                padding: 14px;
+            }
+
+            .character-scene {
+                height: 285px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .action-button,
+            .start-button,
+            .back-button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    {% include 'includes/header.html' %}
+
+    <main class="page">
+
+        <div class="container">
+
+            <header class="page-heading">
+
+                <span>
+                    🎭 اختاري بطلتك
+                </span>
+
+                <h1>
+                    من سيدخل بيت المصايف؟
+                </h1>
+
+                <p>
+                    اختاري الشخصية التي ستساعد العائلة في تنظيف البيت
+                    والتخلص من الوزغ قبل وصول الضيوف.
+                </p>
+
+            </header>
+
+            <section class="current-selection">
+
+                <div class="selection-info">
+
+                    <div
+                        class="selection-icon"
+                        id="selectionIcon"
+                    >
+                        ❔
+                    </div>
+
+                    <div class="selection-text">
+
+                        <span>
+                            الشخصية المختارة حاليًا
+                        </span>
+
+                        <strong id="currentCharacterText">
+                            لم يتم اختيار شخصية بعد
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="change-hint">
+                    اضغطي على إحدى البطاقتين لتغيير الاختيار
+                </div>
+
+            </section>
+
+            <section class="characters-grid">
+
+                <article
+                    class="character-card"
+                    data-character="boy"
+                    data-name="مفرح"
+                    tabindex="0"
+                    role="button"
+                    aria-label="اختيار شخصية مفرح"
+                >
+
+                    <div class="selected-badge">
+                        ✓ الشخصية المختارة
+                    </div>
+
+                    <div class="character-scene">
+
+                        <div class="mountain one"></div>
+                        <div class="mountain two"></div>
+
+                        <div class="character-art boy">
+
+                            <div class="hair"></div>
+
+                            <div class="head">
+
+                                <span class="eye right"></span>
+                                <span class="eye left"></span>
+                                <span class="smile"></span>
+
+                            </div>
+
+                            <div class="collar"></div>
+
+                            <div class="body">
+
+                                <div class="leg right"></div>
+                                <div class="leg left"></div>
+
+                            </div>
+
+                            <div class="arm right">
+                                <div class="hand"></div>
+                            </div>
+
+                            <div class="arm left">
+                                <div class="hand"></div>
+                            </div>
+
+                            <div class="janbiya"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="character-info">
+
+                        <h2 class="character-name">
+                            مفرح
+                        </h2>
+
+                        <div class="character-title">
+                            فتى الجنوب الشجاع
+                        </div>
+
+                        <p class="character-description">
+                            يرتدي الثوب الأبيض والجنبية، ويعرف زوايا البيت
+                            القديمة جيدًا، ويتحرك بسرعة لملاحقة الوزغ.
+                        </p>
+
+                        <div class="character-features">
+
+                            <span class="feature">
+                                ⚡ سريع
+                            </span>
+
+                            <span class="feature">
+                                🗡 شجاع
+                            </span>
+
+                            <span class="feature">
+                                🏠 يعرف البيت
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article
+                    class="character-card"
+                    data-character="girl"
+                    data-name="صالحة"
+                    tabindex="0"
+                    role="button"
+                    aria-label="اختيار شخصية صالحة"
+                >
+
+                    <div class="selected-badge">
+                        ✓ الشخصية المختارة
+                    </div>
+
+                    <div class="character-scene">
+
+                        <div class="mountain one"></div>
+                        <div class="mountain two"></div>
+
+                        <div class="character-art girl">
+
+                            <div class="head-cover"></div>
+
+                            <div class="head">
+
+                                <span class="eye right"></span>
+                                <span class="eye left"></span>
+                                <span class="smile"></span>
+
+                            </div>
+
+                            <div class="body">
+
+                                <div class="leg right"></div>
+                                <div class="leg left"></div>
+
+                            </div>
+
+                            <div class="arm right">
+                                <div class="hand"></div>
+                            </div>
+
+                            <div class="arm left">
+                                <div class="hand"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="character-info">
+
+                        <h2 class="character-name">
+                            صالحة
+                        </h2>
+
+                        <div class="character-title">
+                            بطلة عسير الذكية
+                        </div>
+
+                        <p class="character-description">
+                            ترتدي الزي العسيري وغطاء الرأس الأصفر،
+                            وتتميز بالتركيز وسرعة اكتشاف أماكن الوزغ المختبئة.
+                        </p>
+
+                        <div class="character-features">
+
+                            <span class="feature">
+                                👁 دقيقة الملاحظة
+                            </span>
+
+                            <span class="feature">
+                                🌼 ذكية
+                            </span>
+
+                            <span class="feature">
+                                🦎 سريعة الاكتشاف
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <div class="actions">
+                <a href="{% url 'core:home' %}" class="action-button back-button">
+                    الصفحة الرئيسية
+                </a>
+
+                <a href="{% url 'accounts:profile' %}" class="action-button back-button">
+                    العودة للملف الشخصي
+                </a>
+
+                <button
+                    type="button"
+                    class="action-button start-button"
+                    id="startGameButton"
+                    disabled
+                >
+                    ابدئي اللعب بالشخصية المختارة
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+{% load static %}
+    <script>
+
+        const characterCards =
+            document.querySelectorAll(
+                ".character-card"
+            );
+
+        const startGameButton =
+            document.getElementById(
+                "startGameButton"
+            );
+
+        const currentCharacterText =
+            document.getElementById(
+                "currentCharacterText"
+            );
+
+        const selectionIcon =
+            document.getElementById(
+                "selectionIcon"
+            );
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        let selectedCharacter = "";
+        let selectedCharacterName = "";
+        let toastTimer = null;
+
+
+        function readJsonFromStorage(
+            key,
+            fallbackValue
+        ) {
+
+            try {
+
+                const storedValue =
+                    localStorage.getItem(key);
+
+                return storedValue
+                    ? JSON.parse(storedValue)
+                    : fallbackValue;
+
+            } catch (error) {
+
+                console.error(
+                    `تعذر قراءة ${key}:`,
+                    error
+                );
+
+                return fallbackValue;
+
+            }
+
+        }
+
+
+        function saveJsonToStorage(
+            key,
+            value
+        ) {
+
+            try {
+
+                localStorage.setItem(
+                    key,
+                    JSON.stringify(value)
+                );
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    `تعذر حفظ ${key}:`,
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        function getCharacterData(
+            character
+        ) {
+
+            if (character === "boy") {
+
+                return {
+                    id: "boy",
+                    name: "مفرح",
+                    icon: "👦"
+                };
+
+            }
+
+            if (character === "girl") {
+
+                return {
+                    id: "girl",
+                    name: "صالحة",
+                    icon: "👧"
+                };
+
+            }
+
+            return null;
+
+        }
+
+
+        function showToast(
+            message,
+            type = "success"
+        ) {
+
+            clearTimeout(toastTimer);
+
+            toast.textContent = message;
+
+            toast.classList.toggle(
+                "error",
+                type === "error"
+            );
+
+            toast.classList.add("show");
+
+            toastTimer = setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+        }
+
+
+        function updateSelectionInterface() {
+
+            characterCards.forEach(
+                function (card) {
+
+                    const isSelected =
+                        card.dataset.character ===
+                        selectedCharacter;
+
+                    card.classList.toggle(
+                        "selected",
+                        isSelected
+                    );
+
+                    card.setAttribute(
+                        "aria-pressed",
+                        String(isSelected)
+                    );
+
+                }
+            );
+
+            const characterData =
+                getCharacterData(
+                    selectedCharacter
+                );
+
+            if (!characterData) {
+
+                selectionIcon.textContent =
+                    "❔";
+
+                currentCharacterText.textContent =
+                    "لم يتم اختيار شخصية بعد";
+
+                startGameButton.disabled =
+                    true;
+
+                startGameButton.textContent =
+                    "اختاري شخصية أولًا";
+
+                return;
+
+            }
+
+            selectionIcon.textContent =
+                characterData.icon;
+
+            currentCharacterText.textContent =
+                `${characterData.name} هي الشخصية المختارة`;
+
+            startGameButton.disabled =
+                false;
+
+            startGameButton.textContent =
+                `ابدئي اللعب بشخصية ${characterData.name}`;
+
+        }
+
+
+        function updateCurrentUserCharacter() {
+
+            const currentUser =
+                readJsonFromStorage(
+                    "currentMasayefUser",
+                    null
+                );
+
+            if (!currentUser) {
+
+                return true;
+
+            }
+
+            const updatedCurrentUser = {
+                ...currentUser,
+                selectedCharacter:
+                    selectedCharacter,
+                selectedCharacterName:
+                    selectedCharacterName,
+                character:
+                    selectedCharacter,
+                characterName:
+                    selectedCharacterName
+            };
+
+            const currentUserSaved =
+                saveJsonToStorage(
+                    "currentMasayefUser",
+                    updatedCurrentUser
+                );
+
+            const users =
+                readJsonFromStorage(
+                    "masayefUsers",
+                    []
+                );
+
+            if (!Array.isArray(users)) {
+
+                return currentUserSaved;
+
+            }
+
+            const userIndex =
+                users.findIndex(
+                    function (user) {
+
+                        if (
+                            currentUser.id &&
+                            user.id
+                        ) {
+
+                            return (
+                                String(user.id) ===
+                                String(currentUser.id)
+                            );
+
+                        }
+
+                        if (
+                            currentUser.email &&
+                            user.email
+                        ) {
+
+                            return (
+                                String(user.email)
+                                    .toLowerCase() ===
+                                String(currentUser.email)
+                                    .toLowerCase()
+                            );
+
+                        }
+
+                        return (
+                            currentUser.username &&
+                            user.username &&
+                            String(user.username)
+                                .toLowerCase() ===
+                            String(currentUser.username)
+                                .toLowerCase()
+                        );
+
+                    }
+                );
+
+            if (userIndex !== -1) {
+
+                users[userIndex] = {
+                    ...users[userIndex],
+                    selectedCharacter:
+                        selectedCharacter,
+                    selectedCharacterName:
+                        selectedCharacterName,
+                    character:
+                        selectedCharacter,
+                    characterName:
+                        selectedCharacterName
+                };
+
+                saveJsonToStorage(
+                    "masayefUsers",
+                    users
+                );
+
+            }
+
+            return currentUserSaved;
+
+        }
+
+
+        function saveSelectedCharacter() {
+
+            const characterData =
+                getCharacterData(
+                    selectedCharacter
+                );
+
+            if (!characterData) {
+
+                showToast(
+                    "اختاري شخصية أولًا.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+            selectedCharacterName =
+                characterData.name;
+
+            try {
+
+                localStorage.setItem(
+                    "selectedCharacter",
+                    selectedCharacter
+                );
+
+                localStorage.setItem(
+                    "selectedCharacterName",
+                    selectedCharacterName
+                );
+
+                updateCurrentUserCharacter();
+
+                return true;
+
+            } catch (error) {
+
+                console.error(
+                    "تعذر حفظ الشخصية:",
+                    error
+                );
+
+                showToast(
+                    "تعذر حفظ الشخصية في المتصفح.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        function selectCharacter(card) {
+
+            selectedCharacter =
+                card.dataset.character || "";
+
+            selectedCharacterName =
+                card.dataset.name || "";
+
+            updateSelectionInterface();
+
+            if (saveSelectedCharacter()) {
+
+                showToast(
+                    `تم اختيار شخصية ${selectedCharacterName}`
+                );
+
+            }
+
+        }
+
+
+        function restoreSavedCharacter() {
+
+            const storedCharacter =
+                localStorage.getItem(
+                    "selectedCharacter"
+                );
+
+            const currentUser =
+                readJsonFromStorage(
+                    "currentMasayefUser",
+                    null
+                );
+
+            const userCharacter =
+                currentUser
+                    ? (
+                        currentUser.selectedCharacter ||
+                        currentUser.character
+                    )
+                    : "";
+
+            const characterToRestore =
+                getCharacterData(
+                    storedCharacter
+                )
+                    ? storedCharacter
+                    : userCharacter;
+
+            const characterData =
+                getCharacterData(
+                    characterToRestore
+                );
+
+            if (characterData) {
+
+                selectedCharacter =
+                    characterData.id;
+
+                selectedCharacterName =
+                    characterData.name;
+
+                localStorage.setItem(
+                    "selectedCharacter",
+                    selectedCharacter
+                );
+
+                localStorage.setItem(
+                    "selectedCharacterName",
+                    selectedCharacterName
+                );
+
+            }
+
+            updateSelectionInterface();
+
+        }
+
+
+        function startGame() {
+
+            if (!selectedCharacter) {
+
+                showToast(
+                    "اختاري مفرح أو صالحة قبل بدء اللعبة.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            if (!saveSelectedCharacter()) {
+
+                return;
+
+            }
+
+            startGameButton.disabled = true;
+
+            startGameButton.textContent =
+                "جارٍ تجهيز بيت المصايف...";
+
+            showToast(
+                `استعدي للعب بشخصية ${selectedCharacterName}`
+            );
+
+            setTimeout(
+                function () {
+
+window.location.href = "{% url 'game:play' %}";
+                },
+                700
+            );
+
+        }
+
+
+        characterCards.forEach(
+            function (card) {
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        selectCharacter(card);
+
+                    }
+                );
+
+                card.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+
+                            event.preventDefault();
+
+                            selectCharacter(card);
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        startGameButton.addEventListener(
+            "click",
+            startGame
+        );
+
+
+        window.addEventListener(
+            "storage",
+            function (event) {
+
+                if (
+                    event.key ===
+                        "selectedCharacter" ||
+                    event.key ===
+                        "currentMasayefUser"
+                ) {
+
+                    restoreSavedCharacter();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            restoreSavedCharacter
+        );
+
+    </script>
+<script src="{% static 'js/components.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
